@@ -9,7 +9,7 @@ export default function Home() {
       <div className="topBar">
         <TopBar/>
       </div>
-      <div className="firstFrame">
+      <div className="firstFrame h-[85vh]">
         <LoginForm></LoginForm>
       </div>
       <div className="Footer">
