@@ -1,0 +1,313 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model admin {
+  AdminID     Int           @id @default(autoincrement())
+  Username    String?       @db.VarChar(50) @unique
+  Email       String?       @db.VarChar(100)
+  accessLevel Int?
+  Password    String?       @db.VarChar(255)
+  citizen     citizen[]
+  complaints  complaints[]
+  fee         fee[]
+  logs        logs[]
+  note        note[]
+  transaction transaction[]
+}
+
+model awards {
+  awardID    Int       @id @default(autoincrement())
+  awardTitle String?   @db.VarChar(255)
+  awardLevel String?   @db.VarChar(100)
+  barangayNo Int?
+  barangay   barangay? @relation(fields: [barangayNo], references: [barangayNo], onDelete: NoAction, onUpdate: NoAction, map: "awards_ibfk_1")
+
+  @@index([barangayNo], map: "barangayNo")
+}
+
+model barangay {
+  barangayNo        Int                 @id @default(autoincrement())
+  BarangayName      String?             @db.VarChar(255)
+  Address           String?             @db.VarChar(255)
+  Telefax           String?             @db.VarChar(50)
+  Email             String?             @db.VarChar(100)
+  Website           String?             @db.VarChar(100)
+  Icon              String?             @db.VarChar(255)
+  Province          String?             @db.VarChar(100)
+  City_municipality String?             @db.VarChar(100)
+  Region            String?             @db.VarChar(100)
+  awards            awards[]
+  barangayofficial  barangayofficial[]
+  business          business[]
+  citizen           citizen[]
+  fiscalinfo        fiscalinfo[]
+  household         household[]
+  item              item[]
+  physicalinfo      physicalinfo[]
+  politicalinfo     politicalinfo[]
+  servicevehicles   servicevehicles[]
+  socioeconomicinfo socioeconomicinfo[]
+}
+
+model barangayofficial {
+  brgyOffID        Int       @id @default(autoincrement())
+  barangayNo       Int?
+  PunongBarangay   String?   @db.VarChar(100)
+  Kagawad1         String?   @db.VarChar(100)
+  Kagawad2         String?   @db.VarChar(100)
+  Kagawad3         String?   @db.VarChar(100)
+  Kagawad4         String?   @db.VarChar(100)
+  Kagawad5         String?   @db.VarChar(100)
+  Kagawad6         String?   @db.VarChar(100)
+  Kagawad7         String?   @db.VarChar(100)
+  PangkatSecretary String?   @db.VarChar(100)
+  barangay         barangay? @relation(fields: [barangayNo], references: [barangayNo], onDelete: NoAction, onUpdate: NoAction, map: "barangayofficial_ibfk_1")
+
+  @@index([barangayNo], map: "barangayNo")
+}
+
+model business {
+  businessID          Int           @id @default(autoincrement())
+  address             String?       @db.VarChar(255)
+  dateOfEstablishment DateTime?     @db.Date
+  businessPermitNo    String?       @db.VarChar(100)
+  businessOrgForm     String?       @db.VarChar(100)
+  contactNo           String?       @db.VarChar(15)
+  businessType        String?       @db.VarChar(100)
+  businessName        String?       @db.VarChar(255)
+  status              String?       @db.VarChar(50)
+  purok               String?       @db.VarChar(50)
+  barangayNo          Int?
+  barangay            barangay?     @relation(fields: [barangayNo], references: [barangayNo], onDelete: NoAction, onUpdate: NoAction, map: "business_ibfk_1")
+  fee                 fee[]
+  note                note[]
+  transaction         transaction[]
+
+  @@index([barangayNo], map: "barangayNo")
+}
+
+model citizen {
+  citizenID                                            Int           @id @default(autoincrement())
+  firstname                                            String?       @db.VarChar(50)
+  middlename                                           String?       @db.VarChar(50)
+  lastname                                             String?       @db.VarChar(50)
+  purok                                                String?       @db.VarChar(50)
+  address                                              String?       @db.VarChar(255)
+  residenceType                                        String?       @db.VarChar(50)
+  birthday                                             DateTime?     @db.Date
+  age                                                  Int?
+  gender                                               String?       @db.Char(10)
+  status                                               String?       @db.VarChar(50)
+  bloodtype                                            String?       @db.VarChar(5)
+  occupation                                           String?       @db.VarChar(100)
+  isEmployed                                           String?       @db.VarChar(15)
+  pwdType                                              String?       @db.VarChar(50)
+  education                                            String?       @db.VarChar(50)
+  isEnrolled                                           String?       @db.VarChar(15)
+  idDeceased                                           String?       @db.VarChar(15)
+  religion                                             String?       @db.VarChar(50)
+  cellNo                                               String?       @db.VarChar(15)
+  telNo                                                String?       @db.VarChar(15)
+  isRegisteredVoter                                    String?       @db.VarChar(15)
+  residencyDate                                        DateTime?     @db.Date
+  AdminID                                              Int?
+  HouseholdNo                                          Int?
+  barangayNo                                           Int?
+  admin                                                admin?        @relation(fields: [AdminID], references: [AdminID], onDelete: NoAction, onUpdate: NoAction, map: "citizen_ibfk_1")
+  household                                            household?    @relation(fields: [HouseholdNo], references: [householdNo], onDelete: NoAction, onUpdate: NoAction, map: "citizen_ibfk_2")
+  barangay                                             barangay?     @relation(fields: [barangayNo], references: [barangayNo], onDelete: NoAction, onUpdate: NoAction, map: "citizen_ibfk_3")
+  complaints_complaints_citizenID_complainantTocitizen complaints[]  @relation("complaints_citizenID_complainantTocitizen")
+  complaints_complaints_citizenID_complaineeTocitizen  complaints[]  @relation("complaints_citizenID_complaineeTocitizen")
+  fee                                                  fee[]
+  note                                                 note[]
+  transaction                                          transaction[]
+
+  @@index([AdminID], map: "AdminID")
+  @@index([HouseholdNo], map: "HouseholdNo")
+  @@index([barangayNo], map: "barangayNo")
+}
+
+model complaints {
+  complaintID                                       Int       @id @default(autoincrement())
+  adminID                                           Int?
+  citizenID_complainant                             Int?
+  citizenID_complainee                              Int?
+  date                                              DateTime? @db.Date
+  time                                              DateTime? @db.Time(0)
+  for                                               String?   @db.VarChar(255)
+  actions                                           String?   @db.VarChar(255)
+  admin                                             admin?    @relation(fields: [adminID], references: [AdminID], onDelete: NoAction, onUpdate: NoAction, map: "complaints_ibfk_1")
+  citizen_complaints_citizenID_complainantTocitizen citizen?  @relation("complaints_citizenID_complainantTocitizen", fields: [citizenID_complainant], references: [citizenID], onDelete: NoAction, onUpdate: NoAction, map: "complaints_ibfk_2")
+  citizen_complaints_citizenID_complaineeTocitizen  citizen?  @relation("complaints_citizenID_complaineeTocitizen", fields: [citizenID_complainee], references: [citizenID], onDelete: NoAction, onUpdate: NoAction, map: "complaints_ibfk_3")
+
+  @@index([adminID], map: "adminID")
+  @@index([citizenID_complainant], map: "citizenID_complainant")
+  @@index([citizenID_complainee], map: "citizenID_complainee")
+}
+
+model fee {
+  feeID      Int       @id @default(autoincrement())
+  adminID    Int?
+  CitizenID  Int?
+  Date       DateTime? @db.Date
+  Time       DateTime? @db.Time(0)
+  amountPaid Decimal?  @db.Decimal(10, 2)
+  feetype    String?   @db.VarChar(100)
+  businessID Int?
+  admin      admin?    @relation(fields: [adminID], references: [AdminID], onDelete: NoAction, onUpdate: NoAction, map: "fee_ibfk_1")
+  citizen    citizen?  @relation(fields: [CitizenID], references: [citizenID], onDelete: NoAction, onUpdate: NoAction, map: "fee_ibfk_2")
+  business   business? @relation(fields: [businessID], references: [businessID], onDelete: NoAction, onUpdate: NoAction, map: "fee_ibfk_3")
+
+  @@index([CitizenID], map: "CitizenID")
+  @@index([adminID], map: "adminID")
+  @@index([businessID], map: "businessID")
+}
+
+model fiscalinfo {
+  fiscalInfoID            Int       @id @default(autoincrement())
+  internalRevenue         Decimal?  @db.Decimal(10, 2)
+  donation                Decimal?  @db.Decimal(10, 2)
+  shareFromNationalWealth Decimal?  @db.Decimal(10, 2)
+  externalSubsidy         Decimal?  @db.Decimal(10, 2)
+  generalFund             Decimal?  @db.Decimal(10, 2)
+  skFund                  Decimal?  @db.Decimal(10, 2)
+  RPTShare                Decimal?  @db.Decimal(10, 2)
+  feesAndCharges          Decimal?  @db.Decimal(10, 2)
+  other                   Decimal?  @db.Decimal(10, 2)
+  barangayNo              Int?
+  barangay                barangay? @relation(fields: [barangayNo], references: [barangayNo], onDelete: NoAction, onUpdate: NoAction, map: "fiscalinfo_ibfk_1")
+
+  @@index([barangayNo], map: "barangayNo")
+}
+
+model household {
+  householdNo        Int       @id @default(autoincrement())
+  portableWaterLevel String?   @db.VarChar(50)
+  barangayNo         Int?
+  citizen            citizen[]
+  barangay           barangay? @relation(fields: [barangayNo], references: [barangayNo], onDelete: NoAction, onUpdate: NoAction, map: "household_ibfk_1")
+
+  @@index([barangayNo], map: "barangayNo")
+}
+
+model item {
+  itemID             Int       @id @default(autoincrement())
+  itemClassification String?   @db.VarChar(100)
+  itemType           String?   @db.VarChar(100)
+  barangayNo         Int?
+  barangay           barangay? @relation(fields: [barangayNo], references: [barangayNo], onDelete: NoAction, onUpdate: NoAction, map: "item_ibfk_1")
+
+  @@index([barangayNo], map: "barangayNo")
+}
+
+model logs {
+  logID   Int       @id @default(autoincrement())
+  adminID Int?
+  history String?   @db.Text
+  date    DateTime? @db.Date
+  time    DateTime? @db.Time(0)
+  admin   admin?    @relation(fields: [adminID], references: [AdminID], onDelete: NoAction, onUpdate: NoAction, map: "logs_ibfk_1")
+
+  @@index([adminID], map: "adminID")
+}
+
+model note {
+  noteID     Int       @id @default(autoincrement())
+  AdminID    Int?
+  citizenID  Int?
+  BusinessID Int?
+  Time       DateTime? @db.Time(0)
+  Note       String?   @db.Text
+  Date       DateTime? @db.Date
+  admin      admin?    @relation(fields: [AdminID], references: [AdminID], onDelete: NoAction, onUpdate: NoAction, map: "note_ibfk_1")
+  citizen    citizen?  @relation(fields: [citizenID], references: [citizenID], onDelete: NoAction, onUpdate: NoAction, map: "note_ibfk_2")
+  business   business? @relation(fields: [BusinessID], references: [businessID], onDelete: NoAction, onUpdate: NoAction, map: "note_ibfk_3")
+
+  @@index([AdminID], map: "AdminID")
+  @@index([BusinessID], map: "BusinessID")
+  @@index([citizenID], map: "citizenID")
+}
+
+model physicalinfo {
+  physicalInfoID     Int       @id @default(autoincrement())
+  totalLandArea      Decimal?  @db.Decimal(10, 2)
+  barangayLocation   String?   @db.VarChar(255)
+  LandClassification String?   @db.VarChar(100)
+  economicSource     String?   @db.VarChar(255)
+  barangayNo         Int?
+  barangay           barangay? @relation(fields: [barangayNo], references: [barangayNo], onDelete: NoAction, onUpdate: NoAction, map: "physicalinfo_ibfk_1")
+
+  @@index([barangayNo], map: "barangayNo")
+}
+
+model politicalinfo {
+  politicalInfoID  Int       @id @default(autoincrement())
+  basisOfCreation  String?   @db.VarChar(255)
+  numOfPrecints    Int?
+  dateOfPlebiscite DateTime? @db.Date
+  BDCLevel         String?   @db.VarChar(50)
+  BPOCLevel        String?   @db.VarChar(50)
+  BCPCLevel        String?   @db.VarChar(50)
+  VAWLevel         String?   @db.VarChar(50)
+  BADACLevel       String?   @db.VarChar(50)
+  barangayNo       Int?
+  barangay         barangay? @relation(fields: [barangayNo], references: [barangayNo], onDelete: NoAction, onUpdate: NoAction, map: "politicalinfo_ibfk_1")
+
+  @@index([barangayNo], map: "barangayNo")
+}
+
+model servicevehicles {
+  serviceVehicleID Int       @id @default(autoincrement())
+  typeOfVehicle    String?   @db.VarChar(100)
+  Quantity         Int?
+  PlateNo          String?   @db.VarChar(50)
+  barangayNo       Int?
+  barangay         barangay? @relation(fields: [barangayNo], references: [barangayNo], onDelete: NoAction, onUpdate: NoAction, map: "servicevehicles_ibfk_1")
+
+  @@index([barangayNo], map: "barangayNo")
+}
+
+model socioeconomicinfo {
+  socioEconomicID                     Int       @id @default(autoincrement())
+  brgyHall                            String?   @db.VarChar(255)
+  MultiPurposeHall                    String?   @db.VarChar(255)
+  Library                             String?   @db.VarChar(255)
+  brgyHealthstation                   String?   @db.VarChar(255)
+  dayCareCenter                       String?   @db.VarChar(255)
+  satelliteMarket                     String?   @db.VarChar(255)
+  sportsCenter                        String?   @db.VarChar(255)
+  materialsRecoveryFacility           String?   @db.VarChar(255)
+  wasteManagementCollectSystem        String?   @db.VarChar(255)
+  rainWaterCollectionSystem           String?   @db.VarChar(255)
+  plaza                               String?   @db.VarChar(255)
+  waterSupplySystem                   String?   @db.VarChar(255)
+  PlantingMaterialsDistributionSystem String?   @db.VarChar(255)
+  FarmProduceStation                  String?   @db.VarChar(255)
+  barangayNo                          Int?
+  barangay                            barangay? @relation(fields: [barangayNo], references: [barangayNo], onDelete: NoAction, onUpdate: NoAction, map: "socioeconomicinfo_ibfk_1")
+
+  @@index([barangayNo], map: "barangayNo")
+}
+
+model transaction {
+  transactionID Int       @id @default(autoincrement())
+  adminID       Int?
+  citizenID     Int?
+  date          DateTime? @db.Date
+  time          DateTime? @db.Time(0)
+  purpose       String?   @db.VarChar(255)
+  businessID    Int?
+  admin         admin?    @relation(fields: [adminID], references: [AdminID], onDelete: NoAction, onUpdate: NoAction, map: "transaction_ibfk_1")
+  citizen       citizen?  @relation(fields: [citizenID], references: [citizenID], onDelete: NoAction, onUpdate: NoAction, map: "transaction_ibfk_2")
+  business      business? @relation(fields: [businessID], references: [businessID], onDelete: NoAction, onUpdate: NoAction, map: "transaction_ibfk_3")
+
+  @@index([adminID], map: "adminID")
+  @@index([businessID], map: "businessID")
+  @@index([citizenID], map: "citizenID")
+}

@@ -27,3 +27,8 @@ body {
 .poppins{
   font-family: var(--font-poppins);
 }
+
+.poppins-bold{
+  font-family: var(--font-poppins);
+  font-weight: 700;
+}
