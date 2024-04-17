@@ -1,6 +1,6 @@
 import Image from "next/image";
 import TopBar from "./components/topbar";
-import LoginForm from "./components/login";
+import LoginBox from "./components/login";
 import Footer from "./components/footer";
 
 export default function Home() {
@@ -10,7 +10,7 @@ export default function Home() {
         <TopBar/>
       </div>
       <div className="firstFrame h-[85vh]">
-        <LoginForm></LoginForm>
+        <LoginBox></LoginBox>
       </div>
       <div className="Footer">
         <Footer></Footer>
