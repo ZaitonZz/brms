@@ -64,6 +64,12 @@
       --input: 0 0% 14.9%;
       --ring: 0 0% 83.1%;
     }
+    .first-header-row-style {
+      background: #3A8D31DE;
+    }
+    .first-header-row-style th {
+      color: white;
+    }
   }
 
   @layer base {

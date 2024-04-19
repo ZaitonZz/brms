@@ -2,6 +2,9 @@ import React from 'react'
 import { Citizen, columns } from "./columns"
 import { DataTable } from "./data-table"
 import TopBar from '../components/topbar'
+import Footer from '../components/footer' 
+import Navbar from './navbar'
+import SearchBar from './searchbar'
 
 async function getCit(): Promise<Citizen[]> {
   // Fetch data from your API here.
@@ -14,10 +17,22 @@ export default async function landingpage() {
   const data = await getCit()
 
   return (
-    <div className="container mx-auto py-10">
+    <main>
+      <div className="topBar">
+        <TopBar/>
+      </div>
+      <Navbar /> 
+      <div className="container mx-auto py-10">
+      <SearchBar /> 
+      
       <DataTable columns={columns} data={data} />
-    </div>
-  )
+      </div>
+
+      <div className="Footer">
+        <Footer /> 
+      </div>
+    </main>
+  );
 }
 
 
