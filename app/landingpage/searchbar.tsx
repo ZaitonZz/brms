@@ -2,10 +2,10 @@ import React from 'react';
 
 const SearchBar = () => {
   return (
-    <div className="search-bar-container" style={{ width: '100%', display: 'flex', justifyContent: 'left', marginBottom:'5px'}}>
-      <div className="search-bar" style={{ width: '100%', maxWidth: '1334px', border: '1px solid #558750', borderRadius: '4px', display: 'flex', alignItems: 'center' }}>
-        <input type="text" placeholder="Search..." style={{ flex: '1', border: 'none', padding: '8px' }} />
-        <button style={{ background: '#558750', color: 'white', border: 'none', padding: '8px', borderRadius: '0 4px 4px 0' }}>Search</button>
+    <div className="search-bar-container w-full flex justify-left mb-5">
+      <div className="search-bar w-full max-w-[1334px] border border-solid border-[#558750] rounded-md flex items-center">
+        <input type="text" placeholder="Search..." className="flex-1 border-none p-2" />
+        <button className="bg-[#558750] text-white border-none p-2 rounded-r-md">Search</button>
       </div>
     </div>
   );

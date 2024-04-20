@@ -70,6 +70,9 @@
     .first-header-row-style th {
       color: white;
     }
+    .first-header-row-style a:hover {
+      background: #3A8D31DE;
+    }
   }
 
   @layer base {
