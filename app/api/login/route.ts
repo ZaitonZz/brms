@@ -1,6 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { redirect } from 'next/navigation';
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
 var bcrypt = require('bcryptjs');
 

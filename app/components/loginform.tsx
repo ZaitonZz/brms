@@ -20,7 +20,7 @@ export const LoginForm: React.FC = () => {
 
   const handleFormSubmit: React.FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();  // Prevent the form from actually submitting
-    const response = await fetch('/api/login', {
+    const response = await fetch('api/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

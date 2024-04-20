@@ -4,12 +4,21 @@ import { DataTable } from "./data-table"
 import TopBar from '../components/topbar'
 import Footer from '../components/footer' 
 import Navbar from './navbar'
-import SearchBar from './searchbar'
+import SearchBar from '../components/searchbar'
+
+const host = process.env.NEXT_PUBLIC_VERCEL_URL || 'http://localhost:3000';
 
 async function getCit(): Promise<Citizen[]> {
   // Fetch data from your API here.
-  const res= await fetch('https://6620bff93bf790e070b084e4.mockapi.io/Citizen')
+  const res= await fetch(`${host}/api/citizen/list/all`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    cache: "no-store",
+  });
   const data= await res.json()
+
   return data
 }
 
@@ -21,8 +30,9 @@ export default async function landingpage() {
       <div className="topBar">
         <TopBar/>
       </div>
+      
+      <div className="container mx-auto py-5">
       <Navbar /> 
-      <div className="container mx-auto py-10">
       <SearchBar /> 
       
       <DataTable columns={columns} data={data} />

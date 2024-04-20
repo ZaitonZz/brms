@@ -19,36 +19,99 @@ export type Citizen = {
 export const columns: ColumnDef<Citizen>[] = [
   
     {
-    accessorKey: "FirstName",
+    accessorKey: "firstname",
     header: "First Name",
   },
   {
-    accessorKey: "LastName",
-    header: "Last Name",
-  },
-  {
-    accessorKey: "MiddleName",
+    accessorKey: "middlename",
     header: "Middle Name",
   },
   {
-    accessorKey: "Purok",
+    accessorKey: "lastname",
+    header: "Last Name",
+  },
+  {
+    accessorKey: "purok",
     header: "Purok",
+  },
+  {
+    accessorKey: "address",
+    header: "Address",
+  },
+  {
+    accessorKey: "residenceType",
+    header: "Residence Type",
+  },
+  {
+    accessorKey: "gender",
+    header: "Gender",
+  },
+  {
+    accessorKey: "residenceType",
+    header: "Residence Type",
+  },
+  {
+    accessorKey: "age",
+    header: "Age",
+  },
+  {
+    accessorKey: "status",
+    header: "Marital Status",
   },  
   {
-    accessorKey: "Gender",
-    header: "Gender",
-  },{
-    accessorKey: "ResidenceType",
-    header: "Residence Type",
-  },  {
     accessorKey: "SeniorCitizen",
     header: "Senior Citizen",
   },  
   {
-    accessorKey: "Birthdate",
+    accessorKey: "isEmployed",
+    header: "Employed",
+  },
+  {
+    accessorKey: "bloodtype",
+    header: "Blood Type",
+  },
+  {
+    accessorKey: "occupation",
+    header: "Occupation",
+  },
+  {
+    accessorKey: "pwdType",
+    header: "PWD Type",
+  },
+  {
+    accessorKey: "education",
+    header: "Education",
+  },
+  {
+    accessorKey: "isEnrolled",
+    header: "Enrolled",
+  },
+  {
+    accessorKey: "isDeceased",
+    header: "Deceased",
+  },
+  {
+    accessorKey: "religion",
+    header: "Religion",
+  },
+  {
+    accessorKey: "cellNo",
+    header: "Cellphone Number",
+  },
+  {
+    accessorKey: "residencyDate",
+    header: "Residency Date",
+    cell: ({ row }) => {
+        const date = new Date(row.getValue("residencyDate"))
+        const formatted = date.toLocaleDateString()
+        return [formatted]
+    }
+  },
+  {
+    accessorKey: "birthday",
     header: "Birthdate",
     cell: ({ row }) => {
-        const date = new Date(row.getValue("Birthdate"))
+        const date = new Date(row.getValue("birthday"))
         const formatted = date.toLocaleDateString()
         return [formatted]
     }
