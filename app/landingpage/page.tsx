@@ -31,11 +31,12 @@ export default async function landingpage() {
         <TopBar/>
       </div>
       
-      <div className="container mx-auto py-5">
+      <div className="w-100% mx-auto py-5 px-20">
       <Navbar /> 
       <SearchBar /> 
-      
-      <DataTable columns={columns} data={data} />
+      <div>
+      <DataTable  columns={columns} data={data}/>
+      </div>
       </div>
 
       <div className="Footer">

@@ -8,6 +8,6 @@ export async function GET() {
         const citizens = await prisma.citizen.findMany();
         return NextResponse.json(citizens);
     } catch {
-        return NextResponse.json(undefined);
+        return NextResponse.json({}); 
     }
 }
