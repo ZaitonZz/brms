@@ -3,9 +3,11 @@ import * as React from "react"
 
 import {
   ColumnDef,
+  ColumnFiltersState,
   SortingState,
   flexRender,
   getCoreRowModel,
+  getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
@@ -21,6 +23,7 @@ import {
 } from "@/components/ui/table"
 
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -32,14 +35,18 @@ export function DataTable<TData, TValue>({
   data,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([])
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   
   const table = useReactTable({
     data,
     columns,
     state: {
       sorting,
+      columnFilters
     },
     onSortingChange: setSorting,
+    onColumnFiltersChange: setColumnFilters,
+    getFilteredRowModel: getFilteredRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel()
@@ -47,6 +54,18 @@ export function DataTable<TData, TValue>({
 
   return (
     <>
+    <div>
+    <div className="flex items-center py-4">
+        <Input
+          placeholder="Filter Last Name..."
+          value={(table.getColumn("lastName")?.getFilterValue() as string) ?? ""}
+          onChange={(event) =>
+            table.getColumn("lastName")?.setFilterValue(event.target.value)
+          }
+          className="max-w-sm"
+        />
+      </div>
+    </div>
      <div className="rounded-md border" style={{ borderTop: '4px solid #558750' }}>
       <Table>
         <TableHeader>
@@ -74,6 +93,7 @@ export function DataTable<TData, TValue>({
             table.getRowModel().rows.map((row,index) => (
               <TableRow
                 key={row.id}
+                className={index % 2 === 0 ? 'bg-gray-150' : 'bg-[#3a8d318f]'}
                 data-state={row.getIsSelected() && "selected"}
               >
                 {row.getVisibleCells().map((cell) => (

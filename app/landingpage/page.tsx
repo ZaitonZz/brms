@@ -9,6 +9,7 @@ import SearchBar from '../components/searchbar'
 const host = process.env.NEXT_PUBLIC_VERCEL_URL || 'http://localhost:3000';
 
 async function getCit(): Promise<Citizen[]> {
+
   // Fetch data from your API here.
   const res= await fetch(`${host}/api/citizen/list/all`, {
     method: "GET",
@@ -18,7 +19,6 @@ async function getCit(): Promise<Citizen[]> {
     cache: "no-store",
   });
   const data= await res.json()
-
   return data
 }
 
