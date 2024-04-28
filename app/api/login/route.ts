@@ -13,11 +13,10 @@ export async function POST(req: Request) {
   const password = formData.password;  
 
   try {
-    const admin = await prisma.admin.findUnique({
+    const account = await prisma.account.findFirst({
       where: { Username: username?.toString() || "" }
     });
-
-    if (admin && password && bcrypt.compareSync(password, admin.Password || "")) {
+    if (account && password && bcrypt.compareSync(password, account.Password || "")) {
       // Redirect using NextResponse for App Router compatibility
       return new Response('200')
     } else {
