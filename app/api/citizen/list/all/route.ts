@@ -5,9 +5,13 @@ const prisma = new PrismaClient();
 
 export async function GET() {
     try {
-        const citizens = await prisma.citizen.findMany();
+        const citizens = await prisma.personalinfo.findMany({
+            where: { AdminID: null}
+        })
         return NextResponse.json(citizens);
     } catch {
-        return NextResponse.json({}); 
+        return NextResponse.json({
+            status: 404
+        }); 
     }
 }

@@ -6,13 +6,13 @@ const prisma = new PrismaClient();
 export async function GET(request: Request, context:any) {
     try {
         const { params } = context;
-        const admin : [] = await prisma.$queryRaw`CALL GetPersonalInfo(NULL, ${params.AdminID});`
-        if (admin.length != 0) {
+        const notes:[] = await prisma.$queryRaw`CALL GetFeeByID(${params.citizenID}, NULL);`
+        if (notes.length != 0) {
             return NextResponse.json({
-                admin,
+                notes,
             });
         } else {
-            return new NextResponse('Admin not found', { status: 404 })
+            return new NextResponse('Notes not found', { status: 404 })
         }
     } catch (error) {
         return new NextResponse('Internal Server Error', { status: 500 })

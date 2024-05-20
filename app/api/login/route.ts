@@ -14,7 +14,7 @@ export async function POST(req: Request) {
 
   try {
     const account = await prisma.account.findFirst({
-      where: { Username: username?.toString() || "" }
+      where: { Username: username?.toString() }
     });
     if (account && password && bcrypt.compareSync(password, account.Password || "")) {
       // Redirect using NextResponse for App Router compatibility
