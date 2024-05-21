@@ -1,6 +1,6 @@
 import React from 'react';
-import TopBarAdmin from '../adminpage/topbaradmin';
 import ChangePasswordForm from './ChangePasswordForm';
+import NavBar from '../../components/navbar';
 
 
 
@@ -8,7 +8,7 @@ const ChangePasswordPage: React.FC = () => {
   return (
     <main>
     <div className="TopBarAdmin">
-    <TopBarAdmin/>
+    <NavBar/>
   </div>
     <div className='pt-20'>
       < ChangePasswordForm/>

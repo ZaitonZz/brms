@@ -1,13 +1,13 @@
 import React from 'react';
 import PurokForm from './PurokForm';
-import TopBarAdmin from '../adminpage/topbaradmin';
+import NavBar from '../components/navbar';
 
 
 const AddPurokPage: React.FC = () => {
   return (
     <main>
     <div className="TopBarAdmin">
-    <TopBarAdmin/>
+    <NavBar/>
   </div>
     <div>
       <PurokForm />

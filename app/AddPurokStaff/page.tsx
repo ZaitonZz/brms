@@ -1,6 +1,6 @@
 import React from 'react';
 import PurokForm from './PurokForm';
-import TopBarStaff from '../StaffPage/topbarstaff';
+import NavBar from '../components/navbar';
 
 
 
@@ -8,7 +8,7 @@ const AddPurokPage: React.FC = () => {
   return (
     <main>
     <div className="TopBarStaff">
-    <TopBarStaff/>
+    <NavBar></NavBar>
   </div>
     <div>
       <PurokForm />

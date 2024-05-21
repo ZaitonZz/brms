@@ -1,4 +1,4 @@
-import TopBarStaff from "../StaffPage/topbarstaff";
+import NavBar from "../components/navbar";
 import PersonalInfoForm from "./PersonalInfoForm";
 
 
@@ -8,7 +8,7 @@ const AddCitizenStaff = () => {
     <main>
 
       <div className="TopBarStaff">
-        <TopBarStaff/>
+        <NavBar/>
       </div>
     <div>
 

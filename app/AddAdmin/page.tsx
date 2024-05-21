@@ -1,13 +1,13 @@
 import React from 'react';
-import TopBarAdmin from '../adminpage/topbaradmin';
 import AccountForm from './AccountForm';
+import NavBar from '../components/navbar';
 
 
 const AddAdminPAge: React.FC = () => {
   return (
     <main>
     <div className="TopBarAdmin">
-    <TopBarAdmin/>
+    <NavBar/>
   </div>
     <div className='pt-20'>
       < AccountForm/>

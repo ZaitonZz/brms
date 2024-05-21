@@ -1,4 +1,4 @@
-import TopBarAdmin from "../adminpage/topbaradmin";
+import NavBar from "../components/navbar";
 import PersonalInfoForm from "./Personalainfo";
 
 
@@ -8,7 +8,7 @@ const AddCitizenPage = () => {
     <main>
 
       <div className="TopBarAdmin">
-        <TopBarAdmin/>
+        <NavBar/>
       </div>
     <div>
 
