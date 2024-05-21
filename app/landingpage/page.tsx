@@ -2,9 +2,9 @@
 import React, { useEffect, useState } from 'react';
 import { Citizen, columns } from './columns';
 import { DataTable } from './data-table';
-import TopBar from '../components/topbar';
+import NavBar from '../components/navbar';
 import Footer from '../components/footer';
-import Navbar from './navbar';
+import NavLinks from './navlinks';
 import SearchBar from '../components/searchbar';
 import { useRouter } from 'next/navigation';
 import { fetchAccessLevel } from '../util/fetch-access-level';
@@ -44,11 +44,11 @@ const LandingPage: React.FC = () => {
   return (
     <main>
       <div className="topBar">
-        <TopBar />
+        <NavBar />
       </div>
 
       <div className="w-100% mx-auto py-5 px-20">
-        <Navbar />
+        <NavLinks />
         <SearchBar />
         <div>
           <DataTable columns={columns} data={data} />

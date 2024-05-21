@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Navbar = () => {
+const NavLinks = () => {
   return (
     <nav className="navbar">
       <ul className="list-none m-0">
@@ -15,4 +15,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default NavLinks;

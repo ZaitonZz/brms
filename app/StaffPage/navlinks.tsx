@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Navbar = () => {
+const NavLinks = () => {
   return (
     <nav className="navbar relative left-[131px] flex justify-start">
       <ul className="list-none m-0 p-5">
@@ -16,4 +16,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default NavLinks;

@@ -1,9 +1,9 @@
 import React from 'react'
 import { Citizen, columns } from '../landingpage/columns'
 import Footer from '../components/footer' 
-import Navbar from './navbar'
+import NavLinks from './navlinks'
 import SearchBar from './SearchBar'
-import TopBarStaff from './topbarstaff'
+import NavBar from '../components/navbar'
 
 
 async function getCit(): Promise<Citizen[]> {
@@ -19,9 +19,9 @@ export default async function StaffPage() {
   return (
     <main>
       <div className="TopBarStaff">
-        <TopBarStaff/>
+        <NavBar/>
       </div>
-      <Navbar/>
+      <NavLinks/>
       <SearchBar/>
 
       <div className="Footer">
