@@ -1,5 +1,5 @@
 import React from 'react'
-import { LoginForm } from './loginform'
+import LoginForm  from './loginform'
 
 
 function LoginBox () {

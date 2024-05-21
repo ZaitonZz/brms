@@ -1,5 +1,5 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["views"]
 }
 
@@ -18,8 +18,6 @@ model admin {
   note         note[]
   personalinfo personalinfo[]
   transactions transactions[]
- 
-
 }
 
 model awards {
@@ -280,72 +278,48 @@ model socioeconomicinfo {
   @@index([barangayNo], map: "barangayNo")
 }
 
-model Account {
-  accountID    Int       @id @default(autoincrement())
-  Username     String    @unique
-  Email        String    @unique
-  Password     String
-  AccessLevel  Int?
-  AdminID      Int?
-  citizenID    Int?
-  Admin        admin?    @relation(fields: [AdminID], references: [AdminID])
-  Citizen      citizen?  @relation(fields: [citizenID], references: [citizenID])
-
-  @@index([AdminID], map: "AdminID")
-  @@index([citizenID], map: "citizenID")
-}
-
 model personalinfo {
   personalInfoID    Int       @id @default(autoincrement())
-  firstname         String
-  middleName        String?
-  lastName          String
-  address           String?
-  residenceType     String?
-  birthday          DateTime?
+  firstname         String?   @db.VarChar(255)
+  middleName        String?   @db.VarChar(255)
+  lastName          String?   @db.VarChar(255)
+  address           String?   @db.VarChar(255)
+  residenceType     String?   @db.VarChar(255)
+  birthday          DateTime? @db.Date
   age               Int?
-  gender            String?
-  maritalStatus     String?
-  bloodtype         String?
-  occupation        String?
-  isEmployed        String?
-  pwdType           String?
-  education         String?
-  isEnrolled        String?
-  isSeniorCitizen   String?
-  isDeceased        String?
-  religion          String?
-  cellNo            String?
-  telNo             String?
-  isRegisteredVoter String?
+  gender            String?   @db.VarChar(255)
+  maritalStatus     String?   @db.VarChar(255)
+  bloodtype         String?   @db.VarChar(255)
+  occupation        String?   @db.VarChar(255)
+  isEmployed        String?   @db.VarChar(255)
+  pwdType           String?   @db.VarChar(255)
+  education         String?   @db.VarChar(255)
+  isEnrolled        String?   @db.VarChar(255)
+  isSeniorCitizen   String?   @db.VarChar(255)
+  isDeceased        String?   @db.VarChar(255)
+  religion          String?   @db.VarChar(255)
+  cellNo            String?   @db.VarChar(255)
+  telNo             String?   @db.VarChar(255)
+  isRegisteredVoter String?   @db.VarChar(255)
   votersID          Int?
-  residencyDate     DateTime?
+  residencyDate     DateTime? @db.Date
   AdminID           Int?
   citizenID         Int?
-  businessID        Int?
-  ProfilePicture    Bytes?
-  barangayNo        Int?
-  purokID           Int?
-
   admin             admin?    @relation(fields: [AdminID], references: [AdminID], onDelete: NoAction, onUpdate: NoAction, map: "personalinfo_ibfk_1")
   citizen           citizen?  @relation(fields: [citizenID], references: [citizenID], onDelete: NoAction, onUpdate: NoAction, map: "personalinfo_ibfk_2")
-  barangay         barangay? @relation(fields: [barangayNo], references: [barangayNo], onDelete: NoAction, onUpdate: NoAction)
-  purok            purok?    @relation(fields: [purokID], references: [purokID], onDelete: NoAction, onUpdate: NoAction)
 
-  @@index([barangayNo], map: "barangayNo")
-  @@index([purokID], map: "purokID")
   @@index([AdminID], map: "AdminID")
   @@index([citizenID], map: "citizenID")
 }
 
 model purok {
   purokID    Int       @id @default(autoincrement())
-  PurokName  String
-  BarangayNo Int
-  PurokLeader String
-  population Int
+  PurokName  String?   @db.VarChar(100)
+  BarangayNo Int?
+  citizen    citizen[]
+  barangay   barangay? @relation(fields: [BarangayNo], references: [barangayNo], onDelete: NoAction, onUpdate: NoAction, map: "purok_ibfk_1")
 
-  barangay   barangay @relation(fields: [BarangayNo], references: [barangayNo], onDelete: NoAction, onUpdate: NoAction)
+  @@index([BarangayNo], map: "BarangayNo")
 }
 
 model transactions {
@@ -364,9 +338,18 @@ model transactions {
   @@index([businessID], map: "businessID")
   @@index([citizenID], map: "citizenID")
 }
-view adminView{
-  AdminID Int @id
-  Username String?
+
+model account {
+  accountID   Int      @id @default(autoincrement())
+  Username    String?  @db.VarChar(255)
+  Email       String?  @db.VarChar(255)
+  Password    String?  @db.VarChar(255)
   AccessLevel Int?
-  
-  }
+  AdminID     Int?
+  citizenID   Int?
+  admin       admin?   @relation(fields: [AdminID], references: [AdminID], onDelete: NoAction, onUpdate: NoAction, map: "account_ibfk_1")
+  citizen     citizen? @relation(fields: [citizenID], references: [citizenID], onDelete: NoAction, onUpdate: NoAction, map: "account_ibfk_2")
+
+  @@index([AdminID], map: "AdminID")
+  @@index([citizenID], map: "citizenID")
+}

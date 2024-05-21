@@ -1,59 +1,81 @@
-'use client'
-import React, { useState, FormEvent } from 'react';
-import { PrismaClient } from '@prisma/client';
+'use client';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-
-
-var bcrypt = require('bcryptjs');
-
-// Action function to handle the login POST request
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { fetchAccessLevel } from '../util/fetch-access-level';
+import { isLocalStorageKeyEmptyOrExpired, getWithExpiry, setWithExpiry } from '../util/session';
 
 type LoginFormState = {
   username: string;
   password: string;
 };
 
-export const LoginForm: React.FC = () => {
-  const prisma = new PrismaClient();
+
+
+const LoginForm: React.FC = () => {
   const [formData, setFormData] = useState<LoginFormState>({ username: '', password: '' });
   const router = useRouter();
 
+  useEffect(() => {
+    const checkUser = async () => {
+      if (!isLocalStorageKeyEmptyOrExpired('username')) {
+        const username = getWithExpiry('username');
+        const accessLevel = await fetchAccessLevel(username);
+        if (accessLevel === 1) {
+          router.push('/landingpage');
+        } else if (accessLevel === 2 || accessLevel === 3) {
+          router.push('/admin');
+        } else if (accessLevel === 4) {
+          router.push('/superadmin');
+        } else{
+          console.log('gay')
+        }
+      }
+    };
+
+    checkUser();
+  }, [router]);
+
   const handleFormSubmit: React.FormEventHandler<HTMLFormElement> = async (event) => {
-    event.preventDefault();  // Prevent the form from actually submitting
-    const response = await fetch('api/login', {
+    event.preventDefault();
+
+    const response = await fetch('/api/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(formData)
+      body: JSON.stringify(formData),
     });
 
     const data = await response.json();
     if (response.ok) {
-      console.log('Login successful', data);
+      toast.success('Login successful!');
+      setWithExpiry('username', formData.username, 2 * 60 * 60 * 1000); // 2 hour expiry
       router.push('/landingpage');
-      // Redirect or handle successful login here
     } else {
-      console.error('Failed to login', data.error);
+      toast.error('Credentials incorrect!');
     }
-};
+  };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setFormData(prevState => ({
+    setFormData((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
   };
 
   return (
+    <>
+      <ToastContainer />
       <form onSubmit={handleFormSubmit}>
         <p className="text-neutral-700 text-4xl poppins-bold">Login</p>
         <div className="input-group">
           <p className="text-neutral-700 text-sm poppins mt-5 mb-1">Username</p>
           <input
-            className='bg-stone-100 rounded w-80 h-12'
-            type="username"
+            className="bg-stone-100 rounded w-80 h-12"
+            type="text"
             id="username"
             name="username"
             value={formData.username}
@@ -62,9 +84,9 @@ export const LoginForm: React.FC = () => {
           />
         </div>
         <div className="input-group">
-          <p className="text-neutral-700 text-sm font-normal poppins mt-5 mb-1" >Password</p>
+          <p className="text-neutral-700 text-sm font-normal poppins mt-5 mb-1">Password</p>
           <input
-            className='bg-stone-100 rounded w-80 h-12'
+            className="bg-stone-100 rounded w-80 h-12"
             type="password"
             id="password"
             name="password"
@@ -73,8 +95,14 @@ export const LoginForm: React.FC = () => {
             required
           />
         </div>
-        <button type="submit" className="sign-in-button w-80 h-12 bg-[#558750] rounded poppins-bold text-white mt-8">Sign in</button>
+        <button
+          type="submit"
+          className="sign-in-button w-80 h-12 bg-[#558750] rounded poppins-bold text-white mt-8"
+        >
+          Sign in
+        </button>
       </form>
+    </>
   );
 };
 

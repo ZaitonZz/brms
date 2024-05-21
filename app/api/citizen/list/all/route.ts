@@ -9,7 +9,8 @@ export async function GET() {
             where: { AdminID: null}
         })
         return NextResponse.json(citizens);
-    } catch {
+    } catch (error) {
+        console.error('Error fetching citizens:', error);
         return NextResponse.json({
             status: 404
         }); 
