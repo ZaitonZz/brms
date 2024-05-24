@@ -10,8 +10,12 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
+  GlobalFiltering,
   useReactTable,
+  Row
 } from "@tanstack/react-table"
+
+import { rankItem } from '@tanstack/match-sorter-utils';
 
 import {
   Table,
@@ -24,11 +28,18 @@ import {
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { citizen } from "@prisma/client";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
 }
+
+const fuzzyFilter = (row: Row<citizen>, columnId: string, value: string, addMeta: (itemRank: any) => void) => {
+  const itemRank = rankItem(row.getValue(columnId), value);
+  addMeta(itemRank);
+  return itemRank.passed;
+};
 
 export function CitizenDataTable<TData, TValue>({
   columns,
@@ -36,14 +47,17 @@ export function CitizenDataTable<TData, TValue>({
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
+  const [globalFilter, setGlobalFilter] = React.useState('')
   
   const table = useReactTable({
     data,
     columns,
     state: {
       sorting,
-      columnFilters
+      columnFilters,
+      globalFilter  
     },
+    globalFilterFn: fuzzyFilter,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
@@ -54,16 +68,15 @@ export function CitizenDataTable<TData, TValue>({
 
   return (
     <>
+
     <div>
-    <div className="flex items-center py-4">
-        <Input
-          placeholder="Filter Last Name..."
-          value={(table.getColumn("lastName")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("lastName")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        />
+    <div className="flex items-center">
+        <input
+        value={globalFilter}
+        onChange={(e) => setGlobalFilter(e.target.value)}
+        placeholder="Search..."
+        className="py-4 border-2 border-[#71b46b] rounded-lg mb-1 w-96 max-h-2"
+      />
       </div>
     </div>
      <div className="rounded-md border" style={{ borderTop: '4px solid #558750' }}>
