@@ -4,6 +4,7 @@ import { fetchAccessLevel } from '../util/fetch-access-level';
 import { isLocalStorageKeyEmptyOrExpired, getWithExpiry } from '../util/session';
 import NavbarAdmin from './navbaradmin';
 import NavbarStaff from './navbarstaff';
+import NavbarSuperAdmin from './navbarsuperadmin';
 import NavbarCitizen from './navbar-citizen';
 
 function NavBar() {
@@ -32,7 +33,7 @@ function NavBar() {
       case 3:
         return <NavbarAdmin></NavbarAdmin>;
       case 4:
-        return <ComponentForAccessLevel4 />;
+        return <NavbarSuperAdmin></NavbarSuperAdmin>;
       case 0:
       default:
         return <EmptyComponent />;
