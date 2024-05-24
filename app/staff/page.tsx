@@ -1,5 +1,5 @@
 import React from 'react'
-import { Citizen, columns } from '../landingpage/columns'
+import { Citizen, columns } from '../components/citizen-column'
 import Footer from '../components/footer' 
 import NavLinks from './navlinks'
 import SearchBar from './SearchBar'

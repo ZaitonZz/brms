@@ -1,7 +1,5 @@
 'use client'
 import React, { useEffect, useState } from 'react';
-import { Citizen, columns } from './columns';
-import { DataTable } from './data-table';
 import NavBar from '../components/navbar';
 import Footer from '../components/footer';
 import NavLinks from './navlinks';
@@ -10,22 +8,12 @@ import { useRouter } from 'next/navigation';
 import { fetchAccessLevel } from '../util/fetch-access-level';
 import { isLocalStorageKeyEmptyOrExpired, getWithExpiry } from '../util/session';
 
+
 const host = process.env.NEXT_PUBLIC_VERCEL_URL || 'http://localhost:3000';
 
-async function fetchCitizens(): Promise<Citizen[]> {
-  const res = await fetch(`${host}/api/citizen/list/all`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    cache: 'no-store',
-  });
-  const data = await res.json();
-  return data;
-}
+
 
 const LandingPage: React.FC = () => {
-  const [data, setData] = useState<Citizen[]>([]);
   const router = useRouter();
 
   useEffect(() => {
@@ -33,8 +21,12 @@ const LandingPage: React.FC = () => {
       if (isLocalStorageKeyEmptyOrExpired('username')) {
         router.push('http://localhost:3000/');
       } else {
-        const fetchedData = await fetchCitizens();
-        setData(fetchedData);
+        const username = getWithExpiry('username');
+        const accessLevel = await fetchAccessLevel(username);
+        if (accessLevel === 1) {
+        } else if (accessLevel === 2|| accessLevel === 3 || accessLevel === 4){
+          router.push('http://localhost:3000/');
+        }
       }
     };
 
@@ -47,13 +39,6 @@ const LandingPage: React.FC = () => {
         <NavBar />
       </div>
 
-      <div className="w-100% mx-auto py-5 px-20">
-        <NavLinks />
-        <SearchBar />
-        <div>
-          <DataTable columns={columns} data={data} />
-        </div>
-      </div>
 
       <div className="Footer">
         <Footer />

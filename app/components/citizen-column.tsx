@@ -11,26 +11,17 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { PersonalInformation } from "../types/types"
  
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
-export type Citizen = {
-  id: string
-  FirstName: string
-  LastName: string
-  MiddleName: String
-  Purok: String
-  Gender: String
-  ResidenceType:String
-  SeniorCitizen: String
-  Birthdate: string
-}
+
 
  
-export const columns: ColumnDef<Citizen>[] = [
+export const CitizenColumns: ColumnDef<PersonalInformation>[] = [
   
     {
-    accessorKey: "lastname",
+    accessorKey: "lastName",
     header: ({ column }) => {
       return (
         <Button
@@ -48,20 +39,12 @@ export const columns: ColumnDef<Citizen>[] = [
     header: "First Name",
   },
   {
-    accessorKey: "middlename",
+    accessorKey: "middleName",
     header: "Middle Name",
   },
   {
     accessorKey: "purok",
     header: "Purok",
-  },
-  {
-    accessorKey: "address",
-    header: "Address",
-  },
-  {
-    accessorKey: "residenceType",
-    header: "Residence Type",
   },
   {
     accessorKey: "gender",
@@ -72,53 +55,9 @@ export const columns: ColumnDef<Citizen>[] = [
     header: "Residence Type",
   },
   {
-    accessorKey: "age",
-    header: "Age",
-  },
-  {
-    accessorKey: "status",
-    header: "Marital Status",
-  },  
-  {
-    accessorKey: "SeniorCitizen",
+    accessorKey: "isSeniorCitizen",
     header: "Senior Citizen",
   },  
-  {
-    accessorKey: "isEmployed",
-    header: "Employed",
-  },
-  {
-    accessorKey: "bloodtype",
-    header: "Blood Type",
-  },
-  {
-    accessorKey: "occupation",
-    header: "Occupation",
-  },
-  {
-    accessorKey: "pwdType",
-    header: "PWD Type",
-  },
-  {
-    accessorKey: "education",
-    header: "Education",
-  },
-  {
-    accessorKey: "isEnrolled",
-    header: "Enrolled",
-  },
-  {
-    accessorKey: "isDeceased",
-    header: "Deceased",
-  },
-  {
-    accessorKey: "religion",
-    header: "Religion",
-  },
-  {
-    accessorKey: "cellNo",
-    header: "Cellphone Number",
-  },
   {
     accessorKey: "residencyDate",
     header: "Residency Date",
@@ -152,7 +91,7 @@ export const columns: ColumnDef<Citizen>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(Citizen.id)}
+              onClick={() => navigator.clipboard.writeText("hello world")}
             >
               Copy citizen ID
             </DropdownMenuItem>
