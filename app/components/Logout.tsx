@@ -1,21 +1,26 @@
+// components/LogoutButton.tsx
+
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
+import { logout } from '../util/logout';
 
-const LogoutButton: React.FC = () => {
-  const history = useHistory();
+interface LogoutButtonProps {
+    className?: string;
+}
 
-  const handleLogout = () => {
-    // Perform logout actions here, such as clearing user data from localStorage or session storage
-    // For example, if using localStorage:
-    localStorage.removeItem('userData');
+const LogoutButton: React.FC<LogoutButtonProps> = ({ className }) => {
+    const router = useRouter();
 
-    // Redirect to the login page
-    history.push('/login');
-  };
+    const handleLogout = async () => {
+        await logout();
+        router.push('/');
+    };
 
-  return (
-    <button onClick={handleLogout}>Logout</button>
-  );
+    return (
+        <button onClick={handleLogout} className={`btn btn-primary ${className}`}>
+            Logout
+        </button>
+    );
 };
 
 export default LogoutButton;
