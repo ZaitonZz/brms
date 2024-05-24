@@ -23,7 +23,7 @@ const LoginForm: React.FC = () => {
         const username = getWithExpiry('username');
         const accessLevel = await fetchAccessLevel(username);
         if (accessLevel === 1) {
-          router.push('/landingpage');
+          router.push('/citizen/profile');
         } else if (accessLevel === 2 || accessLevel === 3) {
           router.push('/admin');
         } else if (accessLevel === 4) {
@@ -52,7 +52,17 @@ const LoginForm: React.FC = () => {
     if (response.ok) {
       toast.success('Login successful!');
       setWithExpiry('username', formData.username, 2 * 60 * 60 * 1000); // 2 hour expiry
-      router.push('/landingpage');
+      const username = getWithExpiry('username');
+        const accessLevel = await fetchAccessLevel(username);
+        if (accessLevel === 1) {
+          router.push('/citizen/profile');
+        } else if (accessLevel === 2 || accessLevel === 3) {
+          router.push('/admin');
+        } else if (accessLevel === 4) {
+          router.push('/superadmin');
+        } else{
+          console.log('gay')
+        }
     } else {
       toast.error('Credentials incorrect!');
     }
