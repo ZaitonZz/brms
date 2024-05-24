@@ -23,3 +23,11 @@ export interface PersonalInformation {
     votersID?: number | null; // INT NULL
     residencyDate?: string; // DATE NULL
 }
+export interface Barangay {
+    barangayName?: string; // VARCHAR(255) NULL
+    Address?: string; // VARCHAR(255) NULL
+    Telefax?: string; // VARCHAR(255) NULL
+    Email?: string; // VARCHAR(255) NULL
+    Website?: string; // VARCHAR(255) NULL
+    City_municipality?: string; // VARCHAR(255) NULL
+}

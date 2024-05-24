@@ -4,6 +4,8 @@ import { fetchAccessLevel } from '../util/fetch-access-level';
 import { isLocalStorageKeyEmptyOrExpired, getWithExpiry } from '../util/session';
 import NavbarAdmin from './navbaradmin';
 import NavbarStaff from './navbarstaff';
+import NavbarSuperAdmin from './navbarsuperadmin';
+import NavbarCitizen from './navbar-citizen';
 
 function NavBar() {
   const [accessLevel, setAccessLevel] = useState<number | null>(null);
@@ -25,13 +27,13 @@ function NavBar() {
   const renderComponent = () => {
     switch (accessLevel) {
       case 1:
-        return <ComponentForAccessLevel1 />;
+        return <NavbarCitizen />;
       case 2:
         return <NavbarStaff></NavbarStaff>;
       case 3:
         return <NavbarAdmin></NavbarAdmin>;
       case 4:
-        return <ComponentForAccessLevel4 />;
+        return <NavbarSuperAdmin></NavbarSuperAdmin>;
       case 0:
       default:
         return <EmptyComponent />;
@@ -47,8 +49,6 @@ function NavBar() {
 }
 
 const ComponentForAccessLevel1 = () => <div>Access Level 1 Component</div>;
-const ComponentForAccessLevel2 = () => <div>Access Level 2 Component</div>;
-const ComponentForAccessLevel3 = () => <div>Access Level 3 Component</div>;
 const ComponentForAccessLevel4 = () => <div>Access Level 4 Component</div>;
 const EmptyComponent = () => <div></div>;
 

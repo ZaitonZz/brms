@@ -1,51 +1,63 @@
 "use client"
 import React, { useState } from 'react';
+import LogoutButton from './logout';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+
+import { ChevronDown, PlusCircle } from 'lucide-react';
 
 function NavbarAdmin() {
-  const [showAdminDropdown, setShowAdminDropdown] = useState(false);
-  const [showAddDropdown, setShowAddDropdown] = useState(false);
-
-  // Toggle dropdown visibility for Barangay Admin
-  const toggleAdminDropdown = () => setShowAdminDropdown(!showAdminDropdown);
-
-  // Toggle dropdown visibility for Add
-  const toggleAddDropdown = () => setShowAddDropdown(!showAddDropdown);
-
+  
   return (
     <div className="flex items-center text-white">
-      <div className="relative mr-4">
+      <div className="relative mr-12">
         {/* Toggle Link for Barangay Admin */}
-        <a onClick={toggleAdminDropdown} className="cursor-pointer hover:text-gray-200">
-          Barangay Admin(Captain)
-        </a>
-        {/* Dropdown Menu for Barangay Admin */}
-        {showAdminDropdown && (
-          <div className="absolute left-0 mt-1 bg-gray-800 text-white py-2">
-            <a href="/" className="block px-4 py-2 hover:bg-gray-700">View Profile</a>
-            <a href="app/ChangePasswordAdmin" className="block px-4 py-2 hover:bg-gray-700">Change Password</a>
-            <a href="../Logout" className="block px-4 py-2 hover:bg-gray-700">Log Out</a>
-          </div>
-        )}
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+            <a className="cursor-pointer hover:text-gray-200 flex">
+              Barangay Admin(Captain)<ChevronDown></ChevronDown>
+            </a>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem className='cursor-pointer'>View Profile</DropdownMenuItem>
+            <DropdownMenuItem className='cursor-pointer'>Change Password</DropdownMenuItem>
+            <DropdownMenuItem>
+              <LogoutButton />
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
 
-      <a href="adminpage" className="mr-4 hover:text-gray-200">Home</a>
-      <a href="/" className="mr-4 hover:text-gray-200">Report</a>
+      <a href="admin" className="mr-12 hover:text-gray-200">Home</a>
+      <a href="/" className="mr-12 hover:text-gray-200">Report</a>
 
- 
+
       <div className="relative inline">
-  {/* Toggle Link for Add */}
-  <a onClick={toggleAddDropdown} className="cursor-pointer hover:text-gray-200">
-    Add
-  </a>
-  {/* Dropdown Menu for Add */}
-  {showAddDropdown && (
-    <div className="absolute left-0 mt-1 bg-gray-800 text-white py-2 transition-opacity duration-300 opacity-100">
-      <button onClick={() => window.location.href = '../AddCitizenAdmin'} className="block px-2 py-2 hover:bg-gray-700">Citizen</button>
-      <button onClick={() => window.location.href = '../AddAdmin'} className="block px-2 py-2 hover:bg-gray-700">Admin</button>
-      <button onClick={() => window.location.href = '../AddPurokAdmin'} className="block px-2 py-2 hover:bg-gray-700">Purok</button>
-    </div>
-  )}
-
+         {/* Toggle Link for Add */}
+         <DropdownMenu>
+          <DropdownMenuTrigger>
+            <a className="cursor-pointer hover:text-gray-200 flex items-center">
+              Create <PlusCircle size={16} className="ml-2" />
+            </a>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem onSelect={() => window.location.href = '../AddCitizenAdmin'} className="flex cursor-pointer">
+              Citizen <PlusCircle size={16} className="ml-2" />
+            </DropdownMenuItem>
+            <DropdownMenuItem onSelect={() => window.location.href = '../AddAdmin'} className="flex cursor-pointer">
+              Admin <PlusCircle size={16} className="ml-2" />
+            </DropdownMenuItem>
+            <DropdownMenuItem onSelect={() => window.location.href = '../AddPurokAdmin'} className="flex cursor-pointer">
+              Purok <PlusCircle size={16} className="ml-2" />
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </div>
   );
