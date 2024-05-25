@@ -11,6 +11,7 @@ const AddPurokPage: React.FC = () => {
   </div>
     <div>
       <PurokForm />
+      
     </div>
     </main>
   );

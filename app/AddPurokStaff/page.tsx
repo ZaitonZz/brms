@@ -1,6 +1,7 @@
 import React from 'react';
 import PurokForm from './PurokForm';
 import NavBar from '../components/navbar';
+import Footer from '../components/footer';
 
 
 
@@ -13,6 +14,9 @@ const AddPurokPage: React.FC = () => {
     <div>
       <PurokForm />
     </div>
+    <div className="Footer">
+        <Footer />
+      </div>
     </main>
   );
 };

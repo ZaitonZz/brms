@@ -1,17 +1,19 @@
 import React from 'react';
-import AccountForm from './AccountForm';
+import CertificationTemplate from './CertificationTemplate';
 import NavBar from '../components/navbar';
 import Footer from '../components/footer';
 
 
-const AddAdminPAge: React.FC = () => {
+
+const CertTempPage: React.FC = () => {
   return (
     <main>
-    <div className="TopBarAdmin">
-    <NavBar/>
+      <div className="TopBarStaff">
+        <NavBar/>
   </div>
-    <div className='pt-20'>
-      < AccountForm/>
+    <div>
+      <CertificationTemplate/>
+      
     </div>
     <div className="Footer">
         <Footer />
@@ -19,5 +21,4 @@ const AddAdminPAge: React.FC = () => {
     </main>
   );
 };
-
-export default AddAdminPAge;
+ export default CertTempPage;

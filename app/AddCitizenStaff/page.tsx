@@ -1,3 +1,4 @@
+import Footer from "../components/footer";
 import NavBar from "../components/navbar";
 import PersonalInfoForm from "./PersonalInfoForm";
 
@@ -16,6 +17,9 @@ const AddCitizenStaff = () => {
 
       <PersonalInfoForm />
     </div>
+    <div className="Footer">
+        <Footer />
+      </div>
     </main>
   );
 };
