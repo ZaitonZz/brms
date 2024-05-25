@@ -17,7 +17,7 @@ function Complaint() {
                 </div>
           
 
-            <div className='mr-60'>
+            <div className='mr-230'>
                     <h1 className='text-4xl font-bold mb-12 bg-[#68a762] text-center inline-block py-2 px-4 rounded'>Complaints</h1>
                     <div className='mt-[-20px]'>
                         <input placeholder="Search 10 Recent Complaints" type="text" id="search" name="search" className="w-[500px] px-2 py-1 border-2 rounded-md mt-1 focus:outline-none focus:border-[#68a762]" />
