@@ -56,9 +56,11 @@ const LoginForm: React.FC = () => {
         const accessLevel = await fetchAccessLevel(username);
         if (accessLevel === 1) {
           router.push('/citizen/profile');
-        } else if (accessLevel === 2 || accessLevel === 3) {
+        } else if (accessLevel === 2) {
+          router.push('/staff');
+        } else if (accessLevel === 3){
           router.push('/admin');
-        } else if (accessLevel === 4) {
+        }else if (accessLevel === 4) {
           router.push('/superadmin');
         } else{
           console.log('gay')
