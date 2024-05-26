@@ -23,7 +23,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
-import { PersonalInformation } from "../types/types";
+import { PersonalInformation } from "../../types/types";
 
 interface DataTableProps<TData extends PersonalInformation> {
   columns: ColumnDef<TData>[]

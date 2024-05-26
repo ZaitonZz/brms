@@ -1,7 +1,7 @@
 // pages/adminpage.tsx
 'use client';
 import React, { useEffect, useState } from 'react';
-import { CitizenColumns } from '../components/citizen-column';
+import { CitizenColumns } from '../components/tables/citizen-column';
 import Footer from '../components/footer';
 import NavLinks from './navlinks';
 import NavBar from '../components/navbar';
@@ -10,7 +10,7 @@ import { getWithExpiry, isLocalStorageKeyEmptyOrExpired } from '../util/session'
 import { fetchCitizens } from '../util/fetch-citizen';
 import { PersonalInformation } from '../types/types';
 import { fetchAccessLevel } from '../util/fetch-access-level';
-import { CitizenDataTable } from '../components/citizen-table';
+import { CitizenDataTable } from '../components/tables/citizen-table';
 
 async function getCit(): Promise<PersonalInformation[]> {
   const res = await fetch('https://6620bff93bf790e070b084e4.mockapi.io/Citizen');

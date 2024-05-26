@@ -11,74 +11,40 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { PersonalInformation } from "../types/types"
+import { Barangay } from "../../types/types"
  
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 
 
  
-export const CitizenColumns: ColumnDef<PersonalInformation>[] = [
+export const BarangayColumns: ColumnDef<Barangay>[] = [
   
     {
-    accessorKey: "lastName",
+    accessorKey: "City_municipality",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Last Name
+          City
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
     },
   },
   {
-    accessorKey: "firstname",
-    header: "First Name",
+    accessorKey: "BarangayName",
+    header: "Barangay Name",
   },
   {
-    accessorKey: "middleName",
-    header: "Middle Name",
-  },
-  {
-    accessorKey: "purok",
-    header: "Purok",
-  },
-  {
-    accessorKey: "gender",
-    header: "Gender",
-  },
-  {
-    accessorKey: "residenceType",
-    header: "Residence Type",
-  },
-  {
-    accessorKey: "isSeniorCitizen",
-    header: "Senior Citizen",
-  },  
-  {
-    accessorKey: "residencyDate",
-    header: "Residency Date",
-    cell: ({ row }) => {
-        const date = new Date(row.getValue("residencyDate"))
-        const formatted = date.toLocaleDateString()
-        return [formatted]
-    }
-  },
-  {
-    accessorKey: "birthday",
-    header: "Birthdate",
-    cell: ({ row }) => {
-        const date = new Date(row.getValue("birthday"))
-        const formatted = date.toLocaleDateString()
-        return [formatted]
-    }
+    accessorKey: "Address",
+    header: "Address",
   },{
     id: "actions",
     cell: ({ row }) => {
-      const Citizen = row.original
+      const Barangay = row.original
  
       return (
         <DropdownMenu>

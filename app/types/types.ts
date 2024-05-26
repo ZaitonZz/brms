@@ -31,3 +31,16 @@ export interface Barangay {
     Website?: string; // VARCHAR(255) NULL
     City_municipality?: string; // VARCHAR(255) NULL
 }
+
+export interface Note {
+    noteID: number;
+    AdminID: number;
+    citizenID?: number;
+    BusinessID?: number;
+    Time: string;
+    Note: string;
+    Date: string;
+    firstname?: string;
+    lastname?: string;
+    businessName?: string;
+  }
