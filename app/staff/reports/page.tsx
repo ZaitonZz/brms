@@ -14,27 +14,72 @@ function Report() {
       case 'All':
         return <AllContent></AllContent>;
       case 'BloodType':
-        return <div>Blood Type Content</div>;
+        return <div className=' mt-32 mr-32'>           
+           <input placeholder="Enter Purok" type="text" id="search" name="search" className="w-[700px] px-2 py-1 border-2 rounded-md mt-1 focus:outline-none focus:border-[#68a762] mr-1" />
+
+           <a href='#' className=' text-base font-bold mb-10 bg-[#68a762] text-center inline-block py-1 px-2 rounded'>Print</a>
+
+        </div>;
       case 'Establishment':
-        return <div>Establishment Content</div>;
+        return <div className=' mt-32 mr-32'>           
+        <input placeholder="Enter Purok" type="text" id="search" name="search" className="w-[700px] px-2 py-1 border-2 rounded-md mt-1 focus:outline-none focus:border-[#68a762] mr-1" />
+
+        <a href='#' className=' text-base font-bold mb-10 bg-[#68a762] text-center inline-block py-1 px-2 rounded'>Print</a>
+
+     </div>;
       case 'Employed':
-        return <div>Employed Content</div>;
+        return <div className=' mt-32 mr-32'>           
+        <input placeholder="Enter Purok" type="text" id="search" name="search" className="w-[700px] px-2 py-1 border-2 rounded-md mt-1 focus:outline-none focus:border-[#68a762] mr-1" />
+
+        <a href='#' className=' text-base font-bold mb-10 bg-[#68a762] text-center inline-block py-1 px-2 rounded'>Print</a>
+
+     </div>;
+
       case 'Enrolled':
-        return <div>Enrolled Content</div>;
+        return <div className=' mt-32 mr-32'>           
+        <input placeholder="Enter Purok" type="text" id="search" name="search" className="w-[700px] px-2 py-1 border-2 rounded-md mt-1 focus:outline-none focus:border-[#68a762] mr-1" />
+        <a href='#' className=' text-base font-bold mb-10 bg-[#68a762] text-center inline-block py-1 px-2 rounded'>Print</a>
+     </div>;
+
       case 'Gender':
-        return <div>Gender Content</div>;
+        return <div className=' mt-32 mr-32'>           
+        <input placeholder="Enter Purok" type="text" id="search" name="search" className="w-[700px] px-2 py-1 border-2 rounded-md mt-1 focus:outline-none focus:border-[#68a762] mr-1" />
+        <a href='#' className=' text-base font-bold mb-10 bg-[#68a762] text-center inline-block py-1 px-2 rounded'>Print</a>
+     </div>;
+
       case 'Minor':
-        return <div>Minor Content</div>;
+        return <div className=' mt-32 mr-32'>           
+        <input placeholder="Enter Purok" type="text" id="search" name="search" className="w-[700px] px-2 py-1 border-2 rounded-md mt-1 focus:outline-none focus:border-[#68a762] mr-1" />
+        <a href='#' className=' text-base font-bold mb-10 bg-[#68a762] text-center inline-block py-1 px-2 rounded'>Print</a>
+     </div>;
+
       case 'PWD':
-        return <div>PWD Content</div>;
+        return <div className=' mt-32 mr-32'>           
+        <input placeholder="Enter Purok" type="text" id="search" name="search" className="w-[700px] px-2 py-1 border-2 rounded-md mt-1 focus:outline-none focus:border-[#68a762] mr-1" />
+        <a href='#' className=' text-base font-bold mb-10 bg-[#68a762] text-center inline-block py-1 px-2 rounded'>Print</a>
+     </div>;
+
       case 'Voter':
-        return <div>Voter Content</div>;
+        return <div className=' mt-32 mr-32'>           
+        <input placeholder="Enter Purok" type="text" id="search" name="search" className="w-[700px] px-2 py-1 border-2 rounded-md mt-1 focus:outline-none focus:border-[#68a762] mr-1" />
+        <a href='#' className=' text-base font-bold mb-10 bg-[#68a762] text-center inline-block py-1 px-2 rounded'>Print</a>
+     </div>;
+
       case 'Religion':
-        return <div>Religion Content</div>;
+        return <div className=' mt-32 mr-32'>           
+        <input placeholder="Enter Purok" type="text" id="search" name="search" className="w-[700px] px-2 py-1 border-2 rounded-md mt-1 focus:outline-none focus:border-[#68a762] mr-1" />
+        <a href='#' className=' text-base font-bold mb-10 bg-[#68a762] text-center inline-block py-1 px-2 rounded'>Print</a>
+     </div>;
       case 'Residence Type':
-        return <div>Residence Type Content</div>;
+        return <div className=' mt-32 mr-32'>           
+        <input placeholder="Enter Purok" type="text" id="search" name="search" className="w-[700px] px-2 py-1 border-2 rounded-md mt-1 focus:outline-none focus:border-[#68a762] mr-1" />
+        <a href='#' className=' text-base font-bold mb-10 bg-[#68a762] text-center inline-block py-1 px-2 rounded'>Print</a>
+     </div>;
       case 'Senior Citizen':
-        return <div>Senior Citizen Content</div>;
+        return <div className=' mt-32 mr-32'>           
+        <input placeholder="Enter Purok" type="text" id="search" name="search" className="w-[700px] px-2 py-1 border-2 rounded-md mt-1 focus:outline-none focus:border-[#68a762] mr-1" />
+        <a href='#' className=' text-base font-bold mb-10 bg-[#68a762] text-center inline-block py-1 px-2 rounded'>Print</a>
+     </div>;
       default:
         return <div>All Content</div>;
     }
