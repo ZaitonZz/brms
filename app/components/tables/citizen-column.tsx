@@ -12,6 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { PersonalInformation } from "../../types/types"
+import { download } from "@/components/tables"
  
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -111,7 +112,9 @@ export const CitizenColumns: ColumnDef<PersonalInformation>[] = [
               Delete Citizen
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>View Citizen</DropdownMenuItem>
+            <DropdownMenuItem 
+            onClick={() => download()}
+            >View Citizen</DropdownMenuItem>
             <DropdownMenuItem>View payment details</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
