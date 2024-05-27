@@ -2,7 +2,7 @@ import prisma from "@/prisma/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
 
-export async function GET(req: NextRequest, { params }: { params: { username: string } }) {
+export async function GET(req: NextRequest, { params }: { params: { barangayNo: string } }) {
     try {
         const account = await prisma.account.findFirst({
             where: {
