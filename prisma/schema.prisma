@@ -27,8 +27,9 @@ model admin {
 }
 model archive {
   archiveID    Int      @id @default(autoincrement())
-  archivedItem String   @db.VarChar(255)
-  archiveDate  DateTime @db.Date
+  description String   @db.VarChar(255)
+  date        DateTime @db.Date
+  file        blob 
   adminID      Int
   admin        admin    @relation(fields: [adminID], references: [AdminID])
 }
