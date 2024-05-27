@@ -17,7 +17,7 @@ export const feesBusinessColumns: ColumnDef<businessFee>[] = [
   },
 
   {
-    accessorKey: 'BusinessID',
+    accessorKey: 'businessID',
     header: 'Business ID',
   },
   {

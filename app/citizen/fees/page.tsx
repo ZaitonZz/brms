@@ -5,44 +5,15 @@ import Footer from '../../components/footer'
 import SearchBar from '../../components/searchbar'
 import { useRouter } from 'next/navigation'
 import { getWithExpiry, isLocalStorageKeyEmptyOrExpired } from '../../util/session'
-import { fetchBusinessFee } from '@/app/util/fetch-business-fees'
-import { businessFee } from '../../types/types'
 import { fetchAccessLevel } from '../../util/fetch-access-level'
-import { BusinessFeesTable } from '@/app/components/tables/fees-table-business'
 import NavBar from '../../components/navbar'
-import { feesBusinessColumns } from '@/app/components/tables/fees-column-business'
 
 function Fee() {
-   
-    const [data, setData] = useState<businessFee[]>([]);
-    const router = useRouter();
 
-    useEffect(() => {
-      const checkUserAndFetchData = async () => {
-        if (isLocalStorageKeyEmptyOrExpired('username')) {
-          router.push('http://localhost:3000/');
-        } else {
-          const username = getWithExpiry('username');
-          const accessLevel = await fetchAccessLevel(username);
-          if (accessLevel == 1) {
-            const fetchedData = await fetchBusinessFee();
-            console.log(typeof fetchedData)
-            setData(fetchedData);
-          } else if(accessLevel == 4 || accessLevel == 2 || accessLevel == 3){
-            router.push('http://localhost:3000/');
-          }
-        }
-      };
-  
-      checkUserAndFetchData();
-    }, [router]);
-  
-  
  
   return (
     <div>
         <NavBar/>
-        <BusinessFeesTable columns={feesBusinessColumns} data={data} />
         <div style={{ display: 'flex', justifyContent: 'center', height: '100vh'}}>
             <div className="py-10 flex">
 

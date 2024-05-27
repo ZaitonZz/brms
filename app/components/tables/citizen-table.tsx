@@ -13,7 +13,7 @@ import {
   useReactTable,
   Row
 } from "@tanstack/react-table"
-import { rankItem } from '@tanstack/match-sorter-utils';
+
 import {
   Table,
   TableBody,

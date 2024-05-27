@@ -71,7 +71,7 @@ export interface Note {
   export interface businessFee {
     feeID:number ;
     adminID: number;
-    BusinessID: number,
+    businessID: number,
     Date: string;
     Time: string;
     amountPaid:string;

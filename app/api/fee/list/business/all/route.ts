@@ -1,29 +1,45 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/prisma/prisma';
-import { Fee } from '@/app/types/types';
 
-export async function GET(request: Request) {
+export async function GET() {
     try {
-        const rawFees:Fee[] = await prisma.$queryRaw`CALL GetBusinessFees();`
-        if (rawFees) {
-            const fees = rawFees.map((fee: any) => ({
-                feeID: fee.f0,
-                adminID: fee.f1,
-                BusinessID: fee.f2,
-                Date: fee.f3,
-                Time: fee.f4,
-                amountPaid: fee.f5,
-                feetype: fee.f6,
-                businessName: fee.f7
-            }));
-            return NextResponse.json({
-                fees,
-            });
-        } else {
-            return new NextResponse('Business Fees not found', { status: 404 })
-        }
+        const fees = await prisma.fee.findMany({
+            where: {
+                businessID: {
+                    not: null,
+                },
+            },
+            select: {
+                feeID: true,
+                adminID: true,
+                businessID: true,
+                Date: true,
+                Time: true,
+                amountPaid: true,
+                feetype: true,
+                business: {
+                    select: {
+                        businessName: true,
+                    },
+                },
+            },
+        });
+
+        // Map the fees to include businessName directly, handling possible null values
+        const formattedFees = fees.map(fee => ({
+            feeID: fee.feeID,
+            adminID: fee.adminID,
+            businessID: fee.businessID,
+            Date: fee.Date,
+            Time: fee.Time,
+            amountPaid: fee.amountPaid,
+            feetype: fee.feetype,
+            businessName: fee.business ? fee.business.businessName : null, // Ensure businessName is handled correctly
+        }));
+
+        return NextResponse.json(formattedFees);
     } catch (error) {
-        console.error('Error fetching fees:', error);
-        return new NextResponse('Internal Server Error', { status: 500 })
+        console.error('Error fetching business fees:', error);
+        return NextResponse.json({ message: 'Internal Server Error' }, { status: 500 });
     }
 }

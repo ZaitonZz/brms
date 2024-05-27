@@ -1,10 +1,10 @@
 
 // components/fees-columns.tsx
 import { ColumnDef } from '@tanstack/react-table';
-import { Fee } from '@/app/types/types';
+import { citizensFee} from '@/app/types/types';
 
 // Define the columns for the fees data table
-export const feesCitizenColumns: ColumnDef<Fee>[] = [
+export const feesCitizenColumns: ColumnDef<citizensFee>[] = [
   {
     accessorKey: 'feeID',
     header: 'Fee ID',
