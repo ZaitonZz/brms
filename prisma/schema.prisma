@@ -418,7 +418,7 @@ model certificate_template {
 
 model businesspermit {
   permitID   Int       @id @default(autoincrement())
-  permitType String?   @db.VarChar(255)
+  permitNumber String?   @db.VarChar(255)
   issueDate  DateTime? @db.Date
   expiryDate DateTime? @db.Date
   business   business[]
