@@ -32,7 +32,11 @@ model awards {
   awardLevel String?   @db.VarChar(100)
   barangayNo Int?
 <<<<<<< HEAD
+<<<<<<< HEAD
   barangay   barangay? @relation(fields: [barangayNo], references: [barangayNo], onDelete: Cascade, onUpdate: Restrict, map: "awards_ibfk_1")
+=======
+  barangay   barangay? @relation(fields: [barangayNo], references: [barangayNo], onDelete: NoAction, onUpdate: NoAction, map: "awards_ibfk_1")
+>>>>>>> b857003bc7e7f21f1ed205f105b50f2217bc9cda
 =======
   barangay   barangay? @relation(fields: [barangayNo], references: [barangayNo], onDelete: NoAction, onUpdate: NoAction, map: "awards_ibfk_1")
 >>>>>>> b857003bc7e7f21f1ed205f105b50f2217bc9cda
@@ -80,7 +84,11 @@ model barangayofficial {
   Kagawad7         String?   @db.VarChar(100)
   PangkatSecretary String?   @db.VarChar(100)
 <<<<<<< HEAD
+<<<<<<< HEAD
   barangay         barangay? @relation(fields: [barangayNo], references: [barangayNo], onDelete: Cascade, onUpdate: Restrict, map: "barangayofficial_ibfk_1")
+=======
+  barangay         barangay? @relation(fields: [barangayNo], references: [barangayNo], onDelete: NoAction, onUpdate: NoAction, map: "barangayofficial_ibfk_1")
+>>>>>>> b857003bc7e7f21f1ed205f105b50f2217bc9cda
 =======
   barangay         barangay? @relation(fields: [barangayNo], references: [barangayNo], onDelete: NoAction, onUpdate: NoAction, map: "barangayofficial_ibfk_1")
 >>>>>>> b857003bc7e7f21f1ed205f105b50f2217bc9cda
@@ -101,12 +109,18 @@ model business {
   purokID             Int?
   barangayNo          Int?
 <<<<<<< HEAD
+<<<<<<< HEAD
   barangay            barangay?      @relation(fields: [barangayNo], references: [barangayNo], onDelete: Cascade, onUpdate: Restrict, map: "business_ibfk_1")
 =======
+=======
+>>>>>>> b857003bc7e7f21f1ed205f105b50f2217bc9cda
   permitID            Int?
   barangay            barangay?       @relation(fields: [barangayNo], references: [barangayNo], onDelete: NoAction, onUpdate: NoAction, map: "business_ibfk_1")
   purok               purok?          @relation(fields: [purokID], references: [purokID], onDelete: NoAction, onUpdate: NoAction, map: "business_ibfk_2")
   businesspermit      businesspermit? @relation(fields: [permitID], references: [permitID], onDelete: NoAction, onUpdate: NoAction, map: "business_ibfk_3")
+<<<<<<< HEAD
+>>>>>>> b857003bc7e7f21f1ed205f105b50f2217bc9cda
+=======
 >>>>>>> b857003bc7e7f21f1ed205f105b50f2217bc9cda
   fee                 fee[]
   note                note[]
@@ -125,15 +139,21 @@ model citizen {
   barangayNo                                           Int?
   account                                              account[]
 <<<<<<< HEAD
+<<<<<<< HEAD
   admin                                                admin?         @relation(fields: [AdminID], references: [AdminID], onDelete: Cascade, onUpdate: Restrict, map: "citizen_ibfk_1")
   household                                            household?     @relation(fields: [HouseholdNo], references: [householdNo], onDelete: Cascade, onUpdate: Restrict, map: "citizen_ibfk_2")
   barangay                                             barangay?      @relation(fields: [barangayNo], references: [barangayNo], onDelete: Cascade, onUpdate: Restrict, map: "citizen_ibfk_3")
   purok                                                purok?         @relation(fields: [purokID], references: [purokID], onDelete: Cascade, onUpdate: Restrict, map: "citizen_ibfk_4")
 =======
+=======
+>>>>>>> b857003bc7e7f21f1ed205f105b50f2217bc9cda
   admin                                                admin?         @relation(fields: [AdminID], references: [AdminID], onDelete: NoAction, onUpdate: NoAction, map: "citizen_ibfk_1")
   household                                            household?     @relation(fields: [HouseholdNo], references: [householdNo], onDelete: NoAction, onUpdate: NoAction, map: "citizen_ibfk_2")
   barangay                                             barangay?      @relation(fields: [barangayNo], references: [barangayNo], onDelete: NoAction, onUpdate: NoAction, map: "citizen_ibfk_3")
   purok                                                purok?         @relation(fields: [purokID], references: [purokID], onDelete: NoAction, onUpdate: NoAction, map: "citizen_ibfk_4")
+<<<<<<< HEAD
+>>>>>>> b857003bc7e7f21f1ed205f105b50f2217bc9cda
+=======
 >>>>>>> b857003bc7e7f21f1ed205f105b50f2217bc9cda
   complaints_complaints_citizenID_complainantTocitizen complaints[]   @relation("complaints_citizenID_complainantTocitizen")
   complaints_complaints_citizenID_complaineeTocitizen  complaints[]   @relation("complaints_citizenID_complaineeTocitizen")
@@ -159,9 +179,15 @@ model complaints {
   for                                               String?   @db.VarChar(255)
   actions                                           String?   @db.VarChar(255)
 <<<<<<< HEAD
+<<<<<<< HEAD
   admin                                             admin?    @relation(fields: [adminID], references: [AdminID], onDelete: Cascade, onUpdate: Restrict, map: "complaints_ibfk_1")
   citizen_complaints_citizenID_complainantTocitizen citizen?  @relation("complaints_citizenID_complainantTocitizen", fields: [citizenID_complainant], references: [citizenID], onDelete: Cascade, onUpdate: Restrict, map: "complaints_ibfk_2")
   citizen_complaints_citizenID_complaineeTocitizen  citizen?  @relation("complaints_citizenID_complaineeTocitizen", fields: [citizenID_complainee], references: [citizenID], onDelete: Cascade, onUpdate: Restrict, map: "complaints_ibfk_3")
+=======
+  admin                                             admin?    @relation(fields: [adminID], references: [AdminID], onDelete: NoAction, onUpdate: NoAction, map: "complaints_ibfk_1")
+  citizen_complaints_citizenID_complainantTocitizen citizen?  @relation("complaints_citizenID_complainantTocitizen", fields: [citizenID_complainant], references: [citizenID], onDelete: NoAction, onUpdate: NoAction, map: "complaints_ibfk_2")
+  citizen_complaints_citizenID_complaineeTocitizen  citizen?  @relation("complaints_citizenID_complaineeTocitizen", fields: [citizenID_complainee], references: [citizenID], onDelete: NoAction, onUpdate: NoAction, map: "complaints_ibfk_3")
+>>>>>>> b857003bc7e7f21f1ed205f105b50f2217bc9cda
 =======
   admin                                             admin?    @relation(fields: [adminID], references: [AdminID], onDelete: NoAction, onUpdate: NoAction, map: "complaints_ibfk_1")
   citizen_complaints_citizenID_complainantTocitizen citizen?  @relation("complaints_citizenID_complainantTocitizen", fields: [citizenID_complainant], references: [citizenID], onDelete: NoAction, onUpdate: NoAction, map: "complaints_ibfk_2")
@@ -183,9 +209,15 @@ model fee {
   feetype    String?   @db.VarChar(100)
   businessID Int?
 <<<<<<< HEAD
+<<<<<<< HEAD
   admin      admin?    @relation(fields: [adminID], references: [AdminID], onDelete: Cascade, onUpdate: Restrict, map: "fee_ibfk_1")
   citizen    citizen?  @relation(fields: [CitizenID], references: [citizenID], onDelete: Cascade, onUpdate: Restrict, map: "fee_ibfk_2")
   business   business? @relation(fields: [businessID], references: [businessID], onDelete: Cascade, onUpdate: Restrict, map: "fee_ibfk_3")
+=======
+  admin      admin?    @relation(fields: [adminID], references: [AdminID], onDelete: NoAction, onUpdate: NoAction, map: "fee_ibfk_1")
+  citizen    citizen?  @relation(fields: [CitizenID], references: [citizenID], onDelete: NoAction, onUpdate: NoAction, map: "fee_ibfk_2")
+  business   business? @relation(fields: [businessID], references: [businessID], onDelete: NoAction, onUpdate: NoAction, map: "fee_ibfk_3")
+>>>>>>> b857003bc7e7f21f1ed205f105b50f2217bc9cda
 =======
   admin      admin?    @relation(fields: [adminID], references: [AdminID], onDelete: NoAction, onUpdate: NoAction, map: "fee_ibfk_1")
   citizen    citizen?  @relation(fields: [CitizenID], references: [citizenID], onDelete: NoAction, onUpdate: NoAction, map: "fee_ibfk_2")
@@ -210,7 +242,11 @@ model fiscalinfo {
   other                   Decimal?  @db.Decimal(10, 2)
   barangayNo              Int?
 <<<<<<< HEAD
+<<<<<<< HEAD
   barangay                barangay? @relation(fields: [barangayNo], references: [barangayNo], onDelete: Cascade, onUpdate: Restrict, map: "fiscalinfo_ibfk_1")
+=======
+  barangay                barangay? @relation(fields: [barangayNo], references: [barangayNo], onDelete: NoAction, onUpdate: NoAction, map: "fiscalinfo_ibfk_1")
+>>>>>>> b857003bc7e7f21f1ed205f105b50f2217bc9cda
 =======
   barangay                barangay? @relation(fields: [barangayNo], references: [barangayNo], onDelete: NoAction, onUpdate: NoAction, map: "fiscalinfo_ibfk_1")
 >>>>>>> b857003bc7e7f21f1ed205f105b50f2217bc9cda
@@ -224,7 +260,11 @@ model household {
   barangayNo         Int?
   citizen            citizen[]
 <<<<<<< HEAD
+<<<<<<< HEAD
   barangay           barangay? @relation(fields: [barangayNo], references: [barangayNo], onDelete: Cascade, onUpdate: Restrict, map: "household_ibfk_1")
+=======
+  barangay           barangay? @relation(fields: [barangayNo], references: [barangayNo], onDelete: NoAction, onUpdate: NoAction, map: "household_ibfk_1")
+>>>>>>> b857003bc7e7f21f1ed205f105b50f2217bc9cda
 =======
   barangay           barangay? @relation(fields: [barangayNo], references: [barangayNo], onDelete: NoAction, onUpdate: NoAction, map: "household_ibfk_1")
 >>>>>>> b857003bc7e7f21f1ed205f105b50f2217bc9cda
@@ -238,7 +278,11 @@ model item {
   itemType           String?   @db.VarChar(100)
   barangayNo         Int?
 <<<<<<< HEAD
+<<<<<<< HEAD
   barangay           barangay? @relation(fields: [barangayNo], references: [barangayNo], onDelete: Cascade, onUpdate: Restrict, map: "item_ibfk_1")
+=======
+  barangay           barangay? @relation(fields: [barangayNo], references: [barangayNo], onDelete: NoAction, onUpdate: NoAction, map: "item_ibfk_1")
+>>>>>>> b857003bc7e7f21f1ed205f105b50f2217bc9cda
 =======
   barangay           barangay? @relation(fields: [barangayNo], references: [barangayNo], onDelete: NoAction, onUpdate: NoAction, map: "item_ibfk_1")
 >>>>>>> b857003bc7e7f21f1ed205f105b50f2217bc9cda
@@ -248,6 +292,7 @@ model item {
 
 model logs {
 <<<<<<< HEAD
+<<<<<<< HEAD
   logID   Int       @id @default(autoincrement())
   adminID Int?
   history String?   @db.VarChar(255)
@@ -255,6 +300,8 @@ model logs {
   time    DateTime? @db.Time(0)
   admin   admin?    @relation(fields: [adminID], references: [AdminID], onDelete: Cascade, onUpdate: Restrict, map: "logs_ibfk_1")
 =======
+=======
+>>>>>>> b857003bc7e7f21f1ed205f105b50f2217bc9cda
   logID     Int       @id @default(autoincrement())
   adminID   Int?
   action    String?   @db.VarChar(255)
@@ -263,6 +310,9 @@ model logs {
   citizenID Int?
   admin     admin?    @relation(fields: [adminID], references: [AdminID], onDelete: NoAction, onUpdate: NoAction, map: "logs_ibfk_1")
   citizen   citizen?  @relation(fields: [citizenID], references: [citizenID], onDelete: NoAction, onUpdate: NoAction, map: "logs_ibfk_2")
+<<<<<<< HEAD
+>>>>>>> b857003bc7e7f21f1ed205f105b50f2217bc9cda
+=======
 >>>>>>> b857003bc7e7f21f1ed205f105b50f2217bc9cda
 
   @@index([adminID], map: "adminID")
@@ -278,9 +328,15 @@ model note {
   Note       String?   @db.Text
   Date       DateTime? @db.Date
 <<<<<<< HEAD
+<<<<<<< HEAD
   admin      admin?    @relation(fields: [AdminID], references: [AdminID], onDelete: Cascade, onUpdate: Restrict, map: "note_ibfk_1")
   citizen    citizen?  @relation(fields: [citizenID], references: [citizenID], onDelete: Cascade, onUpdate: Restrict, map: "note_ibfk_2")
   business   business? @relation(fields: [BusinessID], references: [businessID], onDelete: Cascade, onUpdate: Restrict, map: "note_ibfk_3")
+=======
+  admin      admin?    @relation(fields: [AdminID], references: [AdminID], onDelete: NoAction, onUpdate: NoAction, map: "note_ibfk_1")
+  citizen    citizen?  @relation(fields: [citizenID], references: [citizenID], onDelete: NoAction, onUpdate: NoAction, map: "note_ibfk_2")
+  business   business? @relation(fields: [BusinessID], references: [businessID], onDelete: NoAction, onUpdate: NoAction, map: "note_ibfk_3")
+>>>>>>> b857003bc7e7f21f1ed205f105b50f2217bc9cda
 =======
   admin      admin?    @relation(fields: [AdminID], references: [AdminID], onDelete: NoAction, onUpdate: NoAction, map: "note_ibfk_1")
   citizen    citizen?  @relation(fields: [citizenID], references: [citizenID], onDelete: NoAction, onUpdate: NoAction, map: "note_ibfk_2")
@@ -300,7 +356,11 @@ model physicalinfo {
   economicSource     String?   @db.VarChar(255)
   barangayNo         Int?
 <<<<<<< HEAD
+<<<<<<< HEAD
   barangay           barangay? @relation(fields: [barangayNo], references: [barangayNo], onDelete: Cascade, onUpdate: Restrict, map: "physicalinfo_ibfk_1")
+=======
+  barangay           barangay? @relation(fields: [barangayNo], references: [barangayNo], onDelete: NoAction, onUpdate: NoAction, map: "physicalinfo_ibfk_1")
+>>>>>>> b857003bc7e7f21f1ed205f105b50f2217bc9cda
 =======
   barangay           barangay? @relation(fields: [barangayNo], references: [barangayNo], onDelete: NoAction, onUpdate: NoAction, map: "physicalinfo_ibfk_1")
 >>>>>>> b857003bc7e7f21f1ed205f105b50f2217bc9cda
@@ -320,7 +380,11 @@ model politicalinfo {
   BADACLevel       String?   @db.VarChar(50)
   barangayNo       Int?
 <<<<<<< HEAD
+<<<<<<< HEAD
   barangay         barangay? @relation(fields: [barangayNo], references: [barangayNo], onDelete: Cascade, onUpdate: Restrict, map: "politicalinfo_ibfk_1")
+=======
+  barangay         barangay? @relation(fields: [barangayNo], references: [barangayNo], onDelete: NoAction, onUpdate: NoAction, map: "politicalinfo_ibfk_1")
+>>>>>>> b857003bc7e7f21f1ed205f105b50f2217bc9cda
 =======
   barangay         barangay? @relation(fields: [barangayNo], references: [barangayNo], onDelete: NoAction, onUpdate: NoAction, map: "politicalinfo_ibfk_1")
 >>>>>>> b857003bc7e7f21f1ed205f105b50f2217bc9cda
@@ -335,7 +399,11 @@ model servicevehicles {
   PlateNo          String?   @db.VarChar(50)
   barangayNo       Int?
 <<<<<<< HEAD
+<<<<<<< HEAD
   barangay         barangay? @relation(fields: [barangayNo], references: [barangayNo], onDelete: Cascade, onUpdate: Restrict, map: "servicevehicles_ibfk_1")
+=======
+  barangay         barangay? @relation(fields: [barangayNo], references: [barangayNo], onDelete: NoAction, onUpdate: NoAction, map: "servicevehicles_ibfk_1")
+>>>>>>> b857003bc7e7f21f1ed205f105b50f2217bc9cda
 =======
   barangay         barangay? @relation(fields: [barangayNo], references: [barangayNo], onDelete: NoAction, onUpdate: NoAction, map: "servicevehicles_ibfk_1")
 >>>>>>> b857003bc7e7f21f1ed205f105b50f2217bc9cda
@@ -361,7 +429,11 @@ model socioeconomicinfo {
   FarmProduceStation                  String?   @db.VarChar(255)
   barangayNo                          Int?
 <<<<<<< HEAD
+<<<<<<< HEAD
   barangay                            barangay? @relation(fields: [barangayNo], references: [barangayNo], onDelete: Cascade, onUpdate: Restrict, map: "socioeconomicinfo_ibfk_1")
+=======
+  barangay                            barangay? @relation(fields: [barangayNo], references: [barangayNo], onDelete: NoAction, onUpdate: NoAction, map: "socioeconomicinfo_ibfk_1")
+>>>>>>> b857003bc7e7f21f1ed205f105b50f2217bc9cda
 =======
   barangay                            barangay? @relation(fields: [barangayNo], references: [barangayNo], onDelete: NoAction, onUpdate: NoAction, map: "socioeconomicinfo_ibfk_1")
 >>>>>>> b857003bc7e7f21f1ed205f105b50f2217bc9cda
@@ -397,8 +469,13 @@ model personalinfo {
   AdminID           Int?
   citizenID         Int?
 <<<<<<< HEAD
+<<<<<<< HEAD
   admin             admin?    @relation(fields: [AdminID], references: [AdminID], onDelete: Cascade, onUpdate: Restrict, map: "personalinfo_ibfk_1")
   citizen           citizen?  @relation(fields: [citizenID], references: [citizenID], onDelete: Cascade, onUpdate: Restrict, map: "personalinfo_ibfk_2")
+=======
+  admin             admin?    @relation(fields: [AdminID], references: [AdminID], onDelete: NoAction, onUpdate: NoAction, map: "personalinfo_ibfk_1")
+  citizen           citizen?  @relation(fields: [citizenID], references: [citizenID], onDelete: NoAction, onUpdate: NoAction, map: "personalinfo_ibfk_2")
+>>>>>>> b857003bc7e7f21f1ed205f105b50f2217bc9cda
 =======
   admin             admin?    @relation(fields: [AdminID], references: [AdminID], onDelete: NoAction, onUpdate: NoAction, map: "personalinfo_ibfk_1")
   citizen           citizen?  @relation(fields: [citizenID], references: [citizenID], onDelete: NoAction, onUpdate: NoAction, map: "personalinfo_ibfk_2")
@@ -415,7 +492,11 @@ model purok {
   business   business[]
   citizen    citizen[]
 <<<<<<< HEAD
+<<<<<<< HEAD
   barangay   barangay? @relation(fields: [BarangayNo], references: [barangayNo], onDelete: Cascade, onUpdate: Restrict, map: "purok_ibfk_1")
+=======
+  barangay   barangay?  @relation(fields: [BarangayNo], references: [barangayNo], onDelete: NoAction, onUpdate: NoAction, map: "purok_ibfk_1")
+>>>>>>> b857003bc7e7f21f1ed205f105b50f2217bc9cda
 =======
   barangay   barangay?  @relation(fields: [BarangayNo], references: [barangayNo], onDelete: NoAction, onUpdate: NoAction, map: "purok_ibfk_1")
 >>>>>>> b857003bc7e7f21f1ed205f105b50f2217bc9cda
@@ -432,9 +513,15 @@ model transactions {
   purpose       String?   @db.VarChar(255)
   businessID    Int?
 <<<<<<< HEAD
+<<<<<<< HEAD
   admin         admin?    @relation(fields: [adminID], references: [AdminID], onDelete: Cascade, onUpdate: Restrict, map: "transactions_ibfk_1")
   citizen       citizen?  @relation(fields: [citizenID], references: [citizenID], onDelete: Cascade, onUpdate: Restrict, map: "transactions_ibfk_2")
   business      business? @relation(fields: [businessID], references: [businessID], onDelete: Cascade, onUpdate: Restrict, map: "transactions_ibfk_3")
+=======
+  admin         admin?    @relation(fields: [adminID], references: [AdminID], onDelete: NoAction, onUpdate: NoAction, map: "transactions_ibfk_1")
+  citizen       citizen?  @relation(fields: [citizenID], references: [citizenID], onDelete: NoAction, onUpdate: NoAction, map: "transactions_ibfk_2")
+  business      business? @relation(fields: [businessID], references: [businessID], onDelete: NoAction, onUpdate: NoAction, map: "transactions_ibfk_3")
+>>>>>>> b857003bc7e7f21f1ed205f105b50f2217bc9cda
 =======
   admin         admin?    @relation(fields: [adminID], references: [AdminID], onDelete: NoAction, onUpdate: NoAction, map: "transactions_ibfk_1")
   citizen       citizen?  @relation(fields: [citizenID], references: [citizenID], onDelete: NoAction, onUpdate: NoAction, map: "transactions_ibfk_2")
@@ -455,8 +542,13 @@ model account {
   AdminID     Int?
   citizenID   Int?
 <<<<<<< HEAD
+<<<<<<< HEAD
   admin       admin?   @relation(fields: [AdminID], references: [AdminID], onDelete: Cascade, onUpdate: Restrict, map: "account_ibfk_1")
   citizen     citizen? @relation(fields: [citizenID], references: [citizenID], onDelete: Cascade, onUpdate: Restrict, map: "account_ibfk_2")
+=======
+  admin       admin?   @relation(fields: [AdminID], references: [AdminID], onDelete: NoAction, onUpdate: NoAction, map: "account_ibfk_1")
+  citizen     citizen? @relation(fields: [citizenID], references: [citizenID], onDelete: NoAction, onUpdate: NoAction, map: "account_ibfk_2")
+>>>>>>> b857003bc7e7f21f1ed205f105b50f2217bc9cda
 =======
   admin       admin?   @relation(fields: [AdminID], references: [AdminID], onDelete: NoAction, onUpdate: NoAction, map: "account_ibfk_1")
   citizen     citizen? @relation(fields: [citizenID], references: [citizenID], onDelete: NoAction, onUpdate: NoAction, map: "account_ibfk_2")
