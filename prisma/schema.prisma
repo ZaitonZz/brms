@@ -29,7 +29,7 @@ model archive {
   archiveID    Int      @id @default(autoincrement())
   description String   @db.VarChar(255)
   date        DateTime @db.Date
-  file        bytes 
+  file        Bytes 
   adminID      Int
   admin        admin    @relation(fields: [adminID], references: [AdminID])
 }
