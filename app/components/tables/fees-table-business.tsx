@@ -24,16 +24,18 @@ import {
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { businessFee } from "@/app/types/types"
+import { business } from "@prisma/client"
 
-interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[]
+interface DataTableProps<TData extends businessFee> {
+  columns: ColumnDef<TData>[]
   data: TData[]
 }
 
-export function BarangayDataTable<TData, TValue>({
+export function BusinessFeesTable<TData extends businessFee>({
   columns,
   data,
-}: DataTableProps<TData, TValue>) {
+}: DataTableProps<TData>) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   
@@ -51,17 +53,19 @@ export function BarangayDataTable<TData, TValue>({
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel()
   })
-
+  
   return (
     <>
     <div>
     <div className="flex items-center py-4">
+
       </div>
     </div>
      <div className="rounded-md border" style={{ borderTop: '4px solid #558750' }}>
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup, index) => (
+           
             <TableRow key={headerGroup.id}
               className={index === 0 ? 'first-header-row-style' : ''}
               >
@@ -80,8 +84,11 @@ export function BarangayDataTable<TData, TValue>({
             </TableRow>
           ))}
         </TableHeader>
+        
         <TableBody>
+            
           {table.getRowModel().rows?.length ? (
+      
             table.getRowModel().rows.map((row,index) => (
               <TableRow
                 key={row.id}
@@ -89,6 +96,7 @@ export function BarangayDataTable<TData, TValue>({
                 data-state={row.getIsSelected() && "selected"}
               >
                 {row.getVisibleCells().map((cell) => (
+                    console.log("portt"),
                   <TableCell key={cell.id}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
@@ -96,7 +104,9 @@ export function BarangayDataTable<TData, TValue>({
               </TableRow>
             ))
           ) : (
+           
             <TableRow>
+                
               <TableCell colSpan={columns.length} className="h-24 text-center">
                 No results.
               </TableCell>
@@ -109,16 +119,19 @@ export function BarangayDataTable<TData, TValue>({
     <div className="flex items-center justify-end space-x-2 py-4">
         <Button
           variant="outline"
+          
           size="sm"
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
         >
+            
           Previous
         </Button>
         <Button
           variant="outline"
           size="sm"
           onClick={() => table.nextPage()}
+          
           disabled={!table.getCanNextPage()}
         >
           Next

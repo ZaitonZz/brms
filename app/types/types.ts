@@ -1,3 +1,5 @@
+
+
 export interface PersonalInformation {
     firstName?: string; // VARCHAR(255) NULL
     middleName?: string; // VARCHAR(255) NULL
@@ -43,4 +45,38 @@ export interface Note {
     firstname?: string;
     lastname?: string;
     businessName?: string;
+  }
+
+  export interface Fee {
+    feeID: number;
+    adminID: number;
+    CitizenID: number;
+    Date: string;
+    Time: string;
+    amountPaid: string;
+    feetype: string;
+    businessID: number;
+  }
+
+  export interface businessFee {
+    feeID:number ;
+    adminID: number;
+    BusinessID: number,
+    Date: string;
+    Time: string;
+    amountPaid:string;
+    feetype: string;
+    businessName: string;
+  }
+
+  export interface citizensFee {
+    feeID: number;
+    adminID: number;
+    CitizenID?: number;
+    Date: string;
+    Time: string;
+    amountPaid: number;
+    feetype: string;
+    firstname?: string;
+    lastname?: string;
   }
