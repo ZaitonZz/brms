@@ -1,3 +1,5 @@
+
+
 export interface PersonalInformation {
     citizenID:number;
     firstName?: string; // VARCHAR(255) NULL
@@ -47,10 +49,44 @@ export interface Note {
     businessName?: string;
   }
 
-export interface logs {
+  export interface logs {
     barangayName?: string; 
     Admin: string; 
     History: string;
     Date: number;
     Time:number;
-}
+  }
+
+  export interface Fee {
+    feeID: number;
+    adminID: number;
+    CitizenID: number;
+    Date: string;
+    Time: string;
+    amountPaid: string;
+    feetype: string;
+    businessID: number;
+  }
+
+  export interface businessFee {
+    feeID:number ;
+    adminID: number;
+    BusinessID: number,
+    Date: string;
+    Time: string;
+    amountPaid:string;
+    feetype: string;
+    businessName: string;
+  }
+
+  export interface citizensFee {
+    feeID: number;
+    adminID: number;
+    CitizenID?: number;
+    Date: string;
+    Time: string;
+    amountPaid: number;
+    feetype: string;
+    firstname?: string;
+    lastname?: string;
+  }
