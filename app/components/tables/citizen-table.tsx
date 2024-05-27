@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
 import { PersonalInformation } from "../../types/types";
+import { rankItem } from "@tanstack/match-sorter-utils";
 
 interface DataTableProps<TData extends PersonalInformation> {
   columns: ColumnDef<TData>[]

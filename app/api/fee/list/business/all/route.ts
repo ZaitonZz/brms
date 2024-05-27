@@ -24,19 +24,11 @@ export async function GET() {
                 },
             },
         });
-
-        // Map the fees to include businessName directly, handling possible null values
         const formattedFees = fees.map(fee => ({
-            feeID: fee.feeID,
-            adminID: fee.adminID,
-            businessID: fee.businessID,
-            Date: fee.Date,
-            Time: fee.Time,
-            amountPaid: fee.amountPaid,
-            feetype: fee.feetype,
-            businessName: fee.business ? fee.business.businessName : null, // Ensure businessName is handled correctly
+            ...fee,
+            businessName: fee.business ? fee.business.businessName : null,
         }));
-
+   
         return NextResponse.json(formattedFees);
     } catch (error) {
         console.error('Error fetching business fees:', error);

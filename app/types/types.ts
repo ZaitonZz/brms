@@ -87,6 +87,6 @@ export interface Note {
     Time: string;
     amountPaid: number;
     feetype: string;
-    firstname?: string;
-    lastname?: string;
+    firstname: string;
+    lastName: string;
   }

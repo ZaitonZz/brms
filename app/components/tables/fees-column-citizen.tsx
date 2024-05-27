@@ -38,7 +38,7 @@ export const feesCitizenColumns: ColumnDef<citizensFee>[] = [
     header: 'First Name',
   },
   {
-    accessorKey: 'lastname',
+    accessorKey: 'lastName',
     header: 'Last Name',
   },
 ];
