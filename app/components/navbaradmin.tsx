@@ -1,6 +1,5 @@
 "use client"
 import React, { useState } from 'react';
-import LogoutButton from './logout';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,6 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 import { ChevronDown, PlusCircle } from 'lucide-react';
+import LogoutButton from './logout';
 
 function NavbarAdmin() {
   
@@ -34,8 +34,10 @@ function NavbarAdmin() {
         </DropdownMenu>
       </div>
 
-      <a href="admin" className="mr-12 hover:text-gray-200">Home</a>
-      <a href="/" className="mr-12 hover:text-gray-200">Report</a>
+      <a href="http://localhost:3000/admin" className="mr-12 hover:text-gray-200">Home</a>
+      <a href="/admin/reports" className="mr-12 hover:text-gray-200">Report</a>
+      <a href="/admin/barangay" className="mr-12 hover:text-gray-200">Barangay</a>
+
 
 
       <div className="relative inline">
