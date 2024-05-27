@@ -43,7 +43,7 @@ function NavbarSuperAdmin() {
       </div>
 
       <a href="superadmin" className="mr-12 hover:text-gray-200">Home</a>
-      <a href="/" className="mr-12 hover:text-gray-200">Logs</a>
+      <a href="" className="mr-12 hover:text-gray-200">Logs</a>
 
 
 

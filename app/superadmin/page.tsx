@@ -8,9 +8,9 @@ import { getWithExpiry, isLocalStorageKeyEmptyOrExpired } from '../util/session'
 import { fetchBarangay } from '../util/fetch-barangay'
 import { Barangay } from '../types/types'
 import { fetchAccessLevel } from '../util/fetch-access-level'
-import { BarangayDataTable } from '../components/barangay-table'
+import { BarangayDataTable } from '../components/tables/barangay-table'
 import NavBar from '../components/navbar'
-import { BarangayColumns } from '../components/barangay-column'
+import { BarangayColumns } from '../components/tables/barangay-column'
 
 
 export default function superadminpage() {

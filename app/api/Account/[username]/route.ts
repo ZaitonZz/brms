@@ -1,6 +1,5 @@
 import prisma from "@/prisma/prisma";
-import { NextResponse } from "next/server";
-import { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from "next/server";
 
 
 export async function GET(req: NextRequest, { params }: { params: { username: string } }) {
