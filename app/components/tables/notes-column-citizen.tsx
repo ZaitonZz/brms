@@ -1,6 +1,6 @@
 "use client"
 
-import { Note } from "@/app/types/types";
+import { CitizenNote } from "@/app/types/types";
 import { ColumnDef } from "@tanstack/react-table"
 import {
   DropdownMenu,
@@ -29,7 +29,7 @@ async function onDelete(noteID:number) {
   }
 }
 
-export const notesColumns: ColumnDef<Note>[] = [
+export const CitizenNotesColumns: ColumnDef<CitizenNote>[] = [
     {
       accessorKey: 'Time',
       header: 'Time',

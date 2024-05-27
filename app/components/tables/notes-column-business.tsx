@@ -1,6 +1,5 @@
 "use client"
 
-import { Note } from "@/app/types/types";
 import { ColumnDef } from "@tanstack/react-table"
 import {
   DropdownMenu,
@@ -12,6 +11,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
 import { ArrowUpDown,MoreHorizontal } from "lucide-react"
+import { BusinessNote } from "@/app/types/types"
 
 async function onDelete(noteID:number) {
   try {
@@ -30,7 +30,7 @@ async function onDelete(noteID:number) {
 }
 
 
-export const notesColumns: ColumnDef<Note>[] = [
+export const BusinessNotesColumns: ColumnDef<BusinessNote>[] = [
     {
       accessorKey: 'Time',
       header: 'Time',

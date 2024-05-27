@@ -8,7 +8,7 @@ import NavBar from '../components/navbar';
 import { useRouter } from 'next/navigation';
 import { getWithExpiry, isLocalStorageKeyEmptyOrExpired } from '../util/session';
 import { fetchCitizens } from '../util/fetch-citizen';
-import { citizensFee, PersonalInformation } from '../types/types';
+import { BusinessNote, CitizenNote, citizensFee, PersonalInformation, Staff } from '../types/types';
 import { fetchAccessLevel } from '../util/fetch-access-level';
 import { CitizenDataTable } from '../components/tables/citizen-table';
 import NavLinksFees from './navlinkfees';
@@ -16,9 +16,19 @@ import { businessFee } from '../types/types';
 import { fetchBusinessFee } from '../util/fetch-business-fees';
 import { BusinessFeesTable } from '../components/tables/fees-table-business';
 import { feesBusinessColumns } from '../components/tables/fees-column-business';
+import { fetchStaffs } from '../util/fetch-staffs';
+import { fetchBarangayNo } from '../util/fetch-barangay-no';
+import { StaffsTable } from '../components/tables/staffs-table';
+import { staffsColumns } from '../components/tables/staffs-column';
 import { fetchCitizensFee } from '../util/fetch-citizen-fees';
 import { CitizensFeesTable } from '../components/tables/fees-table-citizen';
 import { feesCitizenColumns } from '../components/tables/fees-column-citizen';
+import BusinessNotesTable from '../components/tables/notes-table-business';
+import CitizenNotesTable from '../components/tables/notes-table-citizen';
+import { BusinessNotesColumns } from '../components/tables/notes-column-business';
+import { CitizenNotesColumns } from '../components/tables/notes-column-citizen';
+import { fetchBusinessNotes } from '../util/fetch-business-notes';
+import { fetchCitizenNotes } from '../util/fetch-citizen-notes';
 
 async function getCit(): Promise<PersonalInformation[]> {
   const res = await fetch('https://6620bff93bf790e070b084e4.mockapi.io/Citizen');
@@ -28,11 +38,14 @@ async function getCit(): Promise<PersonalInformation[]> {
 
 
 export default function AdminPage() {
-  const [data, setData] = useState<PersonalInformation[]>([]);
   const [dataBusinessFees, setDataBusinessFees] = useState<businessFee[]>([]);
+  const [selectedTab, setSelectedTab] = useState('Staffs');
+  const [selectedTabFees, setSelectedTabFees] = useState('Citizen');
+  const [selectedTabNotes, setSelectedTabNotes] = useState('Citizen');
+  const [staffData, setStaffData] = useState<Staff[]>([]);
   const [dataCitizenFees, setDataCitizenFees] = useState<citizensFee[]>([]);
-  const [selectedTab, setSelectedTab] = useState('Admins');
-  const [selectedTabFees, setSelectedTabFees] = useState('Admins');
+  const [dataCitizenNotes, setDataCitizenNotes] = useState<CitizenNote[]>([]);
+  const [dataBusinessNotes, setDataBusinessNotes] = useState<BusinessNote[]>([]);
   const router = useRouter();
 
   useEffect(() => {
@@ -42,14 +55,17 @@ export default function AdminPage() {
       } else {
         const username = getWithExpiry('username');
         const accessLevel = await fetchAccessLevel(username);
-        if (accessLevel == 2 || accessLevel == 3) {
-          const fetchedData = await fetchCitizens();
+        if (accessLevel == 3) {
           const fetchedBusinessFeesData = await fetchBusinessFee();
-          const fetchedCitizensFeesData = await fetchCitizensFee();
-          setData(fetchedData);
+          const barangayNo = await fetchBarangayNo(username);
+          const fetchedStaffData = await fetchStaffs(barangayNo);
+          const fetchedBusinessNotesData = await fetchBusinessNotes();
+          const fetchedCitizenNotesData = await fetchCitizenNotes();
+          setStaffData(fetchedStaffData);
+          setDataBusinessNotes(fetchedBusinessNotesData);
+          setDataCitizenNotes(fetchedCitizenNotesData);
           setDataBusinessFees(fetchedBusinessFeesData);
-          setDataCitizenFees(fetchedCitizensFeesData);
-        } else if (accessLevel == 1 || accessLevel == 4) {
+        } else if (accessLevel == 1 || accessLevel == 4 || accessLevel == 2) {
           router.push('http://localhost:3000/');
         }
       }
@@ -65,10 +81,20 @@ export default function AdminPage() {
         return <><CitizensFeesTable columns={feesCitizenColumns} data={dataCitizenFees}/></>;
     }
   } 
+
+  const renderTableNotes = () => {
+    switch (selectedTabNotes) {
+      case 'Business':
+        return <BusinessNotesTable columns={BusinessNotesColumns} data={dataBusinessNotes} />;
+      case 'Citizen':
+        return <CitizenNotesTable columns={CitizenNotesColumns} data={dataCitizenNotes}/>;
+    }
+  } 
+
   const renderTable = () => {
     switch (selectedTab) {
-      case 'Admins':
-        return <CitizenDataTable columns={CitizenColumns} data={data} />;
+      case 'Staffs':
+        return <StaffsTable columns={staffsColumns} data={staffData} />;
       case 'Transactions':
         return <div>Transactions Table</div>;
       case 'Fees':
@@ -77,7 +103,7 @@ export default function AdminPage() {
       case 'Complaints':
         return <div>Complaints Table</div>;
       case 'Notes':
-        return <div>Notes Table</div>;
+        return <><NavLinksFees onSelect={setSelectedTabNotes} /><div>{renderTableNotes()}</div></>;
       case 'Logs':
         return <div>Logs Table</div>;
       default:

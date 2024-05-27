@@ -36,7 +36,7 @@ export interface Barangay {
     City_municipality?: string; // VARCHAR(255) NULL
 }
 
-export interface Note {
+export interface CitizenNote {
     noteID: number;
     AdminID: number;
     citizenID?: number;
@@ -46,6 +46,16 @@ export interface Note {
     Date: string;
     firstname?: string;
     lastname?: string;
+  }
+
+  export interface BusinessNote {
+    noteID: number;
+    AdminID: number;
+    citizenID?: number;
+    BusinessID?: number;
+    Time: string;
+    Note: string;
+    Date: string;
     businessName?: string;
   }
 
@@ -90,3 +100,25 @@ export interface Note {
     firstname: string;
     lastName: string;
   }
+
+  export interface Staff {
+    accountID: number;
+    Username: string;
+    Email: string;
+    AccessLevel: number;
+    firstname: string;
+    lastname: string;
+    address: string;
+  }
+
+  export interface BarangayData {
+    BarangayName: string;
+    Address: string;
+    Telefax: string;
+    Email: string;
+    Website: string;
+    Icon: string;
+    Province: string;
+    City_municipality: string;
+    Region: string;
+}

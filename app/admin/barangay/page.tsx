@@ -2,22 +2,45 @@
 "use client";
 import NavBar from "@/app/components/navbar";
 import Footer from "@/app/components/footer";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NavLinksBarangay from "@/app/components/navlinks-barangay";
-import Editbarangay from "./all";
+import Editbarangay from "./editbarangay";
 import Editsocioeconomic from "./socioeconomic";
 import EditPhysicalinfo from "./physicalinfo";
 import Editfiscal from "./fiscal";
 import Editpoliticalinfo from "./political";
+import { fetchAccessLevel } from "@/app/util/fetch-access-level";
+import { fetchBarangayNo } from "@/app/util/fetch-barangay-no";
+import { isLocalStorageKeyEmptyOrExpired, getWithExpiry } from "@/app/util/session";
+import router from "next/router";
 
 function Barangay() {
   const [selectedTab, setSelectedTab] = useState("Barangay");
-  const [bloodTypeData, setBloodTypeData] = useState([]);
+  const [barangayNo, setBarangayNo] = useState<number | null>();
+
+  useEffect(() => {
+    const checkUserAndFetchData = async () => {
+      if (isLocalStorageKeyEmptyOrExpired('username')) {
+        router.push('http://localhost:3000/');
+      } else {
+        const username = getWithExpiry('username');
+        const accessLevel = await fetchAccessLevel(username);
+        if (accessLevel == 3) {
+          const bgNo = await fetchBarangayNo(username);
+          setBarangayNo(bgNo);
+        } else if (accessLevel == 1 || accessLevel == 4 || accessLevel == 2) {
+          router.push('http://localhost:3000/');
+        }
+      }
+    };
+
+    checkUserAndFetchData();
+  }, [router]);
 
   const renderContent = () => {
     switch (selectedTab) {
       case 'Barangay':
-        return <Editbarangay/>;
+        return <Editbarangay barangayNo={barangayNo}/>;
       case "Socio Economic info":
         return <Editsocioeconomic/>;
       case "Physical Info":

@@ -1,27 +1,34 @@
+// components/staffs-column.tsx
 "use client"
+import { Staff } from '@/app/types/types';
+import { ColumnDef } from '@tanstack/react-table';
 
-import { ColumnDef } from "@tanstack/react-table"
+// Define the data structure for the staff
 
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
-export type Payment = {
-  id: string
-  amount: number
-  status: "pending" | "processing" | "success" | "failed"
-  email: string
-}
-
-export const StaffColumns: ColumnDef<Payment>[] = [
+// Define the columns for the staff data table
+export const staffsColumns: ColumnDef<Staff>[] = [
   {
-    accessorKey: "status",
-    header: "Status",
+    accessorKey: 'accountID',
+    header: 'Account ID',
   },
   {
-    accessorKey: "email",
-    header: "Email",
+    accessorKey: 'Username',
+    header: 'Username',
   },
   {
-    accessorKey: "amount",
-    header: "Amount",
+    accessorKey: 'Email',
+    header: 'Email',
   },
-]
+  {
+    accessorKey: 'AccessLevel',
+    header: 'Access Level',
+  },
+  {
+    accessorKey: 'firstname',
+    header: 'First Name',
+  },
+  {
+    accessorKey: 'lastName',
+    header: 'Last Name',
+  },
+];

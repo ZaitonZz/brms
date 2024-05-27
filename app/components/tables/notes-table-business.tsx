@@ -12,25 +12,26 @@ import {
 } from '@tanstack/react-table';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
-import { Note } from '@/app/types/types';
 import { rankItem } from '@tanstack/match-sorter-utils';
+import { BusinessNote } from '@/app/types/types';
 
 
 // Define the props for the NotesTable component
 interface NotesTableProps {
-  data: Note[];
-  columns: ColumnDef<Note>[];
+  data: BusinessNote[];
+  columns: ColumnDef<BusinessNote>[];
 }
 
-const [globalFilter, setGlobalFilter] = React.useState('')
-const fuzzyFilter = (row: Row<Note>, columnId: string, value: string, addMeta: (itemRank: any) => void) => {
+const fuzzyFilter = (row: Row<BusinessNote>, columnId: string, value: string, addMeta: (itemRank: any) => void) => {
   const itemRank = rankItem(row.getValue(columnId), value);
   addMeta(itemRank);
   return itemRank.passed;
 };
 
 
-const NotesTable: React.FC<NotesTableProps> = ({ data, columns }) => {
+const BusinessNotesTable: React.FC<NotesTableProps> = ({ data, columns }) => {
+  
+const [globalFilter, setGlobalFilter] = React.useState('')
   const table = useReactTable({
     data,
     columns,
@@ -99,4 +100,4 @@ const NotesTable: React.FC<NotesTableProps> = ({ data, columns }) => {
   );
 };
 
-export default NotesTable;
+export default BusinessNotesTable;
