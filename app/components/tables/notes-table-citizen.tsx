@@ -8,7 +8,9 @@ import {
   getFilteredRowModel,
   getSortedRowModel,
   flexRender,
+  Row
 } from '@tanstack/react-table';
+import { rankItem } from '@tanstack/match-sorter-utils';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Note } from '@/app/types/types';
@@ -20,10 +22,19 @@ interface NotesTableProps {
   columns: ColumnDef<Note>[];
 }
 
+const fuzzyFilter = (row: Row<Note>, columnId: string, value: string, addMeta: (itemRank: any) => void) => {
+  const itemRank = rankItem(row.getValue(columnId), value);
+  addMeta(itemRank);
+  return itemRank.passed;
+};
+
+const [globalFilter, setGlobalFilter] = React.useState('')
+
 const NotesTable: React.FC<NotesTableProps> = ({ data, columns }) => {
   const table = useReactTable({
     data,
     columns,
+    globalFilterFn: fuzzyFilter,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
@@ -32,6 +43,16 @@ const NotesTable: React.FC<NotesTableProps> = ({ data, columns }) => {
 
   return (
     <>
+    <div>
+        <div className="flex items-center">
+          <input
+            value={globalFilter}
+            onChange={(e) => setGlobalFilter(e.target.value)}
+            placeholder="Search..."
+            className="py-4 border-2 border-[#71b46b] rounded-lg mb-1 w-96 max-h-2"
+          />
+        </div>
+      </div>
       <div className="rounded-md border" style={{ borderTop: '4px solid #558750' }}>
         <Table>
           <TableHeader>

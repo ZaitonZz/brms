@@ -11,9 +11,7 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-  Row
 } from "@tanstack/react-table"
-import { rankItem } from '@tanstack/match-sorter-utils';
 import {
   Table,
   TableBody,
@@ -23,26 +21,20 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
-import { PersonalInformation } from "../../types/types";
+import { logs } from "../../types/types";
 
-interface DataTableProps<TData extends PersonalInformation> {
+interface DataTableProps<TData extends logs> {
   columns: ColumnDef<TData>[]
   data: TData[]
 }
 
-const fuzzyFilter = (row: Row<PersonalInformation>, columnId: string, value: string, addMeta: (itemRank: any) => void) => {
-  const itemRank = rankItem(row.getValue(columnId), value);
-  addMeta(itemRank);
-  return itemRank.passed;
-};
 
-export function CitizenDataTable<TData extends PersonalInformation>({
+export function SAlogDataTable<TData extends logs>({
   columns,
   data,
 }: DataTableProps<TData>) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
-  const [globalFilter, setGlobalFilter] = React.useState('')
   
   const table = useReactTable({
     data,
@@ -50,9 +42,7 @@ export function CitizenDataTable<TData extends PersonalInformation>({
     state: {
       sorting,
       columnFilters,
-      globalFilter  
     },
-    globalFilterFn: fuzzyFilter,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
@@ -63,16 +53,6 @@ export function CitizenDataTable<TData extends PersonalInformation>({
 
   return (
     <>
-      <div>
-        <div className="flex items-center">
-          <input
-            value={globalFilter}
-            onChange={(e) => setGlobalFilter(e.target.value)}
-            placeholder="Search..."
-            className="py-4 border-2 border-[#71b46b] rounded-lg mb-1 w-96 max-h-2"
-          />
-        </div>
-      </div>
       <div className="rounded-md border" style={{ borderTop: '4px solid #558750' }}>
         <Table>
           <TableHeader >

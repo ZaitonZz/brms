@@ -11,8 +11,9 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
+  Row
 } from "@tanstack/react-table"
-
+import { rankItem } from '@tanstack/match-sorter-utils';
 import {
   Table,
   TableBody,
@@ -24,26 +25,38 @@ import {
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Barangay } from "@/app/types/types"
 
-interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[]
+interface DataTableProps<TData extends Barangay> {
+  columns: ColumnDef<TData>[]
   data: TData[]
 }
 
-export function BarangayDataTable<TData, TValue>({
+const fuzzyFilter = (row: Row<Barangay>, columnId: string, value: string, addMeta: (itemRank: any) => void) => {
+  const itemRank = rankItem(row.getValue(columnId), value);
+  addMeta(itemRank);
+  return itemRank.passed;
+};
+
+
+
+export function BarangayDataTable<TData extends Barangay>({
   columns,
   data,
-}: DataTableProps<TData, TValue>) {
+}: DataTableProps<TData>) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
+  const [globalFilter, setGlobalFilter] = React.useState('')
   
   const table = useReactTable({
     data,
     columns,
     state: {
       sorting,
-      columnFilters
+      columnFilters,
+      globalFilter 
     },
+    globalFilterFn: fuzzyFilter,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
@@ -54,6 +67,16 @@ export function BarangayDataTable<TData, TValue>({
 
   return (
     <>
+     <div>
+        <div className="flex items-center">
+          <input
+            value={globalFilter}
+            onChange={(e) => setGlobalFilter(e.target.value)}
+            placeholder="Search..."
+            className="py-4 border-2 border-[#71b46b] rounded-lg mb-1 w-96 max-h-2"
+          />
+        </div>
+      </div>
     <div>
     <div className="flex items-center py-4">
         <Input

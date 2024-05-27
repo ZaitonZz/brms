@@ -1,4 +1,5 @@
 export interface PersonalInformation {
+    citizenID:number;
     firstName?: string; // VARCHAR(255) NULL
     middleName?: string; // VARCHAR(255) NULL
     lastName?: string; // VARCHAR(255) NULL
@@ -24,6 +25,7 @@ export interface PersonalInformation {
     residencyDate?: string; // DATE NULL
 }
 export interface Barangay {
+    barangayNo: number;
     barangayName?: string; // VARCHAR(255) NULL
     Address?: string; // VARCHAR(255) NULL
     Telefax?: string; // VARCHAR(255) NULL
@@ -44,3 +46,11 @@ export interface Note {
     lastname?: string;
     businessName?: string;
   }
+
+export interface logs {
+    barangayName?: string; 
+    Admin: string; 
+    History: string;
+    Date: number;
+    Time:number;
+}
