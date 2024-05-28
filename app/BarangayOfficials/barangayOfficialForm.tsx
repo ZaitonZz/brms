@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface BarangayOfficial {
   role: string;
@@ -7,20 +7,37 @@ interface BarangayOfficial {
 }
 
 const initialOfficials: BarangayOfficial[] = [
-  { role: 'Punong Barangay', name: '' },
-  { role: 'Barangay Kagawad 1', name: '' },
-  { role: 'Barangay Kagawad 2', name: '' },
-  { role: 'Barangay Kagawad 3', name: '' },
-  { role: 'Barangay Kagawad 4', name: '' },
-  { role: 'Barangay Kagawad 5', name: '' },
-  { role: 'Barangay Kagawad 6', name: '' },
-  { role: 'Barangay Kagawad 7', name: '' },
-  { role: 'Pangkat Secretary', name: '' },
+  { role: 'PunongBarangay', name: '' },
+  { role: 'Kagawad1', name: '' },
+  { role: 'Kagawad2', name: '' },
+  { role: 'Kagawad3', name: '' },
+  { role: 'Kagawad4', name: '' },
+  { role: 'Kagawad5', name: '' },
+  { role: 'Kagawad6', name: '' },
+  { role: 'Kagawad7', name: '' },
+  { role: 'PangkatSecretary', name: '' },
 ];
 
 const BarangayForm = () => {
+  const [barangayNo, setBarangayNo] = useState<string>('');
   const [officials, setOfficials] = useState<BarangayOfficial[]>(initialOfficials);
   const [notification, setNotification] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch('/api/brgyOfficial');
+      if (response.ok) {
+        const data = await response.json();
+        setBarangayNo(data.barangayNo);
+        setOfficials(initialOfficials.map((official) => ({
+          ...official,
+          name: data[official.role] || ''
+        })));
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleChange = (index: number, value: string) => {
     const updatedOfficials = officials.map((official, i) =>
@@ -38,12 +55,14 @@ const BarangayForm = () => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-  
     const data = officials.reduce((acc, official) => {
-      acc[official.role.replace(/\s+/g, '')] = official.name;
+      acc[official.role] = official.name;
       return acc;
     }, {} as Record<string, string>);
-  
+    data['barangayNo'] = barangayNo;
+
+    console.log('Sending data:', data);  // Log the data being sent
+
     try {
       const response = await fetch('/api/brgyOfficial', {
         method: 'POST',
@@ -52,16 +71,16 @@ const BarangayForm = () => {
         },
         body: JSON.stringify(data),
       });
-  
+
       if (response.ok) {
         setNotification('Data submitted successfully.');
         setOfficials(initialOfficials);
+        setBarangayNo('');
       } else {
         const result = await response.json();
         setNotification(result.error || 'Failed to submit data.');
       }
     } catch (error) {
-      console.error('An error occurred while submitting data:', error);
       setNotification('An error occurred. Please try again.');
     }
 
@@ -77,6 +96,17 @@ const BarangayForm = () => {
           {notification}
         </div>
       )}
+      <div className="mb-4 flex items-center">
+        <label className="w-1/3 text-gray-700 font-semibold mr-2">
+          Barangay Number
+        </label>
+        <input
+          type="text"
+          value={barangayNo}
+          onChange={(e) => setBarangayNo(e.target.value)}
+          className="w-2/3 px-3 py-2 border border-gray-300 rounded-md mr-2"
+        />
+      </div>
       {officials.map((official, index) => (
         <div key={index} className="mb-4 flex items-center">
           <label className="w-1/3 text-gray-700 font-semibold mr-2">
