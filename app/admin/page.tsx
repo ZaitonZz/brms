@@ -8,7 +8,7 @@ import NavBar from '../components/navbar';
 import { useRouter } from 'next/navigation';
 import { getWithExpiry, isLocalStorageKeyEmptyOrExpired } from '../util/session';
 import { fetchCitizens } from '../util/fetch-citizen';
-import { BusinessNote, CitizenNote, citizensFee, PersonalInformation, Staff } from '../types/types';
+import { BusinessNote, CitizenNote, citizensFee, PersonalInformation, Staff, Transaction } from '../types/types';
 import { fetchAccessLevel } from '../util/fetch-access-level';
 import { CitizenDataTable } from '../components/tables/citizen-table';
 import NavLinksFees from './navlinkfees';
@@ -29,6 +29,9 @@ import { BusinessNotesColumns } from '../components/tables/notes-column-business
 import { CitizenNotesColumns } from '../components/tables/notes-column-citizen';
 import { fetchBusinessNotes } from '../util/fetch-business-notes';
 import { fetchCitizenNotes } from '../util/fetch-citizen-notes';
+import { fetchBusinessTransaction } from '../util/fetch-business-transactions';
+import { TransactionsTable } from '../components/tables/transaction-table';
+import { transactionsColumns } from '../components/tables/transaction-column';
 
 async function getCit(): Promise<PersonalInformation[]> {
   const res = await fetch('https://6620bff93bf790e070b084e4.mockapi.io/Citizen');
@@ -42,10 +45,12 @@ export default function AdminPage() {
   const [selectedTab, setSelectedTab] = useState('Staffs');
   const [selectedTabFees, setSelectedTabFees] = useState('Citizen');
   const [selectedTabNotes, setSelectedTabNotes] = useState('Citizen');
+  const [selectedTabTransaction, setSelectedTabTransaction] = useState('Business');
   const [staffData, setStaffData] = useState<Staff[]>([]);
   const [dataCitizenFees, setDataCitizenFees] = useState<citizensFee[]>([]);
   const [dataCitizenNotes, setDataCitizenNotes] = useState<CitizenNote[]>([]);
   const [dataBusinessNotes, setDataBusinessNotes] = useState<BusinessNote[]>([]);
+  const [dataBusinessTransaction, setDataBusinessTransaction] = useState<Transaction[]>([]);
   const router = useRouter();
 
   useEffect(() => {
@@ -61,10 +66,12 @@ export default function AdminPage() {
           const fetchedStaffData = await fetchStaffs(barangayNo);
           const fetchedBusinessNotesData = await fetchBusinessNotes();
           const fetchedCitizenNotesData = await fetchCitizenNotes();
+          const fetchedBusinessTransaction = await fetchBusinessTransaction();
           setStaffData(fetchedStaffData);
           setDataBusinessNotes(fetchedBusinessNotesData);
           setDataCitizenNotes(fetchedCitizenNotesData);
           setDataBusinessFees(fetchedBusinessFeesData);
+          setDataBusinessTransaction(fetchedBusinessTransaction);
         } else if (accessLevel == 1 || accessLevel == 4 || accessLevel == 2) {
           router.push('http://localhost:3000/');
         }
@@ -90,13 +97,21 @@ export default function AdminPage() {
         return <CitizenNotesTable columns={CitizenNotesColumns} data={dataCitizenNotes}/>;
     }
   } 
+  const renderTableTransactions = () => {
+    switch (selectedTabTransaction) {
+      case 'Business':
+        return <><TransactionsTable columns={transactionsColumns} data={dataBusinessTransaction}/> </>;
+      case 'Citizen':
+        return <div>Citizen</div>;
+    }
+  } 
 
   const renderTable = () => {
     switch (selectedTab) {
       case 'Staffs':
         return <StaffsTable columns={staffsColumns} data={staffData} />;
       case 'Transactions':
-        return <div>Transactions Table</div>;
+        return <><NavLinksFees onSelect={setSelectedTabTransaction} /><div>{renderTableTransactions()}</div></>;
       case 'Fees':
         return <><div>Fees Table</div><NavLinksFees onSelect={setSelectedTabFees} /><div>{renderTableFees()}</div></>
         ;

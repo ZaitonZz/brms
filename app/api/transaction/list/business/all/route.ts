@@ -1,17 +1,42 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/prisma/prisma';
 
-export async function GET(request: Request) {
+export async function GET() {
     try {
-        const transactions = await prisma.$queryRaw`CALL GetBusinessTransactions();`
-        if (transactions) {
-            return NextResponse.json({
-                transactions,
-            });
-        } else {
-            return new NextResponse('Business Transactions not found', { status: 404 })
-        }
+        const transactionss = await prisma.transactions.findMany({
+            where: {
+                businessID: {
+                    not: null,
+                },
+            },
+            select: {
+                transactionID: true,
+                adminID: true,
+                businessID: true,
+                date: true,
+                time: true,
+                purpose: true,
+                business: {
+                    select: {
+                        businessName: true,
+                    },
+                },
+            },
+        });
+
+        const formattedTransactions = transactionss.map(transactions => ({
+            transactionID: transactions.transactionID,
+            adminID: transactions.adminID,
+            businessID: transactions.businessID,
+            date: transactions.date,
+            time: transactions.time,
+            purpose: transactions.purpose,
+            businessName: transactions.business ? transactions.business.businessName : null,
+        }));
+        
+        return NextResponse.json(formattedTransactions);
     } catch (error) {
-        return new NextResponse('Internal Server Error', { status: 500 })
+        console.error('Error fetching business transactions:', error);
+        return new NextResponse('Internal Server Error', { status: 500 });
     }
 }

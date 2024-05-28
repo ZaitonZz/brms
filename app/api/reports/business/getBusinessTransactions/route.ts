@@ -23,8 +23,11 @@ export async function GET() {
                 },
             },
         });
-
-
+        const formattedTransaction = transactions.map(transactions => ({
+            ...transactions,
+            businessName: transactions.business ? transactions.business.businessName : null,
+        }));
+        return NextResponse.json(formattedTransaction);
     } catch (error) {
         console.error('Error fetching business transactions:', error);
         return new NextResponse('Internal Server Error', { status: 500 });

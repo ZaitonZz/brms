@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Footer from '../components/footer' 
 import NavLinks from './navlinks'
 import NavBar from '../components/navbar'
 import { PersonalInformation } from '../types/types'
+import router from 'next/router'
+import { fetchAccessLevel } from '../util/fetch-access-level'
+import { fetchBarangay } from '../util/fetch-barangay'
+import { isLocalStorageKeyEmptyOrExpired, getWithExpiry } from '../util/session'
 
 
 async function getCit(): Promise<PersonalInformation[]> {
@@ -13,7 +17,24 @@ async function getCit(): Promise<PersonalInformation[]> {
 }
 
 export default async function StaffPage() {
-  const data = await getCit()
+  useEffect(() => {
+    const checkUserAndFetchData = async () => {
+      if (isLocalStorageKeyEmptyOrExpired('username')) {
+        router.push('http://localhost:3000/');
+      } else {
+        const username = getWithExpiry('username');
+        const accessLevel = await fetchAccessLevel(username);
+        if (accessLevel == 2) {
+          const fetchedData = await fetchBarangay();
+          setData(fetchedData);
+        } else if(accessLevel == 1 || accessLevel == 4 || accessLevel == 3){
+          router.push('http://localhost:3000/');
+        }
+      }
+    };
+
+    checkUserAndFetchData();
+  }, [router]);
 
   return (
     <main>
@@ -29,4 +50,8 @@ export default async function StaffPage() {
   );
 }
 
+
+function setData(fetchedData: import("../types/types").Barangay[]) {
+  throw new Error('Function not implemented.')
+}
 

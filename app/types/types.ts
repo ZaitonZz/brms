@@ -122,3 +122,12 @@ export interface CitizenNote {
     City_municipality: string;
     Region: string;
 }
+export interface Transaction {
+  transactionID: number;
+  adminID: number;
+  businessID?: number;
+  date: string;
+  time: string;
+  purpose: string;
+  businessName?: string;
+}

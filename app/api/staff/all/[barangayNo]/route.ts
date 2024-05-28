@@ -29,8 +29,20 @@ export async function GET(req: NextRequest, { params }: { params: { inputBaranga
           },
         }
     });
+    const formattedStaff = staff.map(account => {
+      const personalinfo = Array.isArray(account.admin?.personalinfo) ? account.admin.personalinfo[0] : account.admin?.personalinfo;
+      return {
+          acountId: account.accountID,
+          username: account.Username,
+          Email:account.Email,
+          AccessLevel: account.AccessLevel,
+          firstname: personalinfo?.firstname || null,
+          lastName: personalinfo?.lastName || null,
+          address: personalinfo?.address || null,
+      };
+  });
 
-    return NextResponse.json(staff);
+    return NextResponse.json(formattedStaff);
   } catch (error) {
     console.error('Error fetching staff:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
