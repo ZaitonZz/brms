@@ -11,6 +11,7 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
+  Row
 } from "@tanstack/react-table"
 
 import {
@@ -24,6 +25,7 @@ import {
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { rankItem } from "@tanstack/match-sorter-utils";
 import { businessFee } from "@/app/types/types"
 import { business } from "@prisma/client"
 
@@ -32,20 +34,29 @@ interface DataTableProps<TData extends businessFee> {
   data: TData[]
 }
 
+const fuzzyFilter = (row: Row<businessFee>, columnId: string, value: string, addMeta: (itemRank: any) => void) => {
+  const itemRank = rankItem(row.getValue(columnId), value);
+  addMeta(itemRank);
+  return itemRank.passed;
+};
+
 export function BusinessFeesTable<TData extends businessFee>({
   columns,
   data,
 }: DataTableProps<TData>) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
+  const [globalFilter, setGlobalFilter] = React.useState('')
   
   const table = useReactTable({
     data,
     columns,
     state: {
       sorting,
-      columnFilters
+      columnFilters,
+      globalFilter  
     },
+    globalFilterFn: fuzzyFilter,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
@@ -56,6 +67,16 @@ export function BusinessFeesTable<TData extends businessFee>({
   
   return (
     <>
+    <div>
+        <div className="flex items-center">
+          <input
+            value={globalFilter}
+            onChange={(e) => setGlobalFilter(e.target.value)}
+            placeholder="Search..."
+            className="py-4 border-2 border-[#71b46b] rounded-lg mb-1 w-96 max-h-2"
+          />
+        </div>
+      </div>
     <div>
     <div className="flex items-center py-4">
 

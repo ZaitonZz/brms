@@ -16,7 +16,21 @@ import Establishment from "@/app/staff/reports/establishment"
  
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
-
+async function onDelete(citizenID:number) {
+  try {
+    const res = await fetch(`https://6620bff93bf790e070b084e4.mockapi.io/Citizen/${citizenID}`, {
+      method: 'DELETE'
+    });
+    if (!res.ok) {
+      throw new Error(`Error deleting citizen with ID ${citizenID}: ${res.statusText}`);
+    }
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
 
  
 export const EstablishmentColumns: ColumnDef<Establishment>[] = [
@@ -43,7 +57,7 @@ export const EstablishmentColumns: ColumnDef<Establishment>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
-      const Citizen = row.original
+      const Establishment = row.original
  
       return (
         <DropdownMenu>
@@ -56,9 +70,9 @@ export const EstablishmentColumns: ColumnDef<Establishment>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText("hello world")}
-            >
-              Copy citizen ID
+              onClick={() => onDelete(Establishment.establishmentID)}//PLACEHOLDER
+              >
+                Delete Citizen
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>View Citizen</DropdownMenuItem>
