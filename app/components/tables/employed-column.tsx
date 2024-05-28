@@ -14,6 +14,21 @@ import {
 import { PersonalInformation } from "../../types/types"
 import Employed from "@/app/staff/reports/employed"
  
+async function onDelete(citizenID:number) {
+  try {
+    const res = await fetch(`https://6620bff93bf790e070b084e4.mockapi.io/Citizen/${citizenID}`, {
+      method: 'DELETE'
+    });
+    if (!res.ok) {
+      throw new Error(`Error deleting citizen with ID ${citizenID}: ${res.statusText}`);
+    }
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 
@@ -61,9 +76,9 @@ export const EmployedColumns: ColumnDef<Employed>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText("hello world")}
+            onClick={() => onDelete(Citizen.citizenID)}//placeholder cause i dont knowwhat to put
             >
-              Copy citizen ID
+              Delete Citizen
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>View Citizen</DropdownMenuItem>

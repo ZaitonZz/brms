@@ -12,7 +12,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { PersonalInformation } from "../../types/types"
-import { download } from "@/components/tables"
  
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -91,7 +90,8 @@ export const CitizenColumns: ColumnDef<PersonalInformation>[] = [
         const formatted = date.toLocaleDateString()
         return [formatted]
     }
-  },{
+  },
+  {
     id: "actions",
     cell: ({ row }) => {
       const Citizen = row.original
@@ -113,7 +113,6 @@ export const CitizenColumns: ColumnDef<PersonalInformation>[] = [
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem 
-            onClick={() => download()}
             >View Citizen</DropdownMenuItem>
             <DropdownMenuItem>View payment details</DropdownMenuItem>
           </DropdownMenuContent>
