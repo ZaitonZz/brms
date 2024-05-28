@@ -1,4 +1,4 @@
-'use client';
+'use client'
 import { useState, useEffect } from 'react';
 
 interface BarangayOfficial {
@@ -76,6 +76,7 @@ const BarangayForm = () => {
         setNotification('Data submitted successfully.');
         setOfficials(initialOfficials);
         setBarangayNo('');
+        window.location.reload(); // Reload the page
       } else {
         const result = await response.json();
         setNotification(result.error || 'Failed to submit data.');
