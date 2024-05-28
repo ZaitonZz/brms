@@ -27,7 +27,7 @@ const PurokForm: React.FC<PurokFormProps> = ({ existingPurok }) => {
       population: Number(population)
     };
 
-    const url = `/api/puroks/${existingPurok?.purokID || ''}`;
+    const url = `/api/Purok/${existingPurok?.purokID || ''}`;
     const method = existingPurok?.purokID ? 'PUT' : 'POST';
 
     try {

@@ -3,28 +3,18 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-export async function POST(req: NextRequest) {
+export async function GET(req: NextRequest) {
   try {
-    const body = await req.json();
-    const { PunongBarangay, Kagawad1, Kagawad2, Kagawad3, Kagawad4, Kagawad5, Kagawad6, Kagawad7, PangkatSecretary } = body;
-
-    const newOfficial = await prisma.barangayofficial.create({
-      data: {
-        PunongBarangay,
-        Kagawad1,
-        Kagawad2,
-        Kagawad3,
-        Kagawad4,
-        Kagawad5,
-        Kagawad6,
-        Kagawad7,
-        PangkatSecretary,
-      },
+    const officials = await prisma.barangayofficial.findMany();
+    return new Response(JSON.stringify(officials), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
     });
-
-    return NextResponse.json(newOfficial, { status: 200 });
   } catch (error) {
-    console.error('Error creating barangay official:', error);
-    return NextResponse.json({ error: 'Failed to create new barangay official' }, { status: 500 });
+    console.error('Error fetching barangay officials:', error);
+    return new Response(JSON.stringify({ error: 'Failed to fetch barangay officials' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 }

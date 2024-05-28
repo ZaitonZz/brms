@@ -42,13 +42,13 @@ function Barangay() {
       case 'Barangay':
         return <Editbarangay barangayNo={barangayNo}/>;
       case "Socio Economic info":
-        return <Editsocioeconomic/>;
+        return <Editsocioeconomic barangayNo={barangayNo}/>;
       case "Physical Info":
-        return <EditPhysicalinfo/>;
+        return <EditPhysicalinfo barangayNo={barangayNo}/>;
       case "Fiscal Info":
-        return <Editfiscal/>;
+        return <Editfiscal barangayNo={barangayNo}/>;
         case "Political Info":
-            return <Editpoliticalinfo/>;
+            return <Editpoliticalinfo barangayNo={barangayNo}/>;
       default:
         return <div>All Content</div>;
     }

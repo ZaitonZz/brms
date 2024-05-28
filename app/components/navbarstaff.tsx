@@ -48,13 +48,13 @@ function NavbarStaff() {
             </a>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <DropdownMenuItem onSelect={() => window.location.href = ''} className="flex">
+            <DropdownMenuItem onSelect={() => window.location.href = '../BarangayOfficials'} className="flex">
               Barangay Officials
             </DropdownMenuItem>
             <DropdownMenuItem onSelect={() => window.location.href = ''} className="flex">
               Barangay Profile
             </DropdownMenuItem>
-            <DropdownMenuItem onSelect={() => window.location.href = ''} className="flex">
+            <DropdownMenuItem onSelect={() => window.location.href = '../CertTemp'} className="flex">
               Cert. Template
             </DropdownMenuItem>
             <DropdownMenuItem onSelect={() => window.location.href = ''} className="flex">
@@ -71,10 +71,10 @@ function NavbarStaff() {
             </a>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <DropdownMenuItem onSelect={() => window.location.href = '/'} className="flex">
+            <DropdownMenuItem onSelect={() => window.location.href = '../AddCitizenStaff'} className="flex">
               Citizen <PlusCircle size={16} className="ml-2" />
             </DropdownMenuItem>
-            <DropdownMenuItem onSelect={() => window.location.href = '/'} className="flex">
+            <DropdownMenuItem onSelect={() => window.location.href = '../AddPurokStaff'} className="flex">
               Business <PlusCircle size={16} className="ml-2" />
             </DropdownMenuItem>
             <DropdownMenuItem onSelect={() => window.location.href = '/'} className="flex">

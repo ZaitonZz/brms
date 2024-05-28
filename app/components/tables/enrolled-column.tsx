@@ -16,6 +16,21 @@ import Enrolled from "@/app/staff/reports/enrolled"
  
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
+async function onDelete(citizenID:number) {
+  try {
+    const res = await fetch(`https://6620bff93bf790e070b084e4.mockapi.io/Citizen/${citizenID}`, {
+      method: 'DELETE'
+    });
+    if (!res.ok) {
+      throw new Error(`Error deleting citizen with ID ${citizenID}: ${res.statusText}`);
+    }
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
 
 
  
@@ -61,9 +76,9 @@ export const EnrolledColumns: ColumnDef<Enrolled>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText("hello world")}
-            >
-              Copy citizen ID
+              onClick={() => onDelete(Citizen.citizenID)}//PLACEHPOOLDEERRR
+              >
+                Delete Citizen
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>View Citizen</DropdownMenuItem>
