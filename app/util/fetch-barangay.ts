@@ -21,7 +21,7 @@ export async function fetchBarangay(): Promise<Barangay[]> {
 }
 
 export async function fetchBarangayByNo(barangayNo: number | null) {
-  const response = await fetch(`/api/barangay/${barangayNo}`);
+  const response = await fetch(`/api/profiling/barangayinfo/${barangayNo}`);
   if (!response.ok) {
     throw new Error('Failed to fetch barangay data');
   }
@@ -29,7 +29,7 @@ export async function fetchBarangayByNo(barangayNo: number | null) {
 }
 
 export async function updateBarangay(barangayNo: number | null, data: any) {
-  const response = await fetch(`/api/barangay/${barangayNo}`, {
+  const response = await fetch(`/api/profiling/barangayinfo/${barangayNo}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

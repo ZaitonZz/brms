@@ -54,25 +54,125 @@ function EditBarangay({ barangayNo }: { barangayNo: number | null | undefined })
 
     return (
         <div className="flex h-screen justify-center">
-            <form onSubmit={handleSubmit} className="ml-28 mr-40">
-                {(['BarangayName', 'Address', 'Telefax', 'Email', 'Website', 'Icon', 'Province', 'City_municipality', 'Region'] as (keyof BarangayData)[]).map((field) => (
-                    <div key={field} className="mb-6">
-                        <h4>{field.replace('_', ' ')}</h4>
+            <form onSubmit={handleSubmit} className="flex mt-28">
+                <div className='ml-28 mr-40 '>
+                    <div className="mb-6">
+                        <h4>Barangay Name</h4>
                         <input
                             placeholder="Input"
                             type="text"
-                            name={field}
-                            value={formData[field]}
+                            name="BarangayName"
+                            value={formData.BarangayName}
                             onChange={handleChange}
                             className="text-sm w-[150px] px-2 py-1 border-2 rounded-md mt-1 focus:outline-none focus:border-[#68a762]"
                         />
                     </div>
-                ))}
-                <div className="pt-6">
-                    <button type="submit" className="text-xl font-bold mb-12 bg-[#68a762] text-center inline-block py-2 px-6 rounded">
-                        Submit
-                    </button>
+
+                    <div className="mb-6">
+                        <h4>Address</h4>
+                        <input
+                            placeholder="Input"
+                            type="text"
+                            name="Address"
+                            value={formData.Address}
+                            onChange={handleChange}
+                            className="text-sm w-[150px] px-2 py-1 border-2 rounded-md mt-1 focus:outline-none focus:border-[#68a762]"
+                        />
+                    </div>
+
+                    <div className="mb-6">
+                        <h4>Telefax</h4>
+                        <input
+                            placeholder="Input"
+                            type="text"
+                            name="Telefax"
+                            value={formData.Telefax}
+                            onChange={handleChange}
+                            className="text-sm w-[150px] px-2 py-1 border-2 rounded-md mt-1 focus:outline-none focus:border-[#68a762]"
+                        />
+                    </div>
+
+                    <div className="mb-6">
+                        <h4>Email</h4>
+                        <input
+                            placeholder="Input"
+                            type="text"
+                            name="Email"
+                            value={formData.Email}
+                            onChange={handleChange}
+                            className="text-sm w-[150px] px-2 py-1 border-2 rounded-md mt-1 focus:outline-none focus:border-[#68a762]"
+                        />
+                    </div>
+
+                    <div className="mb-6">
+                        <h4>Website</h4>
+                        <input
+                            placeholder="Input"
+                            type="text"
+                            name="Website"
+                            value={formData.Website}
+                            onChange={handleChange}
+                            className="text-sm w-[150px] px-2 py-1 border-2 rounded-md mt-1 focus:outline-none focus:border-[#68a762]"
+                        />
+                    </div>
                 </div>
+
+                <div>
+                    <div className="mb-6">
+                        <h4>Icon</h4>
+                        <input
+                            placeholder="Input"
+                            type="text"
+                            name="Icon"
+                            value={formData.Icon}
+                            onChange={handleChange}
+                            className="text-sm w-[150px] px-2 py-1 border-2 rounded-md mt-1 focus:outline-none focus:border-[#68a762]"
+                        />
+                    </div>
+
+                    <div className="mb-6">
+                        <h4>Province</h4>
+                        <input
+                            placeholder="Input"
+                            type="text"
+                            name="Province"
+                            value={formData.Province}
+                            onChange={handleChange}
+                            className="text-sm w-[150px] px-2 py-1 border-2 rounded-md mt-1 focus:outline-none focus:border-[#68a762]"
+                        />
+                    </div>
+
+                    <div className="mb-6">
+                        <h4>City/Municipality</h4>
+                        <input
+                            placeholder="Input"
+                            type="text"
+                            name="City_municipality"
+                            value={formData.City_municipality}
+                            onChange={handleChange}
+                            className="text-sm w-[150px] px-2 py-1 border-2 rounded-md mt-1 focus:outline-none focus:border-[#68a762]"
+                        />
+                    </div>
+
+                    <div className="mb-6">
+                        <h4>Region</h4>
+                        <input
+                            placeholder="Input"
+                            type="text"
+                            name="Region"
+                            value={formData.Region}
+                            onChange={handleChange}
+                            className="text-sm w-[150px] px-2 py-1 border-2 rounded-md mt-1 focus:outline-none focus:border-[#68a762]"
+                        />
+                    </div>
+
+                    <div className="pt-6">
+                        <button type="submit" className="text-xl font-bold mb-12 bg-[#68a762] text-center inline-block py-2 px-6 rounded">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+
             </form>
         </div>
     );
