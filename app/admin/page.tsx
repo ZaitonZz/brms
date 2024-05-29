@@ -67,9 +67,11 @@ export default function AdminPage() {
           const fetchedBusinessNotesData = await fetchBusinessNotes();
           const fetchedCitizenNotesData = await fetchCitizenNotes();
           const fetchedBusinessTransaction = await fetchBusinessTransaction();
+          const fetchedCitizenFeesData = await fetchCitizensFee();
           setStaffData(fetchedStaffData);
           setDataBusinessNotes(fetchedBusinessNotesData);
           setDataCitizenNotes(fetchedCitizenNotesData);
+          setDataCitizenFees(fetchedCitizenFeesData);
           setDataBusinessFees(fetchedBusinessFeesData);
           setDataBusinessTransaction(fetchedBusinessTransaction);
         } else if (accessLevel == 1 || accessLevel == 4 || accessLevel == 2) {

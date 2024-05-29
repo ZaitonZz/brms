@@ -19,3 +19,20 @@ export async function fetchCitizens(): Promise<PersonalInformation[]> {
   const data = await res.json();
   return data;
 }
+
+
+export async function deleteCitizen(citizenID:number) {
+  try {
+    const res = await fetch(`https://6620bff93bf790e070b084e4.mockapi.io/Citizen/${citizenID}`, {
+      method: 'DELETE'
+    });
+    if (!res.ok) {
+      throw new Error(`Error deleting citizen with ID ${citizenID}: ${res.statusText}`);
+    }
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}

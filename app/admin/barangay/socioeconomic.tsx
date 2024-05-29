@@ -66,9 +66,9 @@ function Editsocioeconomic({ barangayNo }: { barangayNo: number | null | undefin
         e.preventDefault();
         const res = await postSocioEconomicInfo(bgNo, formData);
         if (res.ok) {
-            router.push('/success-page');
+            alert('Socioeconomic information updated successfully');
         } else {
-            console.error('Failed to update socio-economic information');
+            alert('Updating socioeconomic information failed');
         }
     };
 

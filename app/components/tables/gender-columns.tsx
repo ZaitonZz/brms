@@ -75,7 +75,7 @@ export const GenderColumns: ColumnDef<Gender>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => onDelete(gender.genderID}
+              //onClick={() => onDelete(gender.genderID}
               >
                 Delete Citizen
             </DropdownMenuItem>

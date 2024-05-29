@@ -46,9 +46,9 @@ function EditBarangay({ barangayNo }: { barangayNo: number | null | undefined })
         e.preventDefault();
         try {
             await updateBarangay(bgNo, formData);
-            router.push('/success'); // redirect to success page or display a success message
+            alert('barangay information updated successfully');
         } catch (error) {
-            console.error('Failed to update barangay data', error);
+            alert(`Failed to update barangay data, ${error}`);
         }
     };
 

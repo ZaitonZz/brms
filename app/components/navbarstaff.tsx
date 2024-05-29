@@ -36,8 +36,8 @@ function NavbarStaff() {
         </DropdownMenu>
       </div>
 
-      <a href="/staff" className="mr-12 hover:text-gray-200">Home</a>
-      <a href="/" className="mr-12 hover:text-gray-200">Report</a>
+      <a href="http://localhost:3000/staff" className="mr-12 hover:text-gray-200">Home</a>
+      <a href="http://localhost:3000/staff/reports" className="mr-12 hover:text-gray-200">Report</a>
       <a href="/" className="mr-12 hover:text-gray-200">Barangay Case</a>
 
       <div className="relative inline mr-12">

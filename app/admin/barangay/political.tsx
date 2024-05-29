@@ -32,7 +32,12 @@ function EditPoliticalInfo({ barangayNo }: { barangayNo: number | null | undefin
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await updatePoliticalInfo(bgNo, formData);
+    const res = await updatePoliticalInfo(bgNo, formData);
+    if (res.ok) {
+      alert('Political information updated successfully');
+  } else {
+      alert('Updating political information failed');
+  }
   };
 
   return (

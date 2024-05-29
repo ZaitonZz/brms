@@ -3,14 +3,14 @@ import prisma from '@/prisma/prisma';
 
 export async function GET(req: NextRequest, { params }: { params: { barangayNo: string } }) {
   try {
-    const barangayNo = parseInt(params.barangayNo, 10)
-    console.log(barangayNo)
+    const barangayNo = parseInt(params.barangayNo, 10);
+
     if (isNaN(barangayNo) || barangayNo <= 0) {
       return new NextResponse('Invalid barangay number', { status: 400 });
     }
 
     const politicalInfo = await prisma.politicalinfo.findFirst({
-      where: { barangayNo:barangayNo },
+      where: { barangayNo },
     });
 
     if (!politicalInfo) {
@@ -24,9 +24,9 @@ export async function GET(req: NextRequest, { params }: { params: { barangayNo: 
   }
 }
 
-export async function POST(req: NextRequest, { params }: { params: { barangayNo: number } }) {
+export async function POST(req: NextRequest, { params }: { params: { barangayNo: string } }) {
   try {
-    const barangayNo = params.barangayNo
+    const barangayNo = parseInt(params.barangayNo, 10);
     const data = await req.json();
 
     if (isNaN(barangayNo) || barangayNo <= 0) {
@@ -43,7 +43,10 @@ export async function POST(req: NextRequest, { params }: { params: { barangayNo:
 
     const updatedPoliticalInfo = await prisma.politicalinfo.update({
       where: { politicalInfoID: existingPoliticalInfo.politicalInfoID },
-      data,
+      data: {
+        ...data,
+        numOfPrecints: parseInt(data.numOfPrecints, 10), // Ensure numOfPrecints is an integer
+      },
     });
 
     return NextResponse.json(updatedPoliticalInfo);

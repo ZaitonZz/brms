@@ -26,6 +26,7 @@ export const updatePoliticalInfo = async (barangayNo: number, formData: any) => 
     if (!response.ok) {
         throw new Error('Failed to update political information');
     }
+    return response;
   } catch (error) {
     console.error('Error updating political info:', error);
     throw error;
