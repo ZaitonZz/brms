@@ -5,7 +5,7 @@ import Footer from '@/app/components/footer';
 import React, { useState } from 'react';
 import NavLinksReport from '@/app/components/navlinks-reports';
 import AllContent from './all';
-import BloodType from './bloodtype';
+import BloodTypeReport from './bloodtype';
 import Establishment from './establishment';
 import Employed from './employed';
 import Enrolled from './enrolled';
@@ -26,7 +26,7 @@ function Report() {
       case 'All':
         return <AllContent></AllContent>;
       case 'BloodType':
-        return <BloodType/>;
+        return <BloodTypeReport/>;
       case 'Establishment':
         return <Establishment/>;
       case 'Employed':

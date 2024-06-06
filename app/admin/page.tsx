@@ -1,37 +1,31 @@
 // pages/adminpage.tsx
 'use client';
 import React, { useEffect, useState } from 'react';
-import { CitizenColumns } from '../components/tables/citizen-column';
 import Footer from '../components/footer';
 import NavLinks from './navlinks';
 import NavBar from '../components/navbar';
 import { useRouter } from 'next/navigation';
 import { getWithExpiry, isLocalStorageKeyEmptyOrExpired } from '../util/session';
-import { fetchCitizens } from '../util/fetch-citizen';
 import { BusinessNote, CitizenNote, citizensFee, PersonalInformation, Staff, Transaction } from '../types/types';
 import { fetchAccessLevel } from '../util/fetch-access-level';
-import { CitizenDataTable } from '../components/tables/citizen-table';
 import NavLinksFees from './navlinkfees';
 import { businessFee } from '../types/types';
-import { fetchBusinessFee } from '../util/fetch-business-fees';
 import { BusinessFeesTable } from '../components/tables/fees-table-business';
 import { feesBusinessColumns } from '../components/tables/fees-column-business';
 import { fetchStaffs } from '../util/fetch-staffs';
-import { fetchBarangayNo } from '../util/fetch-barangay-no';
 import { StaffsTable } from '../components/tables/staffs-table';
 import { staffsColumns } from '../components/tables/staffs-column';
-import { fetchCitizensFee } from '../util/fetch-citizen-fees';
 import { CitizensFeesTable } from '../components/tables/fees-table-citizen';
 import { feesCitizenColumns } from '../components/tables/fees-column-citizen';
 import BusinessNotesTable from '../components/tables/notes-table-business';
 import CitizenNotesTable from '../components/tables/notes-table-citizen';
 import { BusinessNotesColumns } from '../components/tables/notes-column-business';
 import { CitizenNotesColumns } from '../components/tables/notes-column-citizen';
-import { fetchBusinessNotes } from '../util/fetch-business-notes';
-import { fetchCitizenNotes } from '../util/fetch-citizen-notes';
-import { fetchBusinessTransaction } from '../util/fetch-business-transactions';
 import { TransactionsTable } from '../components/tables/transaction-table';
 import { transactionsColumns } from '../components/tables/transaction-column';
+import { fetchBarangayNoByUserName } from '../util/fetch-barangay';
+import { fetchBusinessFees, fetchBusinessNotes, fetchBusinessTransactions } from '../util/fetch-business';
+import { fetchCitizenNotes, fetchCitizensFees } from '../util/fetch-citizen';
 
 async function getCit(): Promise<PersonalInformation[]> {
   const res = await fetch('https://6620bff93bf790e070b084e4.mockapi.io/Citizen');
@@ -61,13 +55,13 @@ export default function AdminPage() {
         const username = getWithExpiry('username');
         const accessLevel = await fetchAccessLevel(username);
         if (accessLevel == 3) {
-          const fetchedBusinessFeesData = await fetchBusinessFee();
-          const barangayNo = await fetchBarangayNo(username);
+          const fetchedBusinessFeesData = await fetchBusinessFees();
+          const barangayNo = await fetchBarangayNoByUserName(username);
           const fetchedStaffData = await fetchStaffs(barangayNo);
           const fetchedBusinessNotesData = await fetchBusinessNotes();
           const fetchedCitizenNotesData = await fetchCitizenNotes();
-          const fetchedBusinessTransaction = await fetchBusinessTransaction();
-          const fetchedCitizenFeesData = await fetchCitizensFee();
+          const fetchedBusinessTransaction = await fetchBusinessTransactions();
+          const fetchedCitizenFeesData = await fetchCitizensFees();
           setStaffData(fetchedStaffData);
           setDataBusinessNotes(fetchedBusinessNotesData);
           setDataCitizenNotes(fetchedCitizenNotesData);

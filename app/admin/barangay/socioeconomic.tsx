@@ -1,7 +1,7 @@
 'use client'
 import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { fetchSocioEconomicInfo, postSocioEconomicInfo } from '@/app/util/fetch-socioeconomic-info';
+import { useRouter } from 'next/navigation';
+import { fetchSocioEconomicInfo, updateSocioEconomicInfo } from '@/app/util/fetch-barangay';
 
 interface SocioEconomicFormData {
   brgyHall: string;
@@ -64,7 +64,7 @@ function Editsocioeconomic({ barangayNo }: { barangayNo: number | null | undefin
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const res = await postSocioEconomicInfo(bgNo, formData);
+        const res = await updateSocioEconomicInfo(bgNo, formData);
         if (res.ok) {
             alert('Socioeconomic information updated successfully');
         } else {

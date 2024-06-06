@@ -5,12 +5,12 @@ import Footer from '@/app/components/footer'
 import SearchBar from '@/app/components/searchbar'
 import { useRouter } from 'next/navigation'
 import { getWithExpiry, isLocalStorageKeyEmptyOrExpired } from '@/app/util/session'
-import { fetchBusinessFee } from '@/app/util/fetch-business-fees'
 import { BusinessFeesTable } from '@/app/components/tables/fees-table-business'
 import { feesBusinessColumns } from '@/app/components/tables/fees-column-business'
 import NavBar from '@/app/components/navbar'
 import { businessFee } from '@/app/types/types'
 import { fetchAccessLevel } from '@/app/util/fetch-access-level'
+import { fetchBusinessFees } from '@/app/util/fetch-business'
 
 function Fee() {
    
@@ -25,7 +25,7 @@ function Fee() {
           const username = getWithExpiry('username');
           const accessLevel = await fetchAccessLevel(username);
           if (accessLevel == 3) {
-            const fetchedData = await fetchBusinessFee();
+            const fetchedData = await fetchBusinessFees();
             console.log(typeof fetchedData)
             setData(fetchedData);
           } else if(accessLevel == 4 || accessLevel == 1 || accessLevel == 2){

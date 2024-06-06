@@ -10,9 +10,9 @@ import EditPhysicalinfo from "./physicalinfo";
 import Editfiscal from "./fiscal";
 import Editpoliticalinfo from "./political";
 import { fetchAccessLevel } from "@/app/util/fetch-access-level";
-import { fetchBarangayNo } from "@/app/util/fetch-barangay-no";
 import { isLocalStorageKeyEmptyOrExpired, getWithExpiry } from "@/app/util/session";
 import router from "next/router";
+import { fetchBarangayNoByUserName } from "@/app/util/fetch-barangay";
 
 function Barangay() {
   const [selectedTab, setSelectedTab] = useState("Barangay");
@@ -26,7 +26,7 @@ function Barangay() {
         const username = getWithExpiry('username');
         const accessLevel = await fetchAccessLevel(username);
         if (accessLevel == 3) {
-          const bgNo = await fetchBarangayNo(username);
+          const bgNo = await fetchBarangayNoByUserName(username);
           setBarangayNo(bgNo);
         } else if (accessLevel == 1 || accessLevel == 4 || accessLevel == 2) {
           router.push('http://localhost:3000/');

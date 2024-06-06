@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { fetchPhysicalInfo, updatePhysicalInfo } from '@/app/util/fetch-physical-info';
+import { fetchPhysicalInfo, updatePhysicalInfo } from '@/app/util/fetch-barangay';
 
 const initialFormData = {
     totalLandArea: '',

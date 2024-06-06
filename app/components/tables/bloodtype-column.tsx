@@ -1,7 +1,7 @@
 "use client"
- 
+
 import { ColumnDef } from "@tanstack/react-table"
-import { ArrowUpDown,MoreHorizontal } from "lucide-react"
+import { ArrowUpDown, MoreHorizontal } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -11,60 +11,53 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { PersonalInformation } from "../../types/types"
-import BloodType from "@/app/staff/reports/bloodtype"
- 
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
-
-
+import { BloodType } from "@/app/types/types"
  
 export const BloodTypeColumns: ColumnDef<BloodType>[] = [
-  
-    {
-    accessorKey: "purokname",
+  {
+    accessorKey: "PurokName",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-         Purok Name
+          Purok Name
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
     },
   },
   {
-    accessorKey: "A+",
+    accessorKey: "A_Positive",
     header: "A+",
   },
   {
-    accessorKey: "A-",
+    accessorKey: "A_Negative",
     header: "A-",
   },
   {
-    accessorKey: "B+",
+    accessorKey: "B_Positive",
     header: "B+",
   },
   {
-    accessorKey: "B-",
+    accessorKey: "B_Negative",
     header: "B-",
   },
   {
-    accessorKey: "AB+",
+    accessorKey: "AB_Positive",
     header: "AB+",
   },
   {
-    accessorKey: "AB-",
+    accessorKey: "AB_Negative",
     header: "AB-",
   },  
   {
-    accessorKey: "O+",
+    accessorKey: "O_Positive",
     header: "O+",
   },
   {
-    accessorKey: "O-",
+    accessorKey: "O_Negative",
     header: "O-",
   },
   {
@@ -74,7 +67,7 @@ export const BloodTypeColumns: ColumnDef<BloodType>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
-      const Citizen = row.original
+      const bloodType = row.original
  
       return (
         <DropdownMenu>
@@ -87,13 +80,12 @@ export const BloodTypeColumns: ColumnDef<BloodType>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText("hello world")}
+              onClick={() => navigator.clipboard.writeText(bloodType.PurokName)}
             >
-              Copy citizen ID
+              Copy Purok Name
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>View Citizen</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
+            <DropdownMenuItem>View Details</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )

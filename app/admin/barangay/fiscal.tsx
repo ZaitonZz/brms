@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { fetchFiscalInfo, updateFiscalInfo } from '@/app/util/fetch-fiscal-info';
+import { fetchFiscalInfo, updateFiscalInfo } from '@/app/util/fetch-barangay';
 
 const initialFormData = {
     internalRevenue: '',

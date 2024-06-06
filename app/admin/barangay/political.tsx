@@ -1,4 +1,5 @@
-import { fetchPoliticalInfo, updatePoliticalInfo } from '@/app/util/fetch-political-info';
+
+import { fetchPoliticalInfo, updatePoliticalInfo } from '@/app/util/fetch-barangay';
 import React, { useEffect, useState } from 'react';
 
 function EditPoliticalInfo({ barangayNo }: { barangayNo: number | null | undefined }) {
