@@ -142,3 +142,18 @@ export interface BloodType {
   O_Negative: number;
   Unknown: number;
 }
+
+export interface Complaint {
+  complaintID: number;
+  adminID: number;
+  citizenID_complainant: number;
+  citizenID_complainee: number;
+  date: string;
+  time: string;
+  for: string;
+  actions: string;
+  complainantFirstname: string | null;
+  complainantLastName: string | null;
+  complaineeFirstname: string | null;
+  complaineeLastName: string | null;
+}

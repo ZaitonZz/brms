@@ -11,6 +11,7 @@ import {
 
 import { ChevronDown, PlusCircle } from 'lucide-react';
 import LogoutButton from './logout';
+import Link from 'next/link';
 
 function NavbarAdmin() {
   
@@ -20,9 +21,9 @@ function NavbarAdmin() {
         {/* Toggle Link for Barangay Admin */}
         <DropdownMenu>
           <DropdownMenuTrigger>
-            <a className="cursor-pointer hover:text-gray-200 flex">
+            <div className="hover:text-gray-200 flex">
               Barangay Admin(Captain)<ChevronDown></ChevronDown>
-            </a>
+            </div>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuItem className='cursor-pointer'>View Profile</DropdownMenuItem>
@@ -34,9 +35,9 @@ function NavbarAdmin() {
         </DropdownMenu>
       </div>
 
-      <a href="http://localhost:3000/admin" className="mr-12 hover:text-gray-200">Home</a>
-      <a href="/admin/reports" className="mr-12 hover:text-gray-200">Report</a>
-      <a href="/admin/barangay" className="mr-12 hover:text-gray-200">Barangay</a>
+      <Link href="http://localhost:3000/admin" className="mr-12 hover:text-gray-200">Home</Link>
+      <Link href="/admin/reports" className="mr-12 hover:text-gray-200">Report</Link>
+      <Link href="/admin/barangay" className="mr-12 hover:text-gray-200">Barangay</Link>
 
 
 
@@ -44,9 +45,9 @@ function NavbarAdmin() {
          {/* Toggle Link for Add */}
          <DropdownMenu>
           <DropdownMenuTrigger>
-            <a className="cursor-pointer hover:text-gray-200 flex items-center">
+            <div className="hover:text-gray-200 flex items-center">
               Create <PlusCircle size={16} className="ml-2" />
-            </a>
+            </div>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuItem onSelect={() => window.location.href = '../AddCitizenAdmin'} className="flex cursor-pointer">

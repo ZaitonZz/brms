@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 import { ChevronDown, PlusCircle } from 'lucide-react';
+import Link from 'next/link';
 
 function NavbarSuperAdmin() {
   const [showSuperAdminDropdown, setShowSuperAdminDropdown] = useState(false);
@@ -28,9 +29,9 @@ function NavbarSuperAdmin() {
         {/* Toggle Link for Barangay Admin */}
         <DropdownMenu>
           <DropdownMenuTrigger>
-            <a className="cursor-pointer hover:text-gray-200 flex">
+            <div className="hover:text-gray-200 flex">
               (viewing as Superadmin)<ChevronDown></ChevronDown>
-            </a>
+            </div>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuItem>View Profile</DropdownMenuItem>
@@ -41,12 +42,8 @@ function NavbarSuperAdmin() {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-
-      <a href="superadmin" className="mr-12 hover:text-gray-200">Home</a>
-      <a href="" className="mr-12 hover:text-gray-200">Logs</a>
-
-
-
+      <Link href="superadmin" className="mr-12 hover:text-gray-200">Home</Link>
+      <Link href="" className="mr-12 hover:text-gray-200">Logs</Link>
     </div>
   );
 }

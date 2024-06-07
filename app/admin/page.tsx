@@ -109,7 +109,7 @@ export default function AdminPage() {
       case 'Transactions':
         return <><NavLinksFees onSelect={setSelectedTabTransaction} /><div>{renderTableTransactions()}</div></>;
       case 'Fees':
-        return <><div>Fees Table</div><NavLinksFees onSelect={setSelectedTabFees} /><div>{renderTableFees()}</div></>
+        return <><NavLinksFees onSelect={setSelectedTabFees} /><div>{renderTableFees()}</div></>
         ;
       case 'Complaints':
         return <div>Complaints Table</div>;

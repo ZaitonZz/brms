@@ -54,8 +54,6 @@ export async function fetchCitizensFees(): Promise<citizensFee[]> {
   }
 
   const data = await res.json();
-
-  
   return data;
 }
 
@@ -65,7 +63,7 @@ import { CitizenNote } from "../types/types";
 
 export async function fetchCitizenNotes(): Promise<CitizenNote[]> {
     
-  const res = await fetch(`${host}/api/reports/citizen/getCitizenNotes`, {
+  const res = await fetch(`${host}/api/note/list/citizen/all`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

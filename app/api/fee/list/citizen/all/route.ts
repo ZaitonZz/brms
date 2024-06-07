@@ -45,8 +45,6 @@ export async function GET() {
             };
         });
 
-        console.log(formattedFees);
-
         return NextResponse.json(formattedFees);
     } catch (error) {
         console.error('Error fetching citizen fees:', error);

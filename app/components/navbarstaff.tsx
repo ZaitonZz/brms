@@ -10,6 +10,7 @@ import {
 import React, { useState } from 'react';
 import LogoutButton from './logout';
 import { ChevronDown, PlusCircle } from 'lucide-react';
+import Link from "next/link";
 
 function NavbarStaff() {
 
@@ -36,9 +37,9 @@ function NavbarStaff() {
         </DropdownMenu>
       </div>
 
-      <a href="http://localhost:3000/staff" className="mr-12 hover:text-gray-200">Home</a>
-      <a href="http://localhost:3000/staff/reports" className="mr-12 hover:text-gray-200">Report</a>
-      <a href="/" className="mr-12 hover:text-gray-200">Barangay Case</a>
+      <Link href="http://localhost:3000/staff" className="mr-12 hover:text-gray-200">Home</Link>
+      <Link href="http://localhost:3000/staff/reports" className="mr-12 hover:text-gray-200">Report</Link>
+      <Link href="/" className="mr-12 hover:text-gray-200">Barangay Case</Link>
 
       <div className="relative inline mr-12">
       <DropdownMenu>

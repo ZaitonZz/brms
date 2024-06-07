@@ -49,7 +49,7 @@ export async function fetchBusinessTransactions(): Promise<Transaction[]> {
 import { BusinessNote } from "../types/types";
 
 export async function fetchBusinessNotes(): Promise<BusinessNote[]> {
-    const res = await fetch(`${host}/api/reports/business/getBusinessNotes`, {
+    const res = await fetch(`${host}/api/note/list/business/all`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
