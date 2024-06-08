@@ -6,7 +6,7 @@ import NavLinks from './navlinks';
 import NavBar from '../components/navbar';
 import { useRouter } from 'next/navigation';
 import { getWithExpiry, isLocalStorageKeyEmptyOrExpired } from '../util/session';
-import { BusinessNote, CitizenNote, citizensFee, PersonalInformation, Staff, Transaction } from '../types/types';
+import { BusinessNote, CitizenNote, citizensFee, PersonalInformation, Staff, BusinessTransaction, CitizenTransaction } from '../types/types';
 import { fetchAccessLevel } from '../util/fetch-access-level';
 import NavLinksFees from './navlinkfees';
 import { businessFee } from '../types/types';
@@ -21,11 +21,14 @@ import BusinessNotesTable from '../components/tables/notes-table-business';
 import CitizenNotesTable from '../components/tables/notes-table-citizen';
 import { BusinessNotesColumns } from '../components/tables/notes-column-business';
 import { CitizenNotesColumns } from '../components/tables/notes-column-citizen';
-import { TransactionsTable } from '../components/tables/transaction-table';
-import { transactionsColumns } from '../components/tables/transaction-column';
+import { TransactionsTableBusiness } from '../components/tables/transaction-table-business';
+import { transactionsColumnsBusiness } from '../components/tables/transaction-column-business';
 import { fetchBarangayNoByUserName } from '../util/fetch-barangay';
 import { fetchBusinessFees, fetchBusinessNotes, fetchBusinessTransactions } from '../util/fetch-business';
-import { fetchCitizenNotes, fetchCitizensFees } from '../util/fetch-citizen';
+import { fetchCitizenNotes, fetchCitizensFees, fetchCitizenTransactions } from '../util/fetch-citizen';
+import Transaction from '../citizen/transactions/page';
+import { TransactionsTableCitizen } from '../components/tables/transaction-table-citizen';
+import { transactionsColumnsCitizen } from '../components/tables/transaction-column-citizen';
 
 async function getCit(): Promise<PersonalInformation[]> {
   const res = await fetch('https://6620bff93bf790e070b084e4.mockapi.io/Citizen');
@@ -44,7 +47,8 @@ export default function AdminPage() {
   const [dataCitizenFees, setDataCitizenFees] = useState<citizensFee[]>([]);
   const [dataCitizenNotes, setDataCitizenNotes] = useState<CitizenNote[]>([]);
   const [dataBusinessNotes, setDataBusinessNotes] = useState<BusinessNote[]>([]);
-  const [dataBusinessTransaction, setDataBusinessTransaction] = useState<Transaction[]>([]);
+  const [dataBusinessTransaction, setDataBusinessTransaction] = useState<BusinessTransaction[]>([]);
+  const [dataCitizenTransaction, setDataCitizenTransaction] = useState<CitizenTransaction[]>([]);
   const router = useRouter();
 
   useEffect(() => {
@@ -62,6 +66,8 @@ export default function AdminPage() {
           const fetchedCitizenNotesData = await fetchCitizenNotes();
           const fetchedBusinessTransaction = await fetchBusinessTransactions();
           const fetchedCitizenFeesData = await fetchCitizensFees();
+          const fetchedCitizenTransaction = await fetchCitizenTransactions();
+          setDataCitizenTransaction(fetchedCitizenTransaction);
           setStaffData(fetchedStaffData);
           setDataBusinessNotes(fetchedBusinessNotesData);
           setDataCitizenNotes(fetchedCitizenNotesData);
@@ -96,9 +102,9 @@ export default function AdminPage() {
   const renderTableTransactions = () => {
     switch (selectedTabTransaction) {
       case 'Business':
-        return <><TransactionsTable columns={transactionsColumns} data={dataBusinessTransaction}/> </>;
+        return <><TransactionsTableBusiness columns={transactionsColumnsBusiness} data={dataBusinessTransaction}/> </>;
       case 'Citizen':
-        return <div>Citizen</div>;
+        return <><TransactionsTableCitizen columns={transactionsColumnsCitizen} data={dataCitizenTransaction} /></>;
     }
   } 
 

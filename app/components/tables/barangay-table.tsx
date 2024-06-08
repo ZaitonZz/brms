@@ -27,9 +27,9 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Barangay } from "@/app/types/types"
 
-interface DataTableProps<TData extends Barangay> {
-  columns: ColumnDef<TData>[]
-  data: TData[]
+interface DataTableProps {
+  columns: ColumnDef<Barangay>[]
+  data: Barangay[]
 }
 
 const fuzzyFilter = (row: Row<Barangay>, columnId: string, value: string, addMeta: (itemRank: any) => void) => {
@@ -40,10 +40,7 @@ const fuzzyFilter = (row: Row<Barangay>, columnId: string, value: string, addMet
 
 
 
-export function BarangayDataTable<TData extends Barangay>({
-  columns,
-  data,
-}: DataTableProps<TData>) {
+export function BarangayDataTable({ columns, data }: DataTableProps) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   const [globalFilter, setGlobalFilter] = React.useState('')
@@ -81,16 +78,15 @@ export function BarangayDataTable<TData extends Barangay>({
     <div className="flex items-center py-4">
       </div>
     </div>
-     <div className="rounded-md border" style={{ borderTop: '4px solid #558750' }}>
+     <div className="rounded-md border overflow-hidden">
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup, index) => (
-            <TableRow key={headerGroup.id}
-              className={index === 0 ? 'first-header-row-style' : ''}
+            <TableRow key={headerGroup.id} className="bg-[#558750]"
               >
               {headerGroup.headers.map((header) => {
                 return (
-                  <TableHead key={header.id}>
+                  <TableHead key={header.id} className="text-slate-100">
                     {header.isPlaceholder
                       ? null
                       : flexRender(

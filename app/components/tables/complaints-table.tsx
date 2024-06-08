@@ -1,9 +1,10 @@
-// components/citizen-table.tsx
-
-import * as React from "react"
+// components/complaints-table.tsx
+"use client"
+import * as React from "react";
 import {
   ColumnDef,
   ColumnFiltersState,
+  Row,
   SortingState,
   flexRender,
   getCoreRowModel,
@@ -11,61 +12,66 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from "@tanstack/react-table"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
-import { Button } from "@/components/ui/button"
-import { logs } from "../../types/types";
+} from "@tanstack/react-table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { rankItem } from "@tanstack/match-sorter-utils";
+import { Complaint } from "@/app/types/types";
 
-interface DataTableProps<TData extends logs> {
-  columns: ColumnDef<TData>[]
-  data: TData[]
+interface DataTableProps {
+  columns: ColumnDef<Complaint>[];
+  data: Complaint[];
 }
 
+const fuzzyFilter = (row: Row<Complaint>, columnId: string, value: string, addMeta: (itemRank: any) => void) => {
+  const itemRank = rankItem(row.getValue(columnId), value);
+  addMeta(itemRank);
+  return itemRank.passed;
+};
 
-export function SAlogDataTable<TData extends logs>({
-  columns,
-  data,
-}: DataTableProps<TData>) {
-  const [sorting, setSorting] = React.useState<SortingState>([])
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
-  
+export function ComplaintsTable({ columns, data }: DataTableProps) {
+  const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
+  const [globalFilter, setGlobalFilter] = React.useState('');
+
   const table = useReactTable({
     data,
     columns,
     state: {
       sorting,
       columnFilters,
+      globalFilter,
     },
+    globalFilterFn: fuzzyFilter,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel()
-  })
+    getPaginationRowModel: getPaginationRowModel(),
+  });
 
   return (
     <>
+      <div className="flex items-center py-4">
+        <Input
+          value={globalFilter ?? ''}
+          onChange={(e) => setGlobalFilter(e.target.value)}
+          placeholder="Search..."
+          className="max-w-sm"
+        />
+      </div>
       <div className="rounded-md border" style={{ borderTop: '4px solid #558750' }}>
         <Table>
-          <TableHeader >
-            {table.getHeaderGroups().map((headerGroup, index) => (
-              <TableRow key={headerGroup.id} className={index === 0 ? 'first-header-row-style' : ''}>
+          <TableHeader>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
                   <TableHead key={header.id}>
                     {header.isPlaceholder
                       ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
+                      : flexRender(header.column.columnDef.header, header.getContext())}
                   </TableHead>
                 ))}
               </TableRow>
@@ -115,5 +121,5 @@ export function SAlogDataTable<TData extends logs>({
         </Button>
       </div>
     </>
-  )
+  );
 }

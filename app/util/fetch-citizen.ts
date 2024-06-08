@@ -80,3 +80,21 @@ export async function fetchCitizenNotes(): Promise<CitizenNote[]> {
   
   return data;
 }
+
+import { CitizenTransaction } from "../types/types";
+
+export async function fetchCitizenTransactions(): Promise<CitizenTransaction[]> {
+    
+  const res = await fetch(`${host}/api/transaction/list/citizen/all`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    cache: 'no-store',
+  });
+  if (!res.ok) {
+    throw new Error('Failed to fetch business note');
+  }
+  const data = await res.json();
+  return data;
+}

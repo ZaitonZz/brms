@@ -75,27 +75,15 @@ export function GenderTable<TData, TValue>({
         </div>
       </div>
     <div>
-    {/* <div className="flex items-center py-4">
-        <Input
-          placeholder="Filter City"
-          value={(table.getColumn("City_municipality")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("City_municipality")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        />
-      </div> */}
     </div>
-     <div className="rounded-md border" style={{ borderTop: '4px solid #558750' }}>
+     <div className="rounded-md border overflow-hidden">
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup, index) => (
-            <TableRow key={headerGroup.id}
-              className={index === 0 ? 'first-header-row-style' : ''}
-              >
+            <TableRow key={headerGroup.id} className="bg-[#558750]">
               {headerGroup.headers.map((header) => {
                 return (
-                  <TableHead key={header.id}>
+                  <TableHead key={header.id} className="text-slate-100">
                     {header.isPlaceholder
                       ? null
                       : flexRender(

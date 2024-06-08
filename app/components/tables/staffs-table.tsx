@@ -4,6 +4,7 @@ import * as React from "react";
 import {
   ColumnDef,
   ColumnFiltersState,
+  Row,
   SortingState,
   flexRender,
   getCoreRowModel,
@@ -15,6 +16,7 @@ import {
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { rankItem } from "@tanstack/match-sorter-utils";
 
 // Define the data structure for the staff
 interface Staff {
@@ -32,6 +34,12 @@ interface DataTableProps {
   data: Staff[];
 }
 
+const fuzzyFilter = (row: Row<Staff>, columnId: string, value: string, addMeta: (itemRank: any) => void) => {
+  const itemRank = rankItem(row.getValue(columnId), value);
+  addMeta(itemRank);
+  return itemRank.passed;
+};
+
 export function StaffsTable({ columns, data }: DataTableProps) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
@@ -45,7 +53,7 @@ export function StaffsTable({ columns, data }: DataTableProps) {
       columnFilters,
       globalFilter,
     },
-    globalFilterFn: 'includesString',
+    globalFilterFn: fuzzyFilter,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
@@ -64,13 +72,13 @@ export function StaffsTable({ columns, data }: DataTableProps) {
           className="max-w-sm"
         />
       </div>
-      <div className="rounded-md border" style={{ borderTop: '4px solid #558750' }}>
+      <div className="rounded-md border overflow-hidden" >
         <Table>
-          <TableHeader>
+          <TableHeader className="bg-[#558750]">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <TableHead key={header.id}>
+                  <TableHead key={header.id} className="text-slate-100">
                     {header.isPlaceholder
                       ? null
                       : flexRender(header.column.columnDef.header, header.getContext())}

@@ -120,14 +120,25 @@ export interface BarangayData {
   City_municipality: string;
   Region: string;
 }
-export interface Transaction {
+export interface BusinessTransaction {
   transactionID: number;
-  adminID: number;
-  businessID?: number;
-  date: string;
-  time: string;
-  purpose: string;
-  businessName?: string;
+  adminID: number | null;
+  businessID?: number | null;
+  date: string | null;
+  time: string | null;
+  purpose: string | null;
+  businessName?: string | null;
+}
+
+export interface CitizenTransaction {
+  transactionID: number;
+  adminID: number | null;
+  citizenID: number | null;
+  date: string | null;
+  time: string | null;
+  purpose: string | null;
+  firstname: string | null;
+  lastName: string | null;
 }
 
 export interface BloodType {

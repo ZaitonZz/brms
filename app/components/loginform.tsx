@@ -53,7 +53,7 @@ const LoginForm: React.FC = () => {
     const data = await response.json();
     if (response.ok) {
       toast.success('Login successful!');
-      setWithExpiry('username', formData.username, 2 * 60 * 60 * 1000); // 2 hour expiry
+      setWithExpiry('username', formData.username, 12 * 60 * 60 * 1000); // 12 hour expiry
       const username = getWithExpiry('username');
         const accessLevel = await fetchAccessLevel(username);
         if (accessLevel === 1) {

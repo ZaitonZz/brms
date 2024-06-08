@@ -65,7 +65,7 @@ export const BusinessColumns: ColumnDef<Payment>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => onDelete(Citizen.citizenID)}//placeholder cause i dont knowwhat to put
+              //onClick={() => onDelete(Citizen.citizenID)}//placeholder cause i dont knowwhat to put
               >
                 Delete Citizen
             </DropdownMenuItem>

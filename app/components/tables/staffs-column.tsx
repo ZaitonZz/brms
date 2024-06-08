@@ -7,12 +7,9 @@ import { ColumnDef } from '@tanstack/react-table';
 
 // Define the columns for the staff data table
 export const staffsColumns: ColumnDef<Staff>[] = [
+  
   {
-    accessorKey: 'accountID',
-    header: 'Account ID',
-  },
-  {
-    accessorKey: 'Username',
+    accessorKey: 'username',
     header: 'Username',
   },
   {

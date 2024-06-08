@@ -24,14 +24,14 @@ import {
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Transaction } from "@/app/types/types"
+import { BusinessTransaction} from "@/app/types/types"
 
-interface DataTableProps<TData extends Transaction> {
+interface DataTableProps<TData extends BusinessTransaction> {
   columns: ColumnDef<TData>[]
   data: TData[]
 }
 
-export function TransactionsTable<TData extends Transaction>({
+export function TransactionsTableBusiness<TData extends BusinessTransaction>({
   columns,
   data,
 }: DataTableProps<TData>) {

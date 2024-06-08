@@ -11,7 +11,6 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-  Row
 } from "@tanstack/react-table"
 
 import {
@@ -25,38 +24,27 @@ import {
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { rankItem } from "@tanstack/match-sorter-utils";
+import { CitizenTransaction } from "@/app/types/types"
 
-
-interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[]
+interface DataTableProps<TData extends CitizenTransaction> {
+  columns: ColumnDef<TData>[]
   data: TData[]
 }
 
-//PLACEHOLDER
-const fuzzyFilter = (row: Row<PersonalInformation>, columnId: string, value: string, addMeta: (itemRank: any) => void) => {
-  const itemRank = rankItem(row.getValue(columnId), value);
-  addMeta(itemRank);
-  return itemRank.passed;
-};
-
-export function EnrolledTable<TData, TValue>({
+export function TransactionsTableCitizen<TData extends CitizenTransaction>({
   columns,
   data,
-}: DataTableProps<TData, TValue>) {
+}: DataTableProps<TData>) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
-  const [globalFilter, setGlobalFilter] = React.useState('')
   
   const table = useReactTable({
     data,
     columns,
     state: {
       sorting,
-      columnFilters,
-      globalFilter  
+      columnFilters
     },
-    globalFilterFn: fuzzyFilter,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
@@ -64,29 +52,25 @@ export function EnrolledTable<TData, TValue>({
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel()
   })
-
+  
   return (
     <>
     <div>
-        <div className="flex items-center">
-          <input
-            value={globalFilter}
-            onChange={(e) => setGlobalFilter(e.target.value)}
-            placeholder="Search..."
-            className="py-4 border-2 border-[#71b46b] rounded-lg mb-1 w-96 max-h-2"
-          />
-        </div>
+    <div className="flex items-center py-4">
+
       </div>
-    <div>
     </div>
-     <div className="rounded-md border overflow-hidden">
+     <div className="rounded-md border" style={{ borderTop: '4px solid #558750' }}>
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup, index) => (
-            <TableRow key={headerGroup.id} className="bg-[#558750]">
+           
+            <TableRow key={headerGroup.id}
+              className={index === 0 ? 'first-header-row-style' : ''}
+              >
               {headerGroup.headers.map((header) => {
                 return (
-                  <TableHead key={header.id} className="text-slate-100">
+                  <TableHead key={header.id}>
                     {header.isPlaceholder
                       ? null
                       : flexRender(
@@ -99,8 +83,11 @@ export function EnrolledTable<TData, TValue>({
             </TableRow>
           ))}
         </TableHeader>
+        
         <TableBody>
+            
           {table.getRowModel().rows?.length ? (
+      
             table.getRowModel().rows.map((row,index) => (
               <TableRow
                 key={row.id}
@@ -108,6 +95,7 @@ export function EnrolledTable<TData, TValue>({
                 data-state={row.getIsSelected() && "selected"}
               >
                 {row.getVisibleCells().map((cell) => (
+                    console.log("portt"),
                   <TableCell key={cell.id}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
@@ -115,7 +103,9 @@ export function EnrolledTable<TData, TValue>({
               </TableRow>
             ))
           ) : (
+           
             <TableRow>
+                
               <TableCell colSpan={columns.length} className="h-24 text-center">
                 No results.
               </TableCell>
@@ -128,16 +118,19 @@ export function EnrolledTable<TData, TValue>({
     <div className="flex items-center justify-end space-x-2 py-4">
         <Button
           variant="outline"
+          
           size="sm"
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
         >
+            
           Previous
         </Button>
         <Button
           variant="outline"
           size="sm"
           onClick={() => table.nextPage()}
+          
           disabled={!table.getCanNextPage()}
         >
           Next

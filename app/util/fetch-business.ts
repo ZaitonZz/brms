@@ -23,9 +23,9 @@ export async function fetchBusinessFees(): Promise<businessFee[]> {
   return data;
 }
 
-import { Transaction } from "../types/types";
+import { BusinessTransaction } from "../types/types";
 
-export async function fetchBusinessTransactions(): Promise<Transaction[]> {
+export async function fetchBusinessTransactions(): Promise<BusinessTransaction[]> {
     
   const res = await fetch(`${host}/api/transaction/list/business/all`, {
     method: 'GET',
@@ -34,15 +34,10 @@ export async function fetchBusinessTransactions(): Promise<Transaction[]> {
     },
     cache: 'no-store',
   });
-  console.log(res)
   if (!res.ok) {
     throw new Error('Failed to fetch business note');
   }
-
   const data = await res.json();
-  
-  
-  
   return data;
 }
 

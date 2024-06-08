@@ -1,6 +1,5 @@
 "use client"
 import * as React from "react"
-
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -13,7 +12,6 @@ import {
   useReactTable,
   Row
 } from "@tanstack/react-table"
-
 import {
   Table,
   TableBody,
@@ -26,26 +24,23 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { rankItem } from "@tanstack/match-sorter-utils";
-import { PersonalInformation } from "../../types/types"; //as placeholder since wala kobalo unsa na data ipasulod diri
+import { BloodType } from "../../types/types"; //as placeholder since wala kobalo unsa na data ipasulod diri
 
-interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[]
-  data: TData[]
+interface DataTableProps {
+  columns: ColumnDef<BloodType>[]
+  data: BloodType[]
 }
-const fuzzyFilter = (row: Row<PersonalInformation>, columnId: string, value: string, addMeta: (itemRank: any) => void) => {
+const fuzzyFilter = (row: Row<BloodType>, columnId: string, value: string, addMeta: (itemRank: any) => void) => {
   const itemRank = rankItem(row.getValue(columnId), value);
   addMeta(itemRank);
   return itemRank.passed;
 };
 
-export function BloodTypeTable<TData extends PersonalInformation>({//placeholder personal information
-  columns,
-  data,
-}: DataTableProps <TData>) {
+export function BloodTypeTable({ columns, data }: DataTableProps) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   const [globalFilter, setGlobalFilter] = React.useState('')
-  
+
   const table = useReactTable({
     data,
     columns,
@@ -65,77 +60,56 @@ export function BloodTypeTable<TData extends PersonalInformation>({//placeholder
 
   return (
     <>
-    <div>
-    <div>
-        <div className="flex items-center">
-          <input
-            value={globalFilter}
-            onChange={(e) => setGlobalFilter(e.target.value)}
-            placeholder="Search..."
-            className="py-4 border-2 border-[#71b46b] rounded-lg mb-1 w-96 max-h-2"
-          />
-        </div>
-      </div>
-    {/* <div className="flex items-center py-4">
-        <Input
-          placeholder="Filter City"
-          value={(table.getColumn("City_municipality")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("City_municipality")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
+      <div className="flex items-center">
+        <input
+          value={globalFilter}
+          onChange={(e) => setGlobalFilter(e.target.value)}
+          placeholder="Search..."
+          className="py-4 border-2 border-[#71b46b] rounded-lg mb-1 w-96 max-h-2"
         />
-      </div> */}
-    </div>
-     <div className="rounded-md border" style={{ borderTop: '4px solid #558750' }}>
-      <Table>
-        <TableHeader>
-          {table.getHeaderGroups().map((headerGroup, index) => (
-            <TableRow key={headerGroup.id}
-              className={index === 0 ? 'first-header-row-style' : ''}
-              >
-              {headerGroup.headers.map((header) => {
-                return (
-                  <TableHead key={header.id}>
+      </div>
+      <div className="rounded-md border overflow-hidden">
+        <Table>
+          <TableHeader className="bg-[#558750]">
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <TableHead key={header.id} className="text-slate-100">
                     {header.isPlaceholder
                       ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
+                      : flexRender(header.column.columnDef.header, header.getContext())}
                   </TableHead>
-                )
-              })}
-            </TableRow>
-          ))}
-        </TableHeader>
-        <TableBody>
-          {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row,index) => (
-              <TableRow
-                key={row.id}
-                className={index % 2 === 0 ? 'bg-gray-150' : 'bg-[#3a8d318f]'}
-                data-state={row.getIsSelected() && "selected"}
-              >
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
                 ))}
               </TableRow>
-            ))
-          ) : (
-            <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
-                No results.
-              </TableCell>
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
-      
-    </div>
-    <div className="flex items-center justify-end space-x-2 py-4">
+            ))}
+          </TableHeader>
+          <TableBody>
+            {table.getRowModel().rows?.length ? (
+              table.getRowModel().rows.map((row, index) => (
+                <TableRow
+                  key={row.id}
+                  className={index % 2 === 0 ? 'bg-gray-150' : 'bg-[#3a8d318f]'}
+                  data-state={row.getIsSelected() && "selected"}
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id}>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={columns.length} className="h-24 text-center">
+                  No results.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+
+      </div>
+      <div className="flex items-center justify-end space-x-2 py-4">
         <Button
           variant="outline"
           size="sm"
@@ -153,8 +127,8 @@ export function BloodTypeTable<TData extends PersonalInformation>({//placeholder
           Next
         </Button>
       </div>
-    
+
     </>
   )
-  
+
 }

@@ -74,13 +74,13 @@ export function CitizenDataTable<TData extends PersonalInformation>({
           />
         </div>
       </div>
-      <div className="rounded-md border" style={{ borderTop: '4px solid #558750' }}>
+      <div className="rounded-md border overflow-hidden">
         <Table>
-          <TableHeader >
+          <TableHeader className="bg-[#558750]">
             {table.getHeaderGroups().map((headerGroup, index) => (
               <TableRow key={headerGroup.id} className={index === 0 ? 'first-header-row-style' : ''}>
                 {headerGroup.headers.map((header) => (
-                  <TableHead key={header.id}>
+                  <TableHead key={header.id} className="text-slate-100">
                     {header.isPlaceholder
                       ? null
                       : flexRender(

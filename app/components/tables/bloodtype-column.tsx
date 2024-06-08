@@ -16,17 +16,7 @@ import { BloodType } from "@/app/types/types"
 export const BloodTypeColumns: ColumnDef<BloodType>[] = [
   {
     accessorKey: "PurokName",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Purok Name
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      )
-    },
+    header: 'Purok Name'
   },
   {
     accessorKey: "A_Positive",
