@@ -14,6 +14,22 @@ export async function fetchBloodtypes(barangayNo: number): Promise<BloodType[]> 
     }
 
     const data: BloodType[] = await res.json();
-    console.log(data);
     return data;
 }
+
+
+export async function fetchEmployed(barangayNo: number) {
+    const res = await fetch(`/api/reports/employment/${barangayNo}`, {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    cache: 'no-store',
+});
+    if (!res.ok) {
+      throw new Error('Failed to fetch employed data');
+    }
+    const data = await res.json();
+    return data;
+  }
+  

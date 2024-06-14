@@ -1,16 +1,6 @@
-import { EmployedColumns } from '@/app/components/tables/employed-column';
-import { EnrolledColumns } from '@/app/components/tables/enrolled-column';
-import { EnrolledTable } from '@/app/components/tables/enrolled-table';
-import { EstablishmentColumns } from '@/app/components/tables/establishment-column'
-import { EstablishmentTable } from '@/app/components/tables/establishment-table'
-import { GenderColumns } from '@/app/components/tables/gender-columns';
-import { GenderTable } from '@/app/components/tables/gender-table';
-import { MinorColumns } from '@/app/components/tables/minor-column';
-import { MinorTable } from '@/app/components/tables/minor-table';
-import { PwdColumns } from '@/app/components/tables/pwd-column';
-import { PwdTable } from '@/app/components/tables/pwd-table';
+
+import { GenericDataTable } from '@/app/components/tables/generic-data-table';
 import { VoterColumn } from '@/app/components/tables/voter-column';
-import { VoterTable } from '@/app/components/tables/voter-table';
 import React, { useState } from 'react'
 
 
@@ -38,7 +28,7 @@ function Voter() {
         Print
       </a>
         <div className="">
-      <VoterTable data={voters} columns={VoterColumn}/>
+      <GenericDataTable data={voters} columns={VoterColumn}/>
       </div>
     </div>
   )

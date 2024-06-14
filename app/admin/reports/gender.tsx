@@ -1,10 +1,5 @@
-import { EmployedColumns } from '@/app/components/tables/employed-column';
-import { EnrolledColumns } from '@/app/components/tables/enrolled-column';
-import { EnrolledTable } from '@/app/components/tables/enrolled-table';
-import { EstablishmentColumns } from '@/app/components/tables/establishment-column'
-import { EstablishmentTable } from '@/app/components/tables/establishment-table'
 import { GenderColumns } from '@/app/components/tables/gender-columns';
-import { GenderTable } from '@/app/components/tables/gender-table';
+import { GenericDataTable } from '@/app/components/tables/generic-data-table';
 import React, { useState } from 'react'
 
 
@@ -32,7 +27,7 @@ function Gender() {
         Print
       </a>
         <div className="">
-      <GenderTable data={genders} columns={GenderColumns}/>
+      <GenericDataTable data={genders} columns={GenderColumns}/>
       </div>
     </div>
   )

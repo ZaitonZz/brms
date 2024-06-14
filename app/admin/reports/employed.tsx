@@ -1,18 +1,46 @@
 import { EmployedColumns } from '@/app/components/tables/employed-column';
-import { EstablishmentColumns } from '@/app/components/tables/establishment-column'
-import { EstablishmentTable } from '@/app/components/tables/establishment-table'
-import React, { useState } from 'react'
+import { GenericDataTable } from '@/app/components/tables/generic-data-table';
+import { fetchAccessLevel } from "@/app/util/fetch-access-level";
+import { fetchBarangayNoByUserName } from "@/app/util/fetch-barangay";
+import { fetchEmployed } from '@/app/util/fetch-reports';
+import { getWithExpiry, isLocalStorageKeyEmptyOrExpired } from "@/app/util/session";
+import { useRouter } from "next/navigation";
+import React, { useState, useEffect } from 'react';
 
-
-interface Employed{
-
+interface Employed {
+  PurokName: string;
+  Employed: number;
+  Unemployed: number;
 }
 
-function Employed() {
-    const [employes, setemployes] = useState<Employed[]>([]);
+const Employed: React.FC = () => {
+  const [employes, setEmployes] = useState<Employed[]>([]);
+  const router = useRouter();
+
+  useEffect(() => {
+    const checkUserAndFetchData = async () => {
+      if (isLocalStorageKeyEmptyOrExpired('username')) {
+        router.push('http://localhost:3000/');
+      } else {
+        const username = getWithExpiry('username');
+        const accessLevel = await fetchAccessLevel(username);
+        if (accessLevel === 3) {
+          const barangayNo = await fetchBarangayNoByUserName(username);
+          if (barangayNo) {
+            const data = await fetchEmployed(barangayNo);
+            setEmployes(data);
+          }
+        } else if ([1, 2, 4].includes(accessLevel)) {
+          router.push('http://localhost:3000/');
+        }
+      }
+    };
+
+    checkUserAndFetchData();
+  }, [router]);
 
   return (
-    <div className=" mt-32">
+    <div className="mt-32">
       <input
         placeholder="Enter Purok"
         type="text"
@@ -23,15 +51,15 @@ function Employed() {
 
       <a
         href="#"
-        className=" text-base font-bold mb-10 bg-[#68a762] text-center inline-block py-1 px-2 rounded"
+        className="text-base font-bold mb-10 bg-[#68a762] text-center inline-block py-1 px-2 rounded"
       >
         Print
       </a>
-        <div className="">
-      <EstablishmentTable data={employes} columns={EmployedColumns}/>
+      <div className="">
+        <GenericDataTable data={employes} columns={EmployedColumns} />
       </div>
     </div>
-  )
+  );
 }
 
-export default Employed
+export default Employed;

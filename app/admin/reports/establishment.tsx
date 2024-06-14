@@ -1,5 +1,5 @@
 import { EstablishmentColumns } from '@/app/components/tables/establishment-column'
-import { EstablishmentTable } from '@/app/components/tables/establishment-table'
+import { GenericDataTable } from '@/app/components/tables/generic-data-table';
 import React, { useState } from 'react'
 
 
@@ -27,7 +27,7 @@ function Establishment() {
         Print
       </a>
         <div className="">
-      <EstablishmentTable data={establishments} columns={EstablishmentColumns}/>
+      <GenericDataTable data={establishments} columns={EstablishmentColumns}/>
       </div>
     </div>
   )

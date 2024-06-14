@@ -1,18 +1,5 @@
-import { EmployedColumns } from '@/app/components/tables/employed-column';
-import { EnrolledColumns } from '@/app/components/tables/enrolled-column';
-import { EnrolledTable } from '@/app/components/tables/enrolled-table';
-import { EstablishmentColumns } from '@/app/components/tables/establishment-column'
-import { EstablishmentTable } from '@/app/components/tables/establishment-table'
-import { GenderColumns } from '@/app/components/tables/gender-columns';
-import { GenderTable } from '@/app/components/tables/gender-table';
-import { MinorColumns } from '@/app/components/tables/minor-column';
-import { MinorTable } from '@/app/components/tables/minor-table';
-import { PwdColumns } from '@/app/components/tables/pwd-column';
-import { PwdTable } from '@/app/components/tables/pwd-table';
+import { GenericDataTable } from '@/app/components/tables/generic-data-table';
 import { ResidencetypeColumns } from '@/app/components/tables/residencetype-column';
-import { ResidencetypeTable } from '@/app/components/tables/residencetype-table';
-import { VoterColumn } from '@/app/components/tables/voter-column';
-import { VoterTable } from '@/app/components/tables/voter-table';
 import React, { useState } from 'react'
 
 
@@ -40,7 +27,7 @@ function ResidenceType() {
         Print
       </a>
         <div className="">
-      <ResidencetypeTable data={residencetypes} columns={ResidencetypeColumns}/>
+      <GenericDataTable data={residencetypes} columns={ResidencetypeColumns}/>
       </div>
     </div>
   )

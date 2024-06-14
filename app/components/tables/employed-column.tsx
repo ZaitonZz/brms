@@ -37,7 +37,7 @@ async function onDelete(citizenID:number) {
 export const EmployedColumns: ColumnDef<Employed>[] = [
   
     {
-    accessorKey: "purokname",
+    accessorKey: "PurokName",
     header: ({ column }) => {
       return (
         <Button
@@ -76,7 +76,7 @@ export const EmployedColumns: ColumnDef<Employed>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-            onClick={() => onDelete(Citizen.citizenID)}//placeholder cause i dont knowwhat to put
+           // onClick={() => onDelete(Citizen.citizenID)}//placeholder cause i dont knowwhat to put
             >
               Delete Citizen
             </DropdownMenuItem>

@@ -1,5 +1,6 @@
 "use client"
 import * as React from "react"
+
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -12,6 +13,7 @@ import {
   useReactTable,
   Row
 } from "@tanstack/react-table"
+
 import {
   Table,
   TableBody,
@@ -22,32 +24,34 @@ import {
 } from "@/components/ui/table"
 
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { rankItem } from "@tanstack/match-sorter-utils";
-import { BloodType } from "../../types/types"; //as placeholder since wala kobalo unsa na data ipasulod diri
 
-interface DataTableProps {
-  columns: ColumnDef<BloodType>[]
-  data: BloodType[]
+interface DataTableProps<TData> {
+  columns: ColumnDef<TData>[]
+  data: TData[]
 }
-const fuzzyFilter = (row: Row<BloodType>, columnId: string, value: string, addMeta: (itemRank: any) => void) => {
-  const itemRank = rankItem(row.getValue(columnId), value);
+
+const fuzzyFilter = <TData,>(row: Row<TData>, columnId: string, value: string, addMeta: (itemRank: any) => void) => {
+  const itemRank = rankItem(row.getValue(columnId) as unknown as string, value);
   addMeta(itemRank);
   return itemRank.passed;
 };
 
-export function BloodTypeTable({ columns, data }: DataTableProps) {
+export function GenericDataTable<TData>({
+  columns,
+  data,
+}: DataTableProps<TData>) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   const [globalFilter, setGlobalFilter] = React.useState('')
-
+  
   const table = useReactTable({
     data,
     columns,
     state: {
       sorting,
       columnFilters,
-      globalFilter
+      globalFilter  
     },
     globalFilterFn: fuzzyFilter,
     onSortingChange: setSorting,
@@ -57,27 +61,35 @@ export function BloodTypeTable({ columns, data }: DataTableProps) {
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel()
   })
-
+  
   return (
     <>
-      <div className="flex items-center">
-        <input
-          value={globalFilter}
-          onChange={(e) => setGlobalFilter(e.target.value)}
-          placeholder="Search..."
-          className="py-4 border-2 border-[#71b46b] rounded-lg mb-1 w-96 max-h-2"
-        />
+      <div>
+        <div className="flex items-center">
+          <input
+            value={globalFilter}
+            onChange={(e) => setGlobalFilter(e.target.value)}
+            placeholder="Search..."
+            className="py-6 px-3 border-2 border-[#71b46b] rounded-lg mb-1 w-96 max-h-2"
+          />
+        </div>
+      </div>
+      <div>
+        <div className="flex items-center py-4"></div>
       </div>
       <div className="rounded-md border overflow-hidden">
         <Table>
-          <TableHeader className="bg-[#558750]">
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
+          <TableHeader>
+            {table.getHeaderGroups().map((headerGroup, index) => (
+              <TableRow key={headerGroup.id} className="bg-[#558750]">
                 {headerGroup.headers.map((header) => (
                   <TableHead key={header.id} className="text-slate-100">
                     {header.isPlaceholder
                       ? null
-                      : flexRender(header.column.columnDef.header, header.getContext())}
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
                   </TableHead>
                 ))}
               </TableRow>
@@ -107,7 +119,6 @@ export function BloodTypeTable({ columns, data }: DataTableProps) {
             )}
           </TableBody>
         </Table>
-
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
         <Button
@@ -127,8 +138,6 @@ export function BloodTypeTable({ columns, data }: DataTableProps) {
           Next
         </Button>
       </div>
-
     </>
   )
-
 }

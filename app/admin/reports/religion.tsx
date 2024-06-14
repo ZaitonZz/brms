@@ -1,22 +1,5 @@
-import { EmployedColumns } from '@/app/components/tables/employed-column';
-import { EnrolledColumns } from '@/app/components/tables/enrolled-column';
-import { EnrolledTable } from '@/app/components/tables/enrolled-table';
-import { EstablishmentColumns } from '@/app/components/tables/establishment-column'
-import { EstablishmentTable } from '@/app/components/tables/establishment-table'
-import { GenderColumns } from '@/app/components/tables/gender-columns';
-import { GenderTable } from '@/app/components/tables/gender-table';
-import { MinorColumns } from '@/app/components/tables/minor-column';
-import { MinorTable } from '@/app/components/tables/minor-table';
-import { PwdColumns } from '@/app/components/tables/pwd-column';
-import { PwdTable } from '@/app/components/tables/pwd-table';
+import { GenericDataTable } from '@/app/components/tables/generic-data-table';
 import { ReligionColumns } from '@/app/components/tables/religion-column';
-import { ReligionTable } from '@/app/components/tables/religion-table';
-import { ResidencetypeColumns } from '@/app/components/tables/residencetype-column';
-import { ResidencetypeTable } from '@/app/components/tables/residencetype-table';
-import { SeniorcitizenColumns } from '@/app/components/tables/seniorcitizen-column';
-import { SeniorcitizenTable } from '@/app/components/tables/seniorcitizen-table';
-import { VoterColumn } from '@/app/components/tables/voter-column';
-import { VoterTable } from '@/app/components/tables/voter-table';
 import React, { useState } from 'react'
 
 
@@ -71,7 +54,7 @@ function Religion() {
         Print
       </a>
         <div className="">
-      <ReligionTable data={religions} columns={ReligionColumns}/>
+      <GenericDataTable data={religions} columns={ReligionColumns}/>
       </div>
     </div>
     </div>

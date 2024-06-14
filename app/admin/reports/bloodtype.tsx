@@ -1,5 +1,5 @@
 import { BloodTypeColumns } from "@/app/components/tables/bloodtype-column";
-import { BloodTypeTable } from "@/app/components/tables/bloodtype-table";
+import { GenericDataTable } from "@/app/components/tables/generic-data-table";
 import { BloodType } from "@/app/types/types";
 import { fetchAccessLevel } from "@/app/util/fetch-access-level";
 import { fetchBarangayNoByUserName } from "@/app/util/fetch-barangay";
@@ -51,7 +51,7 @@ function BloodTypeReport() {
         Print
       </a>
       <div className="">
-        <BloodTypeTable data={bloodtypes} columns={BloodTypeColumns} />
+        <GenericDataTable data={bloodtypes} columns={BloodTypeColumns} />
       </div>
     </div>
   );

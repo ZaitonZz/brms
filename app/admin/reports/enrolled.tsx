@@ -1,8 +1,6 @@
-import { EmployedColumns } from '@/app/components/tables/employed-column';
+
 import { EnrolledColumns } from '@/app/components/tables/enrolled-column';
-import { EnrolledTable } from '@/app/components/tables/enrolled-table';
-import { EstablishmentColumns } from '@/app/components/tables/establishment-column'
-import { EstablishmentTable } from '@/app/components/tables/establishment-table'
+import { GenericDataTable } from '@/app/components/tables/generic-data-table';
 import React, { useState } from 'react'
 
 
@@ -30,7 +28,7 @@ function Enrolled() {
         Print
       </a>
         <div className="">
-      <EnrolledTable data={enrolled} columns={EnrolledColumns}/>
+      <GenericDataTable data={enrolled} columns={EnrolledColumns}/>
       </div>
     </div>
   )
