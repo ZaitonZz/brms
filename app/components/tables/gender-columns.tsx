@@ -58,6 +58,11 @@ export const GenderColumns: ColumnDef<Gender>[] = [
     accessorKey: "Female",
     header: "Female",
   },
+
+  {
+    accessorKey: "Other",
+    header: "Other",
+  },
  
   {
     id: "actions",

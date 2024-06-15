@@ -1,20 +1,21 @@
-import { NextResponse } from 'next/server';
+// app/api/enrolled/route.ts
+
+import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/prisma/prisma';
 
-export async function GET(request: Request) {
+interface EnrollmentData {
+    PurokName: string;
+    Enrolled: number;
+    Population: number;
+}
+
+export async function GET(request: NextRequest, { params }: { params: { barangayNo: string }}) {
     try {
-        const { searchParams } = new URL(request.url);
-        const inputBarangayNo = parseInt(searchParams.get('input_barangayNo') || '0', 10);
-
-        if (isNaN(inputBarangayNo) || inputBarangayNo <= 0) {
-            return new NextResponse('Invalid barangay number', { status: 400 });
-        }
-
         const enrollmentData = await prisma.personalinfo.findMany({
             where: {
                 citizen: {
                     purok: {
-                        BarangayNo: inputBarangayNo,
+                        BarangayNo: parseInt(params.barangayNo, 10),
                     },
                 },
             },
@@ -31,12 +32,26 @@ export async function GET(request: Request) {
                 isEnrolled: true,
             },
         });
-        type EnrollmentCount = {
-          Enrolled: number;
-          Population: number;
-      };
 
+        const formattedEnrollmentData = enrollmentData.reduce((acc: Record<string, EnrollmentData>, data) => {
+            const purokName = data.citizen?.purok?.PurokName || 'Unknown';
+            if (!acc[purokName]) {
+                acc[purokName] = {
+                    PurokName: purokName,
+                    Enrolled: 0,
+                    Population: 0,
+                };
+            }
+            if (data.isEnrolled === "Yes") {
+                acc[purokName].Enrolled++;
+            }
+            acc[purokName].Population++;
+            return acc;
+        }, {});
 
+        const responseArray = Object.values(formattedEnrollmentData);
+
+        return NextResponse.json(responseArray);
     } catch (error) {
         console.error('Error fetching enrollment data by barangay:', error);
         return new NextResponse('Internal Server Error', { status: 500 });

@@ -2,7 +2,7 @@
 "use client"
 import NavBar from '@/app/components/navbar';
 import Footer from '@/app/components/footer';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import NavLinksReport from '@/app/components/navlinks-reports';
 import AllContent from './all';
 import BloodTypeReport from './bloodtype';
@@ -16,10 +16,32 @@ import Voter from './voter';
 import ResidenceType from './residencetype';
 import Seniorcitizen from './seniorcitizen';
 import Religion from './religion';
+import { useRouter } from 'next/navigation';
+import { getWithExpiry, isLocalStorageKeyEmptyOrExpired } from '@/app/util/session';
+import { fetchAccessLevel } from '@/app/util/fetch-access-level';
 
 function Report() {
   const [selectedTab, setSelectedTab] = useState('All');
   const [bloodTypeData, setBloodTypeData] = useState([]);
+  const router = useRouter();
+
+  useEffect(() => {
+    const checkUserAndFetchData = async () => {
+      if (isLocalStorageKeyEmptyOrExpired('username')) {
+        router.push('http://localhost:3000/');
+      } else {
+        const username = getWithExpiry('username');
+        const accessLevel = await fetchAccessLevel(username);
+        if (accessLevel === 3) {
+        
+        } else if ([1, 2, 4].includes(accessLevel)) {
+          router.push('http://localhost:3000/');
+        }
+      }
+    };
+
+    checkUserAndFetchData();
+  }, [router]);
 
   const renderContent = () => {
     switch (selectedTab) {
