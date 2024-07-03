@@ -1,5 +1,3 @@
-// app/api/minorPopulation/route.ts
-
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/prisma/prisma';
 
@@ -11,28 +9,30 @@ interface MinorPopulationData {
 
 export async function GET(request: NextRequest, { params }: { params: { barangayNo: string }}) {
     try {
-        const minorPopulationData = await prisma.citizen.findMany({
+        const minorPopulationData = await prisma.personalinfo.findMany({
             where: {
-                barangayNo: parseInt(params.barangayNo, 10),
+                citizen: {
+                    purok: {
+                        BarangayNo: parseInt(params.barangayNo, 10),
+                    },
+                },
             },
             select: {
-                purok: {
+                citizen: {
                     select: {
-                        PurokName: true,
+                        purok: {
+                            select: {
+                                PurokName: true,
+                            },
+                        },
                     },
                 },
-                personalinfo: {
-                    select: {
-                        age: true,
-                    },
-                },
+                age: true,
             },
         });
 
         const formattedMinorPopulationData = minorPopulationData.reduce((acc: Record<string, MinorPopulationData>, data) => {
-            const purokName = data.purok?.PurokName || 'Unknown';
-            const ages = data.personalinfo.map(info => info.age);
-
+            const purokName = data.citizen?.purok?.PurokName || 'Unknown';
             if (!acc[purokName]) {
                 acc[purokName] = {
                     PurokName: purokName,
@@ -40,14 +40,10 @@ export async function GET(request: NextRequest, { params }: { params: { barangay
                     Population: 0,
                 };
             }
-
-            ages.forEach(age => {
-                if (age !== null && age < 18) {
-                    acc[purokName].Minor++;
-                }
-                acc[purokName].Population++;
-            });
-
+            if (data.age !== null && data.age < 18) {
+                acc[purokName].Minor++;
+            }
+            acc[purokName].Population++;
             return acc;
         }, {});
 

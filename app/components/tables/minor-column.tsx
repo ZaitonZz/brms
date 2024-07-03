@@ -22,18 +22,8 @@ import Minor from "@/app/staff/reports/minor"
 export const MinorColumns: ColumnDef<Minor>[] = [
   
     {
-    accessorKey: "purokname",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-         Purok Name
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      )
-    },
+    accessorKey: "PurokName",
+    header: "Purok Name",
   },
   {
     accessorKey: "Minor",

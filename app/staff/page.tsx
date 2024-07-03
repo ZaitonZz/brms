@@ -9,8 +9,8 @@ import { fetchAccessLevel } from '../util/fetch-access-level'
 import { fetchBarangay } from '../util/fetch-barangay'
 import { isLocalStorageKeyEmptyOrExpired, getWithExpiry } from '../util/session'
 import { fetchCitizens } from '../util/fetch-citizen'
-import { CitizenDataTable } from '../components/tables/citizen-table'
 import { CitizenColumns } from '../components/tables/citizen-column'
+import { GenericDataTable } from '../components/tables/generic-data-table'
 
 
 
@@ -46,7 +46,7 @@ export default function StaffPage() {
       </div>
       <NavLinks />
       <div>
-        <CitizenDataTable columns={CitizenColumns} data={citizenData}></CitizenDataTable>
+        <GenericDataTable columns={CitizenColumns} data={citizenData}></GenericDataTable>
       </div>
       <div className="Footer">
         <Footer />

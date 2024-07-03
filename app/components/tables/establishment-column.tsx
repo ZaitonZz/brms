@@ -36,21 +36,11 @@ async function onDelete(citizenID:number) {
 export const EstablishmentColumns: ColumnDef<Establishment>[] = [
   
     {
-    accessorKey: "purokname",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-         Purok Name
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      )
-    },
+    accessorKey: "PurokName",
+    header: "Purok Name",
   },
   {
-    accessorKey: "Establishments",
+    accessorKey: "NumberOfEstablishments",
     header: "Establishments",
   },
  
@@ -70,7 +60,7 @@ export const EstablishmentColumns: ColumnDef<Establishment>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => onDelete(Establishment.establishmentID)}//PLACEHOLDER
+              //onClick={() => onDelete(Establishment.establishmentID)}//PLACEHOLDER
               >
                 Delete Citizen
             </DropdownMenuItem>
